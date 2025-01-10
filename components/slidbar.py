@@ -9,11 +9,11 @@ class Slidbar(Container):
         self.page = page
         self.func = create_animate_slidbar(self)
         self.width = 200
-        self.height = 680
+        self.expand = True
         self.bgcolor = "black"
         self.border_radius = 10
         self.animate = animation.Animation(500, "decelerate")
-        self.alignment = alignment.center
+        self.alignment = alignment.top_center
         self.padding = 10
         self.content = self.build()
         

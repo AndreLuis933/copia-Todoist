@@ -15,9 +15,13 @@ class HomeView:
         main_layout = Row(
             expand=True,
             alignment=alignment.top_left,
-            vertical_alignment=alignment.top_left,
             controls=[
-                Slidbar(self.page),
+            Container(
+                width=200,
+                #expand=True,
+                alignment=alignment.top_left,
+                content=Slidbar(self.page)
+            ),
                 ElevatedButton(
                     "Slidbar",
                     bgcolor="white",
