@@ -8,7 +8,7 @@ class HomeView:
         self.page = page
 
     def encontrar(self, e):
-        print(e.page.views)
+        print(self.page.views)
         pass
 
     def build(self):
@@ -16,12 +16,7 @@ class HomeView:
             expand=True,
             alignment=alignment.top_left,
             controls=[
-            Container(
-                width=200,
-                #expand=True,
-                alignment=alignment.top_left,
-                content=Slidbar(self.page)
-            ),
+                Slidbar(self.page),
                 ElevatedButton(
                     "Slidbar",
                     bgcolor="white",
@@ -31,6 +26,22 @@ class HomeView:
         )
 
         return main_layout
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Teste:
