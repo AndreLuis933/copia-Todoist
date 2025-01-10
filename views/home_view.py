@@ -13,6 +13,9 @@ class HomeView:
 
     def build(self):
         main_layout = Row(
+            expand=True,
+            alignment=alignment.top_left,
+            vertical_alignment=alignment.top_left,
             controls=[
                 Slidbar(self.page),
                 ElevatedButton(
