@@ -7,17 +7,19 @@ class Slidbar(Container):
     def __init__(self, page):
         super().__init__()
         self.page = page
-        self.func = create_animate_slidbar(page)
-        self.width=200
-        self.height=580
-        self.bgcolor="black"
-        self.border_radius=10
-        self.animate=animation.Animation(500, "decelerate")
-        self.alignment=alignment.center
-        self.padding=10
+        self.func = create_animate_slidbar(self)
+        self.width = 200
+        self.height = 680
+        self.bgcolor = "black"
+        self.border_radius = 10
+        self.animate = animation.Animation(500, "decelerate")
+        self.alignment = alignment.center
+        self.padding = 10
         self.content = self.build()
-            
         
+    def encontrar(self, e):
+        print(self.content)
+        pass
 
     def HighLight(self, e):
         if e.data == "true":
@@ -138,6 +140,10 @@ class Slidbar(Container):
                     self.ContainedIcon(Icons.WALLET_ROUNDED, "Wallet"),
                     Divider(height=5, color="wite24"),
                     self.ContainedIcon(Icons.LOGOUT_ROUNDED, "Logout"),
+                    ElevatedButton(
+                        "Encontrar",
+                        on_click=self.encontrar,
+                    ),
                 ],
             ),
         )

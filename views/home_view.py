@@ -8,7 +8,7 @@ class HomeView:
         self.page = page
 
     def encontrar(self, e):
-        print(self.page.views)
+        print(e.page.views)
         pass
 
     def build(self):

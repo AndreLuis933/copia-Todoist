@@ -7,8 +7,8 @@ def create_animate_slidbar(page):
 
     class SlidbarState:
         def __init__(self):
-            print(page.views[0].controls[0].controls[0])
-            self.slidbar = page.views[0].controls[0].controls[0]
+            print(page.content.content)
+            self.slidbar = page.content.content
             
             self.icons_texto = self.slidbar.content.controls[0].content
             self.titulo_texto = self.icons_texto.controls[0].content.controls[1]
