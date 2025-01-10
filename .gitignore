@@ -1,0 +1,13 @@
+antigo/
+storage/
+__pycache__/
+
+# Environments
+.env
+.venv
+.idea
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
