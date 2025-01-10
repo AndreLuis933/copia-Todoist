@@ -1,12 +1,23 @@
 from flet import *
 from functools import partial
+from animations.animation import create_animate_slidbar
 
 
-class Slidbar(Column):
-    def __init__(self, func, page = None):
+class Slidbar(Container):
+    def __init__(self, page):
         super().__init__()
-        self.func = func
         self.page = page
+        self.func = create_animate_slidbar(page)
+        self.width=200
+        self.height=580
+        self.bgcolor="black"
+        self.border_radius=10
+        self.animate=animation.Animation(500, "decelerate")
+        self.alignment=alignment.center
+        self.padding=10
+        self.content = self.build()
+            
+        
 
     def HighLight(self, e):
         if e.data == "true":

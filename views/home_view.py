@@ -12,19 +12,9 @@ class HomeView:
         pass
 
     def build(self):
-        slidbar_container = Container(
-            width=200,
-            height=580,
-            bgcolor="black",
-            border_radius=10,
-            animate=animation.Animation(500, "decelerate"),
-            alignment=alignment.center,
-            padding=10,
-            content=Slidbar(create_animate_slidbar(self.page), self.page),
-        )
         main_layout = Row(
             controls=[
-                slidbar_container,
+                Slidbar(self.page),
                 ElevatedButton(
                     "Slidbar",
                     bgcolor="white",
