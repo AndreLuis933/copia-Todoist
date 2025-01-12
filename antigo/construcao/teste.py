@@ -1,47 +1,48 @@
 import flet as ft
 
+class SharedData:
+    def __init__(self):
+        self.count = 0
+
+    def increment(self):
+        self.count += 1
+
+class ComponentA(ft.UserControl):
+    def __init__(self, shared_data):
+        super().__init__()
+        self.shared_data = shared_data
+
+    def build(self):
+        return ft.ElevatedButton(f"A: {self.shared_data.count}", on_click=self.increment)
+
+    def increment(self, e):
+        self.shared_data.increment()
+        self.update()
+
+class ComponentB(ft.UserControl):
+    def __init__(self, shared_data):
+        super().__init__()
+        self.shared_data = shared_data
+
+    def build(self):
+        return ft.Text(f"B: {self.shared_data.count}")
 
 def main(page: ft.Page):
-    page.title = "Container com Botão"
-    page.bgcolor = ft.colors.BLACK
+    # Criação da instância única
+    shared_data = SharedData()
 
-    def close_container(_):
-        if container.visible:
-            container.visible = False
-            show_button.visible = True
-            page.update()
+    # Criação dos componentes, passando a instância compartilhada
+    comp_a = ComponentA(shared_data)
+    comp_b = ComponentB(shared_data)
 
-    def show_container(_):
-        container.visible = True
-        show_button.visible = False
-        page.update()
+    # Adição dos componentes à página
+    page.add(comp_a, comp_b)
 
-    container = ft.Container(
-        content=ft.Text("Clique fora para me fechar!", color=ft.colors.WHITE),
-        width=300,
-        height=200,
-        bgcolor=ft.colors.BLUE_500,
-        border_radius=10,
-        padding=20,
-        visible=False,
-    )
+    # Função para atualizar ComponentB
+    def update_b():
+        comp_b.update()
 
-    show_button = ft.ElevatedButton("Mostrar Container", on_click=show_container)
-
-    content = ft.Stack(
-        [
-            ft.GestureDetector(
-                on_tap=close_container,
-                content=ft.Container(expand=True, bgcolor=ft.colors.TRANSPARENT),
-            ),
-            ft.Column(
-                [show_button, container],
-            ),
-        ],
-        expand=True,
-    )
-
-    page.add(content)
-
+    # Configuração do timer para atualizar B periodicamente
+    #page.on_interval(1, update_b)
 
 ft.app(target=main)
