@@ -91,7 +91,7 @@ class Slidbar(Container):
                         icon=icon_name,
                         icon_size=18,
                         icon_color="white54",
-                        on_click=lambda _: self.page.go("/s") if self.page else None,
+                        on_click=lambda _: self.page.go("/s"),
                         style=ButtonStyle(
                             shape={
                                 "": RoundedRectangleBorder(radius=7),
