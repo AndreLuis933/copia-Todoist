@@ -7,15 +7,20 @@ class AppController:
         self.page = page
         self.page.title = "Home Page"
         self.page.window.always_on_top = True
-        self.page.go("/")
+        self.loading_indicator = ProgressRing()
+        self.page.add(self.loading_indicator)
+        self.page.update()
         self.initialize_routes()
 
     def initialize_routes(self):
         self.page.on_route_change = self.route_change
         self.page.on_view_pop = self.view_pop
+        self.page.go("/")
 
     def route_change(self, route):
         self.page.views.clear()
+
+        self.page.add(self.loading_indicator)
 
         # Configurações padrão que serão aplicadas em todas as views
         view_settings = {
@@ -43,6 +48,7 @@ class AppController:
             # Adiciona a view
             self.page.views.append(view)
 
+        self.page.remove(self.loading_indicator)
         self.page.update()
 
     def view_pop(self, view):
