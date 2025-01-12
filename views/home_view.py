@@ -25,6 +25,7 @@ class HomeView:
         tarefa = Tarefa_vencimento(calendario)
         button = Button_adicionar_tarefa(compartilhado)
         card_container = Card_adicionar_tarefa(compartilhado, tarefa)
+        calendario.load_more_months(3)
 
         content = Stack(
             [
@@ -44,6 +45,7 @@ class HomeView:
                                 tarefa,
                             ],
                             spacing=20,
+                            expand=True,
                         ),
                     ],
                 ),
@@ -51,7 +53,7 @@ class HomeView:
             expand=True,
         )
 
-        calendario.load_more_months(3)
+        
 
         return content
 
