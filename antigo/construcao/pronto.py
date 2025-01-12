@@ -379,5 +379,4 @@ def main(page: ft.Page):
     calendario.load_more_months(3)
 
 
-# Executa o app
 ft.app(target=main)
