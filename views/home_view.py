@@ -37,7 +37,7 @@ class HomeView:
                     expand=True,
                     alignment=alignment.top_left,
                     controls=[
-                        Slidbar(self.page),
+                        Slidbar(),
                         Column(
                             controls=[
                                 button,
@@ -53,8 +53,6 @@ class HomeView:
             expand=True,
         )
 
-        
-
         return content
 
 
@@ -63,8 +61,10 @@ class Teste:
         self.page = page
 
     def build(self):
-        return ElevatedButton(
+        botao = ElevatedButton(
             "mudar",
             bgcolor="white",
-            on_click=lambda _: self.page.go("/"),
+            on_click=lambda _: botao.page.go("/"),
         )
+
+        return botao

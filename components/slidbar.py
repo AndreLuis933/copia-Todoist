@@ -4,9 +4,8 @@ from animations.animation import create_animate_slidbar
 
 
 class Slidbar(Container):
-    def __init__(self, page):
+    def __init__(self):
         super().__init__()
-        self.page = page
         self.func = create_animate_slidbar(self)
         self.width = 200
         self.bgcolor = "black"
