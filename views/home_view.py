@@ -35,16 +35,18 @@ class HomeView:
                 Row(
                     expand=True,
                     alignment=alignment.top_left,
-                    controls=[Slidbar(self.page), Column(
                     controls=[
-                        button,
-                        card_container,
-                        tarefa,
+                        Slidbar(self.page),
+                        Column(
+                            controls=[
+                                button,
+                                card_container,
+                                tarefa,
+                            ],
+                            spacing=20,
+                        ),
                     ],
-                    spacing=20,
-                )],
                 ),
-                
             ],
             expand=True,
         )
