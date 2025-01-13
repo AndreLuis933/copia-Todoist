@@ -1,12 +1,12 @@
 from flet import *
 from ui.components.slidbar import Slidbar
-from ui.components.adicionar_tarefa import (
-    Calendario,
-    Compartilhado,
-    Tarefa_vencimento,
-    Button_adicionar_tarefa,
-    Card_adicionar_tarefa,
-)
+from ui.components.card_adicionar_tarefa import Card_adicionar_tarefa
+from ui.components.calendario import Calendario
+from ui.components.tarefa_vencimento import Tarefa_vencimento
+from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
+from ui.components.utils.card import Compartilhado
+
+
 
 
 class HomeView:
