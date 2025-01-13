@@ -1,6 +1,6 @@
 from flet import *
 from functools import partial
-from ui.components.animations.animation import create_animate_slidbar
+from ui.components.animations.fechar_slidbar import create_animate_slidbar
 
 
 class Slidbar(Container):
