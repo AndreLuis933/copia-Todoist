@@ -11,7 +11,6 @@ class AppController:
     def initialize_routes(self):
         self.page.on_route_change = self.route_change
         self.page.on_view_pop = self.view_pop
-        
 
     def route_change(self, route):
         self.page.views.clear()
@@ -41,10 +40,9 @@ class AppController:
                 # Cria nova View com as configurações
                 view = View(route=self.page.route, controls=[content], **view_settings)
 
-            # Adiciona a view
             self.page.views.append(view)
 
-        #self.page.remove(self.loading_indicator)
+        self.page.remove(self.loading_indicator)
         self.page.update()
 
     def view_pop(self, view):
