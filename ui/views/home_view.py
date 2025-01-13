@@ -1,6 +1,6 @@
 from flet import *
-from components.slidbar import Slidbar
-from components.adicionar_tarefa import (
+from ui.components.slidbar import Slidbar
+from ui.components.adicionar_tarefa import (
     Calendario,
     Compartilhado,
     Tarefa_vencimento,

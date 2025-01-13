@@ -1,5 +1,5 @@
 import flet as ft
-from controller.app_controller import AppController
+from ui.controller.app_controller import AppController
 
 
 def main(page: ft.Page):

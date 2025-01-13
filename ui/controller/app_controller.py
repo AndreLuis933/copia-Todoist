@@ -1,5 +1,5 @@
 from flet import *
-from views.home_view import HomeView, Teste
+from ui.views.home_view import HomeView, Teste
 
 
 class AppController:
