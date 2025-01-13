@@ -5,8 +5,6 @@ from ui.views.home_view import HomeView, Teste
 class AppController:
     def __init__(self, page: Page):
         self.page = page
-        self.page.title = "Home Page"
-        self.page.window.always_on_top = True
         self.loading_indicator = ProgressRing()
         self.page.add(self.loading_indicator)
         self.page.update()
