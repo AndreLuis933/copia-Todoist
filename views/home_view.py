@@ -1,6 +1,5 @@
 from flet import *
 from components.slidbar import Slidbar
-from animations.animation import create_animate_slidbar
 from components.adicionar_tarefa import (
     Calendario,
     Compartilhado,

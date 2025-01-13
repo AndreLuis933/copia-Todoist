@@ -15,7 +15,7 @@ class AppController:
     def initialize_routes(self):
         self.page.on_route_change = self.route_change
         self.page.on_view_pop = self.view_pop
-        self.page.go("/")
+        
 
     def route_change(self, route):
         self.page.views.clear()

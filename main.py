@@ -5,6 +5,7 @@ from controller.app_controller import AppController
 def main(page: ft.Page):
 
     AppController(page)
+    page.go("/")
 
 
 if __name__ == "__main__":
