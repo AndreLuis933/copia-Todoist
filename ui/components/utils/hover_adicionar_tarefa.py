@@ -1,6 +1,6 @@
 from flet import *
 
-class Compartilhado:
+class HoverAdicionarTarefa:
     def __init__(self):
         self.button_hovered = False
         self.button = None

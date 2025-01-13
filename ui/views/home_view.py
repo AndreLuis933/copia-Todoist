@@ -4,7 +4,7 @@ from ui.components.card_adicionar_tarefa import Card_adicionar_tarefa
 from ui.components.calendario import Calendario
 from ui.components.tarefa_vencimento import Tarefa_vencimento
 from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
-from ui.components.utils.card import Compartilhado
+from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
 
 
 
@@ -20,7 +20,7 @@ class HomeView:
     def build(self):
 
         calendario = Calendario()
-        compartilhado = Compartilhado()
+        compartilhado = HoverAdicionarTarefa()
         tarefa = Tarefa_vencimento(calendario)
         button = Button_adicionar_tarefa(compartilhado)
         card_container = Card_adicionar_tarefa(compartilhado, tarefa)
