@@ -6,8 +6,6 @@ class AppController:
     def __init__(self, page: Page):
         self.page = page
         self.loading_indicator = ProgressRing()
-        self.page.add(self.loading_indicator)
-        self.page.update()
         self.initialize_routes()
 
     def initialize_routes(self):
@@ -33,7 +31,7 @@ class AppController:
             "/s": Teste(self.page),
         }
 
-        if self.page.route in routes:
+        if route.route in routes:
             content = routes[self.page.route].build()
 
             # Se content já é uma View, usa suas configurações
@@ -46,7 +44,7 @@ class AppController:
             # Adiciona a view
             self.page.views.append(view)
 
-        self.page.remove(self.loading_indicator)
+        #self.page.remove(self.loading_indicator)
         self.page.update()
 
     def view_pop(self, view):
