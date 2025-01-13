@@ -1,10 +1,9 @@
 
 
 class Gato():
-    nome = "tigre"
-    cor = "branco"
     def __init__(self):
-        self.cor = "preto"
+        self.cor = "branco"
+        self.nome = "tigre"
     
     def eat(self):
         return"comendo"
