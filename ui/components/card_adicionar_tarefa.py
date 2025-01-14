@@ -13,6 +13,14 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
 
+    def ativar_envio(self, e):
+        if e.data:
+            self.content.controls[3].controls[1].opacity = 1
+            self.update()
+        else:
+            self.content.controls[3].controls[1].opacity = 0.3
+            self.update()
+
     def card_definitions(self, icon, label=None, on_click=None):
         return Container(
             content=Row(
@@ -42,7 +50,11 @@ class Card_adicionar_tarefa(Container):
     def build(self):
         return Column(
             controls=[
-                TextField(hint_text="Nome da tarefa",autofocus=True),
+                TextField(
+                    hint_text="Nome da tarefa",
+                    autofocus=True,
+                    on_change=lambda e: self.ativar_envio(e),
+                ),
                 TextField(hint_text="Descrição", multiline=True),
                 Row(
                     controls=[
