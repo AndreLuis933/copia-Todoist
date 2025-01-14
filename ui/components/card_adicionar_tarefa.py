@@ -13,7 +13,7 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
 
-    def card_definitions(self, icon, label, on_click=None):
+    def card_definitions(self, icon, label=None, on_click=None):
         return Container(
             content=Row(
                 controls=[
@@ -51,15 +51,21 @@ class Card_adicionar_tarefa(Container):
                             "Vencimento",
                             self.tarefa_vencimento.show_card,
                         ),
-                        ElevatedButton(
-                            text="Prioridade",
-                            icon=Icons.FLAG,
+                        self.card_definitions(Icons.FLAG, "Prioridade"),
+                        self.card_definitions(Icons.NOTIFICATIONS, "Lembretes"),
+                        # self.card_definitions(Icons.MORE_HORIZ),
+                        Container(
+                            content=Icon(
+                                name=Icons.MORE_HORIZ,
+                                size=18,
+                                color=Colors.ON_SURFACE_VARIANT,
+                            ),
+                            padding=padding.symmetric(horizontal=8, vertical=6),
+                            border_radius=border_radius.all(5),
+                            ink=True,
+                            on_click=lambda e: None,
+                            border=border.all(0.3, Colors.OUTLINE),
                         ),
-                        ElevatedButton(
-                            text="Lembretes",
-                            icon=Icons.NOTIFICATIONS,
-                        ),
-                        IconButton(icon=Icons.MORE_VERT),
                     ],
                     spacing=8,
                 ),
