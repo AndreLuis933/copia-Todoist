@@ -9,13 +9,11 @@ def main(page: ft.Page):
     # Botão personalizado
     botao = ft.ElevatedButton(
         text="Adicionar tarefa",
-        bgcolor=ft.colors.RED_900,  # Cor de fundo
-        color=ft.colors.WHITE,  # Cor do texto
-        on_click=adicionar_tarefa,  # Função chamada ao clicar
+        bgcolor=ft.colors.RED_900, 
+        color=ft.colors.WHITE,  
         opacity=0.3,
         style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=8),  # Bordas arredondadas
-            #padding=ft.EdgeInsets.all(10),  # Espaçamento interno
+            shape=ft.RoundedRectangleBorder(radius=8), 
         ),
     )
 

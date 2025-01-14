@@ -13,8 +13,31 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
 
-    def on_vencimento_click(self, e):
-        self.tarefa_vencimento.show_card(e)
+    def card_definitions(self, icon, label, on_click=None):
+        return Container(
+            content=Row(
+                controls=[
+                    Icon(
+                        name=icon,
+                        size=18,
+                        color=Colors.ON_SURFACE_VARIANT,
+                    ),
+                    Text(
+                        label,
+                        size=14,
+                        color=Colors.ON_SURFACE,
+                    ),
+                ],
+                spacing=4,
+                alignment=MainAxisAlignment.CENTER,
+                vertical_alignment=CrossAxisAlignment.CENTER,
+            ),
+            padding=padding.symmetric(horizontal=12, vertical=6),
+            border_radius=border_radius.all(5),
+            ink=True,
+            on_click=lambda e: on_click(e) if on_click else None,
+            border=border.all(0.3, Colors.OUTLINE),
+        )
 
     def build(self):
         return Column(
@@ -23,29 +46,10 @@ class Card_adicionar_tarefa(Container):
                 TextField(label="Descrição", multiline=True),
                 Row(
                     controls=[
-                        Container(
-                            content=Row(
-                                controls=[
-                                    Icon(
-                                        name=Icons.CALENDAR_TODAY,
-                                        size=18,
-                                        color=Colors.ON_SURFACE_VARIANT,
-                                    ),
-                                    Text(
-                                        "Vencimento",
-                                        size=14,
-                                        color=Colors.ON_SURFACE,
-                                    ),
-                                ],
-                                spacing=4,
-                                alignment=MainAxisAlignment.CENTER,
-                                vertical_alignment=CrossAxisAlignment.CENTER,
-                            ),
-                            padding=padding.symmetric(horizontal=12, vertical=6),
-                            border_radius=border_radius.all(5),
-                            ink=True,
-                            on_click=self.on_vencimento_click,
-                            border=border.all(0.3, Colors.OUTLINE),
+                        self.card_definitions(
+                            Icons.CALENDAR_TODAY,
+                            "Vencimento",
+                            self.tarefa_vencimento.show_card,
                         ),
                         ElevatedButton(
                             text="Prioridade",
@@ -65,15 +69,15 @@ class Card_adicionar_tarefa(Container):
                             text="Cancelar",
                             on_click=self.compartilhado.toggle_card,
                             bgcolor=Colors.GREY_800,
-                            color=Colors.WHITE,
+                            color=Colors.WHITE70,
                             style=ButtonStyle(
                                 shape=RoundedRectangleBorder(radius=8),
                             ),
                         ),
                         ElevatedButton(
                             text="Adicionar tarefa",
-                            bgcolor=colors.RED_900,
-                            color=colors.WHITE,
+                            bgcolor=Colors.RED_900,
+                            color=Colors.WHITE,
                             opacity=0.3,
                             style=ButtonStyle(
                                 shape=RoundedRectangleBorder(radius=8),
