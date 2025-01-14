@@ -7,8 +7,6 @@ from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
 from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
 
 
-
-
 class HomeView:
     def __init__(self, page: Page):
         self.page = page
