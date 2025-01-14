@@ -14,12 +14,17 @@ class Card_adicionar_tarefa(Container):
         self.content = self.build()
 
     def ativar_envio(self, e):
+        botao = self.content.controls[3].controls[1]
         if e.data:
-            self.content.controls[3].controls[1].opacity = 1
-            self.update()
+            botao.opacity = 1
+            botao.bgcolor = Colors.RED
+            botao.disabled = False
+            botao.update()
         else:
-            self.content.controls[3].controls[1].opacity = 0.3
-            self.update()
+            botao.opacity = 0.3
+            botao.bgdcolor = Colors.RED_900
+            botao.disabled = True
+            botao.update()
 
     def card_definitions(self, icon, label=None, on_click=None):
         return Container(
@@ -55,7 +60,7 @@ class Card_adicionar_tarefa(Container):
                     autofocus=True,
                     on_change=lambda e: self.ativar_envio(e),
                 ),
-                TextField(hint_text="Descrição", multiline=True),
+                TextField(hint_text="Descrição", multiline=True, text_size=14),
                 Row(
                     controls=[
                         self.card_definitions(
@@ -93,6 +98,8 @@ class Card_adicionar_tarefa(Container):
                         ),
                         ElevatedButton(
                             text="Adicionar tarefa",
+                            on_click=lambda e: print("adicionar tarefa"),
+                            disabled=True,
                             bgcolor=Colors.RED_900,
                             color=Colors.WHITE,
                             opacity=0.3,
