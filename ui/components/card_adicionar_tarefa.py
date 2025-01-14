@@ -64,14 +64,20 @@ class Card_adicionar_tarefa(Container):
                         ElevatedButton(
                             text="Cancelar",
                             on_click=self.compartilhado.toggle_card,
-                            bgcolor=Colors.BLACK,
+                            bgcolor=Colors.GREY_800,
                             color=Colors.WHITE,
+                            style=ButtonStyle(
+                                shape=RoundedRectangleBorder(radius=8),
+                            ),
                         ),
                         ElevatedButton(
                             text="Adicionar tarefa",
-                            bgcolor=Colors.RED,
-                            color=Colors.WHITE,
-                            disabled=True,
+                            bgcolor=colors.RED_900,
+                            color=colors.WHITE,
+                            opacity=0.3,
+                            style=ButtonStyle(
+                                shape=RoundedRectangleBorder(radius=8),
+                            ),
                         ),
                     ],
                     alignment=MainAxisAlignment.END,
