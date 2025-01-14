@@ -86,7 +86,7 @@ class Card_adicionar_tarefa(Container):
                     ],
                     spacing=8,
                 ),
-                Divider(height=2),
+                Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
                 Row(
                     controls=[
                         ElevatedButton(
