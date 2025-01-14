@@ -59,8 +59,9 @@ class Card_adicionar_tarefa(Container):
                     hint_text="Nome da tarefa",
                     autofocus=True,
                     on_change=lambda e: self.ativar_envio(e),
+                    border=InputBorder.NONE,
                 ),
-                TextField(hint_text="Descrição", multiline=True, text_size=14),
+                TextField(hint_text="Descrição", multiline=True, text_size=14,border=InputBorder.NONE),
                 Row(
                     controls=[
                         self.card_definitions(
@@ -85,6 +86,7 @@ class Card_adicionar_tarefa(Container):
                     ],
                     spacing=8,
                 ),
+                Divider(height=2),
                 Row(
                     controls=[
                         ElevatedButton(
