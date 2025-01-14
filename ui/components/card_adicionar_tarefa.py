@@ -42,8 +42,8 @@ class Card_adicionar_tarefa(Container):
     def build(self):
         return Column(
             controls=[
-                TextField(label="Nome da tarefa"),
-                TextField(label="Descrição", multiline=True),
+                TextField(hint_text="Nome da tarefa",autofocus=True),
+                TextField(hint_text="Descrição", multiline=True),
                 Row(
                     controls=[
                         self.card_definitions(
@@ -53,7 +53,6 @@ class Card_adicionar_tarefa(Container):
                         ),
                         self.card_definitions(Icons.FLAG, "Prioridade"),
                         self.card_definitions(Icons.NOTIFICATIONS, "Lembretes"),
-                        # self.card_definitions(Icons.MORE_HORIZ),
                         Container(
                             content=Icon(
                                 name=Icons.MORE_HORIZ,
