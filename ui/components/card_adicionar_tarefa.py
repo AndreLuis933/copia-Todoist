@@ -4,7 +4,7 @@ from flet import *
 class Card_adicionar_tarefa(Container):
     def __init__(self, compartilhado, tarefa_vencimento):
         super().__init__()
-        self.visible = False
+        self.visible = True
         self.compartilhado = compartilhado
         self.tarefa_vencimento = tarefa_vencimento
         self.compartilhado.card_container = self
@@ -71,6 +71,7 @@ class Card_adicionar_tarefa(Container):
                             text="Adicionar tarefa",
                             bgcolor=Colors.RED,
                             color=Colors.WHITE,
+                            disabled=True,
                         ),
                     ],
                     alignment=MainAxisAlignment.END,
