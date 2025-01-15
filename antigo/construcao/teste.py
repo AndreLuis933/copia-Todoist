@@ -6,8 +6,9 @@ def main(page: ft.Page):
         print(f"Selecionado: {selected_item}")
 
     def show_options(e):
-        menu.visible = True
-        #menu.open = True
+        # Posiciona o menu próximo ao botão
+        menu.offset = ft.Offset(0, your_button.height)
+        menu.show_menu(e)
         page.update()
 
     # Criando as opções do menu
@@ -23,13 +24,20 @@ def main(page: ft.Page):
     # Criando o menu
     menu = ft.PopupMenuButton(
         items=menu_items,
-        visible=False  # O menu em si fica invisível
     )
 
     # Seu botão existente
     your_button = ft.ElevatedButton("Seu Botão Existente", on_click=show_options)
 
-    # Adicionando o botão e o menu à página
-    page.add(your_button, menu)
+    # Container para organizar os elementos
+    container = ft.Container(
+        content=ft.Column([
+            your_button,
+            menu
+        ])
+    )
+
+    # Adicionando o container à página
+    page.add(container)
 
 ft.app(target=main)
