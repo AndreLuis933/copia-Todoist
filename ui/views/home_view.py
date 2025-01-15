@@ -18,10 +18,10 @@ class HomeView:
     def build(self):
 
         calendario = Calendario()
-        compartilhado = HoverAdicionarTarefa()
+        hover_control = HoverAdicionarTarefa()
         tarefa = Tarefa_vencimento(calendario)
-        button = Button_adicionar_tarefa(compartilhado)
-        card_container = Card_adicionar_tarefa(compartilhado, tarefa)
+        button = Button_adicionar_tarefa(hover_control)
+        card_container = Card_adicionar_tarefa(hover_control, tarefa)
         calendario.load_more_months(3)
 
         content = Stack(

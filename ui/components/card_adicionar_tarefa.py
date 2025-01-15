@@ -2,12 +2,12 @@ from flet import *
 
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, compartilhado, tarefa_vencimento):
+    def __init__(self, hover_control, tarefa_vencimento):
         super().__init__()
-        self.visible = True
-        self.compartilhado = compartilhado
+        self.hover_control = hover_control
+        self.hover_control.card_container = self
         self.tarefa_vencimento = tarefa_vencimento
-        self.compartilhado.card_container = self
+        self.visible = True
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
@@ -107,7 +107,7 @@ class Card_adicionar_tarefa(Container):
                     controls=[
                         ElevatedButton(
                             text="Cancelar",
-                            on_click=self.compartilhado.toggle_card,
+                            on_click=self.hover_control.toggle_card,
                             bgcolor=Colors.GREY_800,
                             color=Colors.WHITE70,
                             style=ButtonStyle(

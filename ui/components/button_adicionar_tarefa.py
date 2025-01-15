@@ -2,14 +2,14 @@ from flet import *
 
 
 class Button_adicionar_tarefa(Container):
-    def __init__(self, compartilhado):
+    def __init__(self, hover_control):
         super().__init__()
-        self.compartilhado = compartilhado
-        self.compartilhado.button = self
+        self.hover_control = hover_control
+        self.hover_control.button = self
         self.visible = True
         self.button_height = 24
-        self.on_click = self.compartilhado.toggle_card
-        self.on_hover = self.compartilhado.mudar_cor
+        self.on_click = self.hover_control.toggle_card
+        self.on_hover = self.hover_control.mudar_cor
         self.padding = padding.symmetric(horizontal=16, vertical=8)
         self.content = self.build()
 
