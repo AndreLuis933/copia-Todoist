@@ -8,7 +8,7 @@ class Card_adicionar_tarefa(Container):
         self.compartilhado = compartilhado
         self.tarefa_vencimento = tarefa_vencimento
         self.compartilhado.card_container = self
-        self.padding = padding.all(16)
+        self.padding = padding.only(left=16, right=16, bottom=8, top=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
@@ -55,13 +55,29 @@ class Card_adicionar_tarefa(Container):
     def build(self):
         return Column(
             controls=[
-                TextField(
-                    hint_text="Nome da tarefa",
-                    autofocus=True,
-                    on_change=lambda e: self.ativar_envio(e),
-                    border=InputBorder.NONE,
+                Container(
+                    Column(
+                        controls=[
+                            TextField(
+                                hint_text="Nome da tarefa",
+                                autofocus=True,
+                                on_change=lambda e: self.ativar_envio(e),
+                                border=InputBorder.NONE,
+                                height=30,
+                            ),
+                            TextField(
+                                hint_text="Descrição",
+                                multiline=True,
+                                text_size=14,
+                                border=InputBorder.NONE,
+                                height=35,
+                            ),
+                        ],
+                        #tight=True,
+                    ),
+                    padding=0,
+                    margin=0,
                 ),
-                TextField(hint_text="Descrição", multiline=True, text_size=14,border=InputBorder.NONE),
                 Row(
                     controls=[
                         self.card_definitions(

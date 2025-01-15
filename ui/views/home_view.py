@@ -41,7 +41,6 @@ class HomeView:
                                 card_container,
                                 tarefa,
                             ],
-                            spacing=20,
                             expand=True,
                         ),
                     ],
