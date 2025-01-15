@@ -1,0 +1,5 @@
+
+Uso de Herança e Composição
+Sistema de Temas
+Uso de Dataclasses para Configurações
+Sistema de Eventos

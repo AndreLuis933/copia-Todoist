@@ -1,43 +1,96 @@
 import flet as ft
+from typing import List, Callable
 
-def main(page: ft.Page):
-    def on_item_selected(e):
-        selected_item = e.control.data
-        print(f"Selecionado: {selected_item}")
+# Model
+class Task:
+    def __init__(self, title: str, completed: bool = False):
+        self.title = title
+        self.completed = completed
 
-    def show_options(e):
-        # Posiciona o menu próximo ao botão
-        menu.offset = ft.Offset(0, your_button.height)
-        menu.show_menu(e)
-        page.update()
+class TaskList:
+    def __init__(self):
+        self.tasks: List[Task] = []
+        self.observers: List[Callable] = []
 
-    # Criando as opções do menu
-    menu_items = [
-        ft.PopupMenuItem(text="Opção 1", data="Opção 1"),
-        ft.PopupMenuItem(text="Opção 2", data="Opção 2"),
-        ft.PopupMenuItem(text="Opção 3", data="Opção 3"),
-    ]
+    def add_task(self, task: Task):
+        self.tasks.append(task)
+        self.notify_observers()
 
-    for item in menu_items:
-        item.on_click = on_item_selected
+    def toggle_task(self, index: int):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index].completed = not self.tasks[index].completed
+            self.notify_observers()
 
-    # Criando o menu
-    menu = ft.PopupMenuButton(
-        items=menu_items,
-    )
+    def add_observer(self, observer: Callable):
+        self.observers.append(observer)
 
-    # Seu botão existente
-    your_button = ft.ElevatedButton("Seu Botão Existente", on_click=show_options)
+    def notify_observers(self):
+        for observer in self.observers:
+            observer()
 
-    # Container para organizar os elementos
-    container = ft.Container(
-        content=ft.Column([
-            your_button,
-            menu
+# View
+class TaskView(ft.UserControl):
+    def __init__(self, task: Task, on_toggle: Callable):
+        super().__init__()
+        self.task = task
+        self.on_toggle = on_toggle
+
+    def build(self):
+        return ft.Checkbox(
+            label=self.task.title,
+            value=self.task.completed,
+            on_change=lambda _: self.on_toggle()
+        )
+
+class TaskListView(ft.UserControl):
+    def __init__(self, task_list: TaskList):
+        super().__init__()
+        self.task_list = task_list
+        self.task_list.add_observer(self.update)
+
+    def build(self):
+        self.tasks_container = ft.Column()
+        self.new_task_input = ft.TextField(hint_text="Add a new task")
+        self.add_button = ft.ElevatedButton("Add", on_click=self.add_task)
+        
+        return ft.Column([
+            ft.Text("Task List", size=20, weight="bold"),
+            self.tasks_container,
+            ft.Row([self.new_task_input, self.add_button])
         ])
-    )
 
-    # Adicionando o container à página
-    page.add(container)
+    def update(self):
+        self.tasks_container.controls = [
+            TaskView(task, lambda task=task, index=i: self.task_list.toggle_task(index))
+            for i, task in enumerate(self.task_list.tasks)
+        ]
+        self.update()
+
+    def add_task(self, e):
+        if self.new_task_input.value:
+            self.task_list.add_task(Task(self.new_task_input.value))
+            self.new_task_input.value = ""
+            self.new_task_input.update()
+
+# Controller
+class TaskController:
+    def __init__(self, task_list: TaskList):
+        self.task_list = task_list
+
+    def add_task(self, title: str):
+        self.task_list.add_task(Task(title))
+
+    def toggle_task(self, index: int):
+        self.task_list.toggle_task(index)
+
+# Main App
+def main(page: ft.Page):
+    page.title = "Task List App"
+    
+    task_list = TaskList()
+    controller = TaskController(task_list)
+    view = TaskListView(task_list)
+    
+    page.add(view)
 
 ft.app(target=main)

@@ -1,19 +1,20 @@
 from flet import *
 from datetime import datetime, timedelta
 import calendar
+from ui.components.configs.CalendarioConfig import CalendarioConfig
 
 
 class Calendario(Container):
-    def __init__(self):
+    def __init__(self, config: CalendarioConfig = CalendarioConfig()):
         super().__init__()
         self.current_date = datetime.now()
         self.months_loaded = 0
         self.is_loading = False
-        self.tamanho = 20
-        self.height = 205
-        self.width = 250
-        self.border = border.all(1, Colors.BLACK)
-        self.border_radius = 10
+        self.tamanho = config.tamanho
+        self.height = config.height
+        self.width = config.width
+        self.border = border.all(1, config.border_color)
+        self.border_radius = config.border_radius
         self.content = ListView(
             expand=True,
             on_scroll=self.on_scroll,
