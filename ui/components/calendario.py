@@ -10,7 +10,7 @@ class Calendario(Container):
         self.current_date = datetime.now()
         self.months_loaded = 0
         self.is_loading = False
-        self.tamanho = config.tamanho
+        self.config = config
         self.height = config.height
         self.width = config.width
         self.border = border.all(1, config.border_color)
@@ -33,7 +33,7 @@ class Calendario(Container):
                     f"{month_name} {year}",
                     size=24,
                     weight=FontWeight.BOLD,
-                    color="#BB86FC",
+                    color=self.config.header_color,
                 )
             ],
             alignment=MainAxisAlignment.CENTER,
@@ -43,10 +43,10 @@ class Calendario(Container):
         days_of_week = Row(
             [
                 Container(
-                    content=Text(day, size=14, color="#121212"),
-                    width=self.tamanho,
-                    height=self.tamanho,
-                    bgcolor="#BB86FC",
+                    content=Text(day, size=14, color=self.config.day_color),
+                    width=self.config.tamanho,
+                    height=self.config.tamanho,
+                    bgcolor=self.config.header_color,
                     border_radius=border_radius.all(5),
                     alignment=alignment.center,
                 )
@@ -63,16 +63,16 @@ class Calendario(Container):
                     week_row.controls.append(
                         Container(
                             content=Text(str(day), size=16, color="#E0E0E0"),
-                            width=self.tamanho,
-                            height=self.tamanho,
-                            bgcolor="#1F1F1F",
+                            width=self.config.tamanho,
+                            height=self.config.tamanho,
+                            bgcolor=self.config.day_bg_color,
                             border_radius=border_radius.all(5),
                             alignment=alignment.center,
                         )
                     )
                 else:
                     week_row.controls.append(
-                        Container(width=self.tamanho, height=self.tamanho)
+                        Container(width=self.config.tamanho, height=self.config.tamanho)
                     )
             calendar_grid.controls.append(week_row)
 
