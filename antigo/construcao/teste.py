@@ -1,24 +1,20 @@
 import flet as ft
 
 def main(page: ft.Page):
-    page.window_always_on_top = True
-    # Função que será executada ao clicar no botão
-    def adicionar_tarefa(e):
-        print("Tarefa adicionada!")
+    def on_item_selected(e):
+        print(f"Selecionado: {e.control.content.value}")
 
-    # Botão personalizado
-    botao = ft.ElevatedButton(
-        text="Adicionar tarefa",
-        bgcolor=ft.colors.RED_900, 
-        color=ft.colors.WHITE,  
-        opacity=0.3,
-        style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=8), 
-        ),
+    popup_button = ft.PopupMenuButton(
+        content=ft.Text("Abrir Opções"),
+        items=[
+            ft.PopupMenuItem(text="Opção 1", on_click=on_item_selected),
+            ft.PopupMenuItem(text="Opção 2", on_click=on_item_selected),
+            ft.PopupMenuItem(text="Opção 3", on_click=on_item_selected),
+        ],
+        on_cancel=lambda _: print("Menu cancelado"),
+        #on_dismiss=lambda _: print("Menu fechado"),
     )
 
-    # Adiciona o botão à página
-    page.add(botao)
+    page.add(popup_button)
 
-# Executa o app
 ft.app(target=main)

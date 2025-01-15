@@ -34,7 +34,7 @@ class HomeView:
                     expand=True,
                     alignment=alignment.top_left,
                     controls=[
-                        Slidbar(),
+                        #Slidbar(),
                         Column(
                             controls=[
                                 button,

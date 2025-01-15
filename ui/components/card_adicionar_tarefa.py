@@ -8,7 +8,7 @@ class Card_adicionar_tarefa(Container):
         self.compartilhado = compartilhado
         self.tarefa_vencimento = tarefa_vencimento
         self.compartilhado.card_container = self
-        self.padding = padding.only(left=16, right=16, bottom=8, top=8)
+        self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
@@ -73,7 +73,7 @@ class Card_adicionar_tarefa(Container):
                                 height=35,
                             ),
                         ],
-                        #tight=True,
+                        spacing=0, 
                     ),
                     padding=0,
                     margin=0,
