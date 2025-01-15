@@ -2,19 +2,34 @@ import flet as ft
 
 def main(page: ft.Page):
     def on_item_selected(e):
-        print(f"Selecionado: {e.control.content.value}")
+        selected_item = e.control.data
+        print(f"Selecionado: {selected_item}")
 
-    popup_button = ft.PopupMenuButton(
-        content=ft.Text("Abrir Opções"),
-        items=[
-            ft.PopupMenuItem(text="Opção 1", on_click=on_item_selected),
-            ft.PopupMenuItem(text="Opção 2", on_click=on_item_selected),
-            ft.PopupMenuItem(text="Opção 3", on_click=on_item_selected),
-        ],
-        on_cancel=lambda _: print("Menu cancelado"),
-        #on_dismiss=lambda _: print("Menu fechado"),
+    def show_options(e):
+        menu.visible = True
+        #menu.open = True
+        page.update()
+
+    # Criando as opções do menu
+    menu_items = [
+        ft.PopupMenuItem(text="Opção 1", data="Opção 1"),
+        ft.PopupMenuItem(text="Opção 2", data="Opção 2"),
+        ft.PopupMenuItem(text="Opção 3", data="Opção 3"),
+    ]
+
+    for item in menu_items:
+        item.on_click = on_item_selected
+
+    # Criando o menu
+    menu = ft.PopupMenuButton(
+        items=menu_items,
+        visible=False  # O menu em si fica invisível
     )
 
-    page.add(popup_button)
+    # Seu botão existente
+    your_button = ft.ElevatedButton("Seu Botão Existente", on_click=show_options)
+
+    # Adicionando o botão e o menu à página
+    page.add(your_button, menu)
 
 ft.app(target=main)
