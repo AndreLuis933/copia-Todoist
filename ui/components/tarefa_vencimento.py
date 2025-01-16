@@ -12,6 +12,8 @@ class Tarefa_vencimento(Container):
         self.visible = False
         self.width = 250
         self.height = 700
+        self.left = 220  # Posição fixa à esquerda
+        self.top = 170  # Posição fixa no topo
         self.content = self.build()
 
     def show_card(self, e):

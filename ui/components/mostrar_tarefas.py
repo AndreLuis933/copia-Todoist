@@ -76,41 +76,33 @@ class Tarefa(ft.UserControl):
 
 class TodoApp(ft.UserControl):
     def build(self):
-        self.nova_tarefa = ft.TextField(hint_text="Adicione uma tarefa", expand=True)
         self.tarefas = ft.Column()
 
-        self.filtro = ft.Tabs(
-            selected_index=0,
-            on_change=self.tabs_changed,
-            tabs=[ft.Tab(text="todas"), ft.Tab(text="ativas"), ft.Tab(text="concluídas")],
-        )
+        # Adicionar tarefas padrão
+        self.adicionar_tarefas_padrao()
 
         return ft.Column(
             width=600,
             controls=[
-                ft.Row([ft.Text(value="Minhas Tarefas", style=ft.TextThemeStyle.HEADLINE_MEDIUM)]),
-                ft.Row(
-                    controls=[
-                        self.nova_tarefa,
-                        ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=self.adicionar_clicked),
-                    ],
-                ),
                 ft.Column(
                     spacing=25,
                     controls=[
-                        self.filtro,
                         self.tarefas,
                     ],
                 ),
             ],
         )
 
-    def adicionar_clicked(self, e):
-        if self.nova_tarefa.value:
-            tarefa = Tarefa(self.nova_tarefa.value, self.tarefa_status_alterada, self.tarefa_excluida)
+    def adicionar_tarefas_padrao(self):
+        tarefas_padrao = [
+            "Comprar leite",
+            "Fazer exercícios",
+            "Ler um livro",
+            "Ligar para o médico"
+        ]
+        for tarefa_nome in tarefas_padrao:
+            tarefa = Tarefa(tarefa_nome, self.tarefa_status_alterada, self.tarefa_excluida)
             self.tarefas.controls.append(tarefa)
-            self.nova_tarefa.value = ""
-            self.update()
 
     def tarefa_status_alterada(self, tarefa):
         self.update()
@@ -119,26 +111,3 @@ class TodoApp(ft.UserControl):
         self.tarefas.controls.remove(tarefa)
         self.update()
 
-    def update(self):
-        status = self.filtro.tabs[self.filtro.selected_index].text
-        for tarefa in self.tarefas.controls:
-            tarefa.visible = (
-                status == "todas"
-                or (status == "ativas" and not tarefa.concluida)
-                or (status == "concluídas" and tarefa.concluida)
-            )
-        super().update()
-
-    def tabs_changed(self, e):
-        self.update()
-
-def main(page: ft.Page):
-    page.title = "ToDo App"
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.theme = ft.Theme(color_scheme_seed="green")
-    page.update()
-
-    todo = TodoApp()
-    page.add(todo)
-
-ft.app(target=main)
