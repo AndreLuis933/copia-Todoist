@@ -1,13 +1,11 @@
 from flet import *
-from views.home_view import HomeView, Teste
+from ui.views.home_view import HomeView, Teste
 
 
 class AppController:
     def __init__(self, page: Page):
         self.page = page
-        self.page.title = "Home Page"
-        self.page.window.always_on_top = True
-        self.page.go("/")
+        self.loading_indicator = ProgressRing()
         self.initialize_routes()
 
     def initialize_routes(self):
@@ -16,6 +14,8 @@ class AppController:
 
     def route_change(self, route):
         self.page.views.clear()
+
+        self.page.add(self.loading_indicator)
 
         # Configurações padrão que serão aplicadas em todas as views
         view_settings = {
@@ -30,7 +30,7 @@ class AppController:
             "/s": Teste(self.page),
         }
 
-        if self.page.route in routes:
+        if route.route in routes:
             content = routes[self.page.route].build()
 
             # Se content já é uma View, usa suas configurações
@@ -40,9 +40,9 @@ class AppController:
                 # Cria nova View com as configurações
                 view = View(route=self.page.route, controls=[content], **view_settings)
 
-            # Adiciona a view
             self.page.views.append(view)
 
+        self.page.remove(self.loading_indicator)
         self.page.update()
 
     def view_pop(self, view):

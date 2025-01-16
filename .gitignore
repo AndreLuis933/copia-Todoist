@@ -1,8 +1,8 @@
-antigo/
 storage/
 __pycache__/
 
 # Environments
+.vscode/
 .env
 .venv
 .idea

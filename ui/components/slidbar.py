@@ -1,12 +1,23 @@
 from flet import *
 from functools import partial
+from ui.components.animations.fechar_slidbar import create_animate_slidbar
 
 
-class Slidbar(Column):
-    def __init__(self, func, page = None):
+class Slidbar(Container):
+    def __init__(self):
         super().__init__()
-        self.func = func
-        self.page = page
+        self.func = create_animate_slidbar(self)
+        self.width = 200
+        self.bgcolor = "black"
+        self.border_radius = 10
+        self.animate = animation.Animation(500, "decelerate")
+        self.alignment = alignment.top_left
+        self.padding = 10
+        self.content = self.build()
+        
+    def encontrar(self, e):
+        print(self.content)
+        pass
 
     def HighLight(self, e):
         if e.data == "true":
@@ -79,7 +90,7 @@ class Slidbar(Column):
                         icon=icon_name,
                         icon_size=18,
                         icon_color="white54",
-                        on_click=lambda _: self.page.go("/s") if self.page else None,
+                        on_click=lambda _: self.page.go("/s"),
                         style=ButtonStyle(
                             shape={
                                 "": RoundedRectangleBorder(radius=7),
@@ -127,6 +138,10 @@ class Slidbar(Column):
                     self.ContainedIcon(Icons.WALLET_ROUNDED, "Wallet"),
                     Divider(height=5, color="wite24"),
                     self.ContainedIcon(Icons.LOGOUT_ROUNDED, "Logout"),
+                    ElevatedButton(
+                        "Encontrar",
+                        on_click=self.encontrar,
+                    ),
                 ],
             ),
         )
