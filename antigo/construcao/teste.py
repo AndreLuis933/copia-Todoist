@@ -1,18 +1,16 @@
 import flet as ft
 
+
 def main(page: ft.Page):
-    # Função chamada ao selecionar uma opção do dropdown
-    def on_time_selected(e):
-        time_input.value = e.control.value  # Atualiza o valor do campo de entrada
-        dropdown.visible = False  # Esconde o dropdown
-        page.update()
 
-    # Função chamada ao clicar no campo de entrada
+    page.window.width = 350
+    page.window.height = 330
+    page.window.always_on_top = True
+
     def show_dropdown(e):
-        dropdown.visible = True  # Exibe o dropdown
+        dropdown.visible = not dropdown.visible
         page.update()
 
-    # Campo de entrada para exibir o horário selecionado
     time_input = ft.TextField(
         hint_text="08:30 PM",
         width=200,
@@ -21,46 +19,100 @@ def main(page: ft.Page):
     )
 
     # Dropdown com horários disponíveis
-    dropdown = ft.Column(
-        [
-            ft.TextButton("9:00 PM", on_click=on_time_selected),
-            ft.TextButton("9:15 PM", on_click=on_time_selected),
-            ft.TextButton("9:30 PM", on_click=on_time_selected),
-            ft.TextButton("9:45 PM", on_click=on_time_selected),
-            ft.TextButton("10:00 PM", on_click=on_time_selected),
-            ft.TextButton("10:30 PM", on_click=on_time_selected),
-            ft.TextButton("11:00 PM", on_click=on_time_selected),
-        ],
-        visible=False,  # Inicialmente oculto
-        spacing=5,
-        #border_radius=5,
-        #bgcolor=ft.colors.SURFACE_VARIANT,
-        #padding=10,
-        width=200,
-    )
-
-    # Container para o campo de entrada e o dropdown
-    time_picker_container = ft.Stack(
-        [
-            time_input,
-            ft.Container(
-                content=ft.Container(dropdown,bgcolor=ft.colors.SURFACE_VARIANT),
-                margin=ft.margin.only(top=50),  # Posiciona o dropdown abaixo do campo
+    dropdown = ft.Container(
+        content=ft.Container(
+            ft.Column(
+                [
+                    ft.TextButton("9:00 PM"),
+                    ft.TextButton("9:15 PM"),
+                    ft.TextButton("9:30 PM"),
+                    ft.TextButton("9:45 PM"),
+                    ft.TextButton("10:00 PM"),
+                    ft.TextButton("10:30 PM"),
+                    ft.TextButton("11:00 PM"),
+                ],
+                visible=True,
+                spacing=5,
+                width=200,
             ),
-        ]
+            bgcolor=ft.colors.SURFACE_VARIANT,
+        ),
+        margin=ft.margin.only(top=100, left=30),
     )
 
-    # Adiciona o componente na página
-    page.add(
-        ft.Column(
+    tab1 = ft.Tab(
+        text="Data & Hora",
+        content=ft.Container(
+            content=ft.Column(
+                [
+                    ft.Row(
+                        [ft.Icon(ft.icons.ACCESS_TIME), time_input],
+                        alignment=ft.MainAxisAlignment.START,
+                    ),
+                    ft.Text(
+                        "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
+                        size=14,
+                    ),
+                    ft.ElevatedButton(
+                        text="Adicionar lembrete",
+                        bgcolor=ft.colors.RED,
+                        color=ft.colors.WHITE,
+                    ),
+                ]
+            )
+        ),
+    )
+    tab2 = ft.Tab(
+        text="Antes da Tarefa",
+        content=ft.Column(
             [
-                ft.Text("Selecione um horário:", size=20, weight="bold"),
-                time_picker_container,
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            spacing=10,
+                ft.Dropdown(
+                    label="Antes da tarefa",
+                    options=[
+                        ft.dropdown.Option("5 minutos antes"),
+                        ft.dropdown.Option("10 minutos antes"),
+                        ft.dropdown.Option("30 minutos antes"),
+                    ],
+                    width=200,
+                ),
+                ft.Text(
+                    "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+                    size=14,
+                ),
+                ft.ElevatedButton(
+                    text="Adicionar lembrete",
+                    bgcolor=ft.colors.RED,
+                    color=ft.colors.WHITE,
+                ),
+            ]
+        ),
+    )
+
+    tabs = ft.Tabs(
+        selected_index=0,
+        animation_duration=300,
+        tabs=[
+            tab1,
+            tab2,
+        ],
+        width=300,
+        height=250,
+    )
+    container = ft.Container(
+        content=tabs,
+        bgcolor=ft.colors.GREY_900,
+    )
+
+    # Adiciona todos os elementos na página
+    page.add(
+        ft.Stack(
+            [
+                container,
+                dropdown
+            ]
         )
     )
+
 
 # Inicializa o aplicativo
 ft.app(target=main)
