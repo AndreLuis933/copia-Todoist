@@ -63,6 +63,7 @@ class HomeView:
                 prioridade,
                 tarefa,
                 lembretes,
+                lembretes.dropdown
             ],
             width=self.page.window.width,
             height=self.page.window.height,
