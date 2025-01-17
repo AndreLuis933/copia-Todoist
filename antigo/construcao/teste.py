@@ -1,4 +1,5 @@
 import flet as ft
+from flet import *
 
 
 def main(page: ft.Page):
@@ -10,6 +11,13 @@ def main(page: ft.Page):
     def show_dropdown(e):
         dropdown.visible = not dropdown.visible
         page.update()
+        
+    def HighLight(self, e):
+        if e.data == "true":
+            e.content.bgcolor = "white10"
+            e.content.update()
+
+
 
     time_input = ft.TextField(
         hint_text="08:30 PM",
@@ -23,8 +31,15 @@ def main(page: ft.Page):
         content=ft.Container(
             ft.Column(
                 [
-                    ft.TextButton("9:00 PM"),
-                    ft.TextButton("9:15 PM"),
+                    Container(
+                        content=ElevatedButton("9:00 PM", expand=True),
+                        ink=True,
+                        on_click=None,
+                        padding=padding.symmetric(vertical=4, horizontal=10),
+                        alignment=alignment.center_left,
+                        on_hover=HighLight,
+                    ),
+                    ft.TextButton("9:15 PM",expand=True),
                     ft.TextButton("9:30 PM"),
                     ft.TextButton("9:45 PM"),
                     ft.TextButton("10:00 PM"),
@@ -34,10 +49,12 @@ def main(page: ft.Page):
                 visible=True,
                 spacing=5,
                 width=200,
+                scroll=ft.ScrollMode.ALWAYS,
             ),
             bgcolor=ft.colors.SURFACE_VARIANT,
         ),
         margin=ft.margin.only(top=100, left=30),
+        height=100,
     )
 
     tab1 = ft.Tab(
@@ -104,14 +121,7 @@ def main(page: ft.Page):
     )
 
     # Adiciona todos os elementos na página
-    page.add(
-        ft.Stack(
-            [
-                container,
-                dropdown
-            ]
-        )
-    )
+    page.add(ft.Stack([container, dropdown]))
 
 
 # Inicializa o aplicativo
