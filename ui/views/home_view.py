@@ -10,7 +10,6 @@ from ui.components.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
 from ui.components.lembretes import Lembretes
 
-
 class HomeView:
     def __init__(self, page: Page):
         self.page = page
@@ -19,7 +18,7 @@ class HomeView:
     def encontrar(self, e):
         print(self.page.views)
         pass
-
+    
     def update_layout(self, e=None):
         if self.content:
             self.content.width = self.page.window.width
@@ -34,13 +33,11 @@ class HomeView:
         hover_control = HoverAdicionarTarefa()
         tarefa = Tarefa_vencimento(calendario)
         button = Button_adicionar_tarefa(hover_control)
-        card_container = Card_adicionar_tarefa(
-            hover_control, tarefa, prioridade, lembretes
-        )
+        card_container = Card_adicionar_tarefa(hover_control, tarefa, prioridade, lembretes)
         calendario.load_more_months(3)
 
         self.content = Stack(
-            [  # 1 camada
+            [   # 1 camada
                 GestureDetector(
                     on_tap=tarefa.hide_card,
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
@@ -52,7 +49,7 @@ class HomeView:
                         Slidbar(),
                         Column(
                             controls=[
-                                Text("Entrada", size=20, weight="bold"),
+                                Text('Entrada', size=20, weight="bold"),
                                 Divider(height=2, opacity=0),
                                 button,
                                 card_container,
@@ -64,24 +61,16 @@ class HomeView:
                     ],
                 ),
                 # 2 camada
-                Container(
-                    content=Stack(
-                        [
-                            prioridade,
-                            tarefa,
-                            lembretes,
-                        ]
-                    ),
-                    expand=True,
-                    visible=False,
-                ),
+                prioridade,
+                tarefa,
+                lembretes,
                 # 3 camada
-                lembretes.dropdown,
+                lembretes.dropdown
             ],
             width=self.page.window.width,
             height=self.page.window.height,
         )
-
+        
         self.page.on_resized = self.update_layout
 
         return self.content

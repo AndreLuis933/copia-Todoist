@@ -72,13 +72,23 @@ def main(page: ft.Page):
 
     stack = ft.Stack(
         controls=[
-            detector0,  # Fundo
-            container1,
-            detector1,
-            container2,
-            detector2,
-            container3,
+            detector0,
+            # container1,
+            # detector1,
+            # container2,
+            # detector2,
+            # container3,
             # detector3,
+            Container(
+                    content=Stack(
+                        [
+                            container1,
+                            container2,
+                        ]
+                    ),
+                    expand=True,
+                    visible=True,
+                )
         ],
         width=page.window.width,
         height=page.window.height,
@@ -88,3 +98,47 @@ def main(page: ft.Page):
 
 
 ft.app(target=main)
+
+
+# Stack(
+#             [  # 1 camada
+#                 GestureDetector(
+#                     on_tap=tarefa.hide_card,
+#                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
+#                 ),
+#                 Row(
+#                     expand=True,
+#                     alignment=alignment.top_left,
+#                     controls=[
+#                         Slidbar(),
+#                         Column(
+#                             controls=[
+#                                 Text("Entrada", size=20, weight="bold"),
+#                                 Divider(height=2, opacity=0),
+#                                 button,
+#                                 card_container,
+#                                 Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
+#                                 TodoApp(),
+#                             ],
+#                             expand=True,
+#                         ),
+#                     ],
+#                 ),
+#                 # 2 camada
+#                 Container(
+#                     content=Stack(
+#                         [
+#                             prioridade,
+#                             tarefa,
+#                             lembretes,
+#                         ]
+#                     ),
+#                     expand=True,
+#                     visible=True,
+#                 ),
+#                 # 3 camada
+#                 lembretes.dropdown,
+#             ],
+#             width=self.page.window.width,
+#             height=self.page.window.height,
+#         )
