@@ -13,22 +13,22 @@ def main(page: ft.Page):
         bgcolor=ft.colors.RED,
         border_radius=10,
     )
-    container2 = ft.Container(
+    container2 = ft.Stack(ft.Container(
         width=250,
         height=250,
         bgcolor=ft.colors.GREEN,
         border_radius=10,
         left=25,
         top=25,
-    )
-    container3 = ft.Container(
+    ))
+    container3 = ft.Stack(ft.Container(
         width=200,
         height=200,
         bgcolor=ft.colors.BLUE,
         border_radius=10,
         left=50,
         top=50,
-    )
+    ))
 
     # Controles transparentes para detecção de clique
     detector0 = ft.GestureDetector(
