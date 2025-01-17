@@ -1,24 +1,16 @@
 import flet as ft
 
+
 def main(page: ft.Page):
-    # Variável para controlar o estado atual (Data & Hora ou Antes da Tarefa)
-    current_view = "date_time"
 
-    # Função para alternar o conteúdo do container
-    def switch_to_date_time(e):
-        nonlocal current_view
-        current_view = "date_time"
-        update_content()
+    page.window.width = 600
+    page.window.height = 600
+    page.window.always_on_top = True
 
-    def switch_to_before_task(e):
-        nonlocal current_view
-        current_view = "before_task"
-        update_content()
-
-    # Função para atualizar o conteúdo do container
-    def update_content():
-        if current_view == "date_time":
-            container.content = ft.Column(
+    tab1 = ft.Tab(
+        text="Data & Hora",
+        content=ft.Container(
+            content=ft.Column(
                 [
                     ft.Row(
                         [
@@ -41,94 +33,54 @@ def main(page: ft.Page):
                     ),
                 ]
             )
-        elif current_view == "before_task":
-            container.content = ft.Column(
-                [
-                    ft.Dropdown(
-                        label="Antes da tarefa",
-                        options=[
-                            ft.dropdown.Option("5 minutos antes"),
-                            ft.dropdown.Option("10 minutos antes"),
-                            ft.dropdown.Option("30 minutos antes"),
-                        ],
-                        width=200,
-                    ),
-                    ft.Text(
-                        "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
-                        size=14,
-                    ),
-                    ft.ElevatedButton(
-                        text="Adicionar lembrete",
-                        bgcolor=ft.colors.RED,
-                        color=ft.colors.WHITE,
-                    ),
-                ]
-            )
-        page.update()
-
-    # Container com tamanho fixo
-    container = ft.Container(
-        width=300,
-        height=200,
-        padding=15,
-        bgcolor=ft.colors.SURFACE_VARIANT,
-        border_radius=10,
+        ),
+    )
+    tab2 = ft.Tab(
+        text="Antes da Tarefa",
+        content=ft.Column(
+            [
+                ft.Dropdown(
+                    label="Antes da tarefa",
+                    options=[
+                        ft.dropdown.Option("5 minutos antes"),
+                        ft.dropdown.Option("10 minutos antes"),
+                        ft.dropdown.Option("30 minutos antes"),
+                    ],
+                    width=200,
+                ),
+                ft.Text(
+                    "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+                    size=14,
+                ),
+                ft.ElevatedButton(
+                    text="Adicionar lembrete",
+                    bgcolor=ft.colors.RED,
+                    color=ft.colors.WHITE,
+                ),
+            ]
+        ),
     )
 
-    # Inicializa o conteúdo do container
-    update_content()
-
-    # Botões de alternância
-    toggle_buttons = ft.Row(
-        [
-            ft.TextButton(
-                "Data & Hora",
-                on_click=switch_to_date_time,
-                style=ft.ButtonStyle(
-                    shape=ft.RoundedRectangleBorder(radius=10),
-                    bgcolor=ft.colors.ON_SURFACE if current_view == "date_time" else ft.colors.SURFACE_VARIANT,
-                    color=ft.colors.WHITE if current_view == "date_time" else ft.colors.ON_SURFACE,
-                ),
-            ),
-            ft.TextButton(
-                "Antes da tarefa",
-                on_click=switch_to_before_task,
-                style=ft.ButtonStyle(
-                    shape=ft.RoundedRectangleBorder(radius=10),
-                    bgcolor=ft.colors.ON_SURFACE if current_view == "before_task" else ft.colors.SURFACE_VARIANT,
-                    color=ft.colors.WHITE if current_view == "before_task" else ft.colors.ON_SURFACE,
-                ),
-            ),
-        ],
-        alignment=ft.MainAxisAlignment.CENTER,
-    )
-
-    # Adiciona todos os elementos na página
-    page.add(
-        ft.Tabs(
-        selected_index=1,
+    tabs = ft.Tabs(
+        selected_index=0,
         animation_duration=300,
         tabs=[
-            ft.Tab(
-                text="Tab 1",
-                content=ft.Container(
-                    content=ft.Text("This is Tab 1"), alignment=ft.alignment.center
-                ),
-            ),
-            ft.Tab(
-                tab_content=ft.Icon(ft.Icons.SEARCH),
-                content=ft.Text("This is Tab 2"),
-            ),
-            ft.Tab(
-                text="Tab 3",
-                icon=ft.Icons.SETTINGS,
-                content=ft.Text("This is Tab 3"),
-            ),
+            tab1,
+            tab2,
         ],
         width=400,
         height=400,
     )
+    container = ft.Container(
+        content=tabs,
+        width=400,
+        height=400,
+        bgcolor=ft.colors.GREY_900,
     )
+
+    # Adiciona todos os elementos na página
+    page.add(container)
+
 
 # Inicializa o aplicativo
 ft.app(target=main)
