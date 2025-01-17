@@ -78,21 +78,6 @@ def main(page: ft.Page):
                         "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                         size=14,
                     ),
-                    Row(
-                        [
-                            ElevatedButton(
-                                text="Adicionar lembrete",
-                                on_click=lambda e: print("Adicionar lembrete"),
-                                disabled=True,
-                                bgcolor=Colors.RED,
-                                color=Colors.WHITE,
-                                style=ButtonStyle(
-                                    shape=RoundedRectangleBorder(radius=4),
-                                ),
-                            )
-                        ],
-                        alignment=MainAxisAlignment.END,
-                    ),
                 ]
             ),
             padding=10,
@@ -100,6 +85,7 @@ def main(page: ft.Page):
             # alignment="center",
         ),
     )
+
     opcoes_dropdown = [
         "No horário da tarefa",
         "10 min antes",
@@ -118,19 +104,20 @@ def main(page: ft.Page):
         text="Antes da Tarefa",
         content=ft.Column(
             [
-                ft.Dropdown(
-                    value=opcoes_dropdown[0],
-                    options=[ft.dropdown.Option(texto) for texto in opcoes_dropdown],
-                    width=300,
+                Container(
+                    ft.Dropdown(
+                        icon=Icons.ACCESS_TIME_FILLED,
+                        value=opcoes_dropdown[0],
+                        options=[
+                            ft.dropdown.Option(texto) for texto in opcoes_dropdown
+                        ],
+                        width=300,
+                    ),
+                    # alignment=MainAxisAlignment.CENTER,
                 ),
                 ft.Text(
                     "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
                     size=14,
-                ),
-                ft.ElevatedButton(
-                    text="Adicionar lembrete",
-                    bgcolor=ft.colors.RED,
-                    color=ft.colors.WHITE,
                 ),
             ]
         ),
@@ -144,11 +131,31 @@ def main(page: ft.Page):
             tab2,
         ],
         width=300,
-        height=250,
+        height=190,
     )
     container = ft.Container(
-        content=tabs,
+        content=Column(
+            [
+                tabs,
+                Row(
+                    [
+                        ElevatedButton(
+                            text="Adicionar lembrete",
+                            on_click=lambda e: print("Adicionar lembrete"),
+                            disabled=True,
+                            bgcolor=Colors.RED,
+                            color=Colors.WHITE,
+                            style=ButtonStyle(
+                                shape=RoundedRectangleBorder(radius=4),
+                            ),
+                        )
+                    ],
+                    alignment=MainAxisAlignment.END,
+                ),
+            ],
+        ),
         bgcolor=ft.colors.GREY_900,
+        
     )
 
     # Adiciona todos os elementos na página
