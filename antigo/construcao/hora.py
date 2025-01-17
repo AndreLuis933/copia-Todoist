@@ -1,9 +1,10 @@
 import flet as ft
 from flet import *
 
+
 def main(page: ft.Page):
-    page.window.always_on_top = True 
-    
+    page.window.always_on_top = True
+
     def on_tap(layer):
         print(f"Clicado na camada {layer}")
 
@@ -13,22 +14,30 @@ def main(page: ft.Page):
         bgcolor=ft.colors.RED,
         border_radius=10,
     )
-    container2 = ft.Stack(ft.Container(
-        width=250,
-        height=250,
-        bgcolor=ft.colors.GREEN,
-        border_radius=10,
-        left=25,
-        top=25,
-    ))
-    container3 = ft.Stack(ft.Container(
-        width=200,
-        height=200,
-        bgcolor=ft.colors.BLUE,
-        border_radius=10,
-        left=50,
-        top=50,
-    ))
+    container2 = ft.Stack(
+        [
+            ft.Container(
+                width=250,
+                height=250,
+                bgcolor=ft.colors.GREEN,
+                border_radius=10,
+                left=25,
+                top=25,
+            )
+        ],
+    )
+    container3 = ft.Stack(
+        [
+            ft.Container(
+                width=200,
+                height=200,
+                bgcolor=ft.colors.BLUE,
+                border_radius=10,
+                left=50,
+                top=50,
+            )
+        ]
+    )
 
     # Controles transparentes para detecção de clique
     detector0 = ft.GestureDetector(
@@ -41,11 +50,11 @@ def main(page: ft.Page):
     )
     detector2 = ft.GestureDetector(
         on_tap=lambda _: on_tap(2),
-        content=ft.Container(width=250, height=250, bgcolor=ft.colors.TRANSPARENT, left=25, top=25),
+        content=ft.Container(width=250, height=250, bgcolor=ft.colors.TRANSPARENT),
     )
     detector3 = ft.GestureDetector(
         on_tap=lambda _: on_tap(3),
-        content=ft.Container(width=200, height=200, bgcolor=ft.colors.TRANSPARENT, left=50, top=50),
+        content=ft.Container(width=200, height=200, bgcolor=ft.colors.TRANSPARENT),
     )
 
     stack = ft.Stack(
@@ -54,14 +63,15 @@ def main(page: ft.Page):
             container1,
             detector1,
             container2,
-            detector2,
+            #detector2,
             container3,
-            detector3,
+            #detector3,
         ],
         width=page.window.width,
         height=page.window.height,
     )
 
     page.add(stack)
+
 
 ft.app(target=main)
