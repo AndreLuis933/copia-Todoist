@@ -21,11 +21,16 @@ def main(page: ft.Page):
                 height=250,
                 bgcolor=ft.colors.GREEN,
                 border_radius=10,
-                left=25,
                 top=25,
+                left=25,
             )
         ],
+        width=250,
+        height=250,
+        top=25,
+        left=25,
     )
+
     container3 = ft.Stack(
         [
             ft.Container(
@@ -50,12 +55,20 @@ def main(page: ft.Page):
     )
     detector2 = ft.GestureDetector(
         on_tap=lambda _: on_tap(2),
-        content=ft.Container(width=250, height=250, bgcolor=ft.colors.TRANSPARENT),
+        content=container2,
     )
     detector3 = ft.GestureDetector(
         on_tap=lambda _: on_tap(3),
-        content=ft.Container(width=200, height=200, bgcolor=ft.colors.TRANSPARENT),
+        content=container3,
     )
+    container2t = ft.Container(
+        width=250,
+        height=250,
+        bgcolor=ft.colors.GREEN,
+        border_radius=10,
+    )
+    container2t.top = 25
+    container2t.left = 25
 
     stack = ft.Stack(
         controls=[
@@ -63,9 +76,9 @@ def main(page: ft.Page):
             container1,
             detector1,
             container2,
-            #detector2,
+            detector2,
             container3,
-            #detector3,
+            # detector3,
         ],
         width=page.window.width,
         height=page.window.height,
