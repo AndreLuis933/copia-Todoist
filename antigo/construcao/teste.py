@@ -142,7 +142,6 @@ def main(page: ft.Page):
                         ElevatedButton(
                             text="Adicionar lembrete",
                             on_click=lambda e: print("Adicionar lembrete"),
-                            disabled=True,
                             bgcolor=Colors.RED,
                             color=Colors.WHITE,
                             style=ButtonStyle(
@@ -152,10 +151,10 @@ def main(page: ft.Page):
                     ],
                     alignment=MainAxisAlignment.END,
                 ),
-            ],
+            ]
         ),
+        padding=10,
         bgcolor=ft.colors.GREY_900,
-        
     )
 
     # Adiciona todos os elementos na página
