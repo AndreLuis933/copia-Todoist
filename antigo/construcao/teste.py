@@ -11,51 +11,50 @@ def main(page: ft.Page):
     def show_dropdown(e):
         dropdown.visible = not dropdown.visible
         page.update()
-        
+
     def HighLight(self, e):
         if e.data == "true":
             e.content.bgcolor = "white10"
             e.content.update()
 
-
-
     time_input = ft.TextField(
         hint_text="08:30 PM",
         width=200,
-        on_focus=show_dropdown,  # Exibe o dropdown ao clicar no campo
-        read_only=True,  # Impede a digitação direta
+        on_focus=show_dropdown,
+        read_only=True,
     )
 
-    # Dropdown com horários disponíveis
+    # Modificação no dropdown para expandir até width=200
     dropdown = ft.Container(
-        content=ft.Container(
             ft.Column(
                 [
-                    Container(
-                        content=ElevatedButton("9:00 PM", expand=True),
-                        ink=True,
-                        on_click=None,
-                        padding=padding.symmetric(vertical=4, horizontal=10),
-                        alignment=alignment.center_left,
-                        on_hover=HighLight,
-                    ),
-                    ft.TextButton("9:15 PM",expand=True),
-                    ft.TextButton("9:30 PM"),
-                    ft.TextButton("9:45 PM"),
-                    ft.TextButton("10:00 PM"),
-                    ft.TextButton("10:30 PM"),
-                    ft.TextButton("11:00 PM"),
+                    ft.ElevatedButton(
+                        text,
+                        width=200,
+                        style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=0)),
+                    )
+                    for text in [
+                        "9:00 PM",
+                        "9:15 PM",
+                        "9:30 PM",
+                        "9:45 PM",
+                        "10:00 PM",
+                        "10:30 PM",
+                        "11:00 PM",
+                    ]
                 ],
                 visible=True,
-                spacing=5,
+                spacing=1,
                 width=200,
                 scroll=ft.ScrollMode.ALWAYS,
             ),
             bgcolor=ft.colors.SURFACE_VARIANT,
-        ),
-        margin=ft.margin.only(top=100, left=30),
-        height=100,
-    )
+            padding=1,
+            margin=ft.margin.only(top=100, left=30),
+            height=150,
+            width=200,  # Definindo a largura do container externo
+        )
+    
 
     tab1 = ft.Tab(
         text="Data & Hora",
