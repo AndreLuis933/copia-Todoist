@@ -2,13 +2,14 @@ from flet import *
 from ui.components.slidbar import Slidbar
 from ui.components.card_adicionar_tarefa import Card_adicionar_tarefa
 from ui.components.calendario import Calendario
-from ui.components.tarefa_vencimento import Tarefa_vencimento
+from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
 from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
-from ui.components.prioridade import Card_prioridade
-from ui.components.tarefa_vencimento import Tarefa_vencimento
+from ui.components.segunda_camada.prioridade import Card_prioridade
+from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
-from ui.components.lembretes import Lembretes
+from ui.components.segunda_camada.lembretes import Lembretes
+
 
 class HomeView:
     def __init__(self, page: Page):
@@ -18,7 +19,7 @@ class HomeView:
     def encontrar(self, e):
         print(self.page.views)
         pass
-    
+
     def update_layout(self, e=None):
         if self.content:
             self.content.width = self.page.window.width
@@ -27,17 +28,19 @@ class HomeView:
 
     def build(self):
 
+        calendario = Calendario()
         lembretes = Lembretes()
         prioridade = Card_prioridade()
-        calendario = Calendario()
-        hover_control = HoverAdicionarTarefa()
         tarefa = Tarefa_vencimento(calendario)
+        hover_control = HoverAdicionarTarefa()
         button = Button_adicionar_tarefa(hover_control)
-        card_container = Card_adicionar_tarefa(hover_control, tarefa, prioridade, lembretes)
+        card_container = Card_adicionar_tarefa(
+            hover_control, tarefa, prioridade, lembretes
+        )
         calendario.load_more_months(3)
 
         self.content = Stack(
-            [   # 1 camada
+            [  # 1 camada
                 GestureDetector(
                     on_tap=tarefa.hide_card,
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
@@ -49,7 +52,7 @@ class HomeView:
                         Slidbar(),
                         Column(
                             controls=[
-                                Text('Entrada', size=20, weight="bold"),
+                                Text("Entrada", size=20, weight="bold"),
                                 Divider(height=2, opacity=0),
                                 button,
                                 card_container,
@@ -61,16 +64,24 @@ class HomeView:
                     ],
                 ),
                 # 2 camada
-                prioridade,
-                tarefa,
-                lembretes,
+                Container(
+                    content=Stack(
+                        [
+                            prioridade,
+                            tarefa,
+                            lembretes,
+                        ]
+                    ),
+                    expand=True,
+                    visible=True,
+                ),
                 # 3 camada
-                lembretes.dropdown
+                lembretes.dropdown,
             ],
             width=self.page.window.width,
             height=self.page.window.height,
         )
-        
+
         self.page.on_resized = self.update_layout
 
         return self.content
