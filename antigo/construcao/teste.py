@@ -100,18 +100,28 @@ def main(page: ft.Page):
             # alignment="center",
         ),
     )
+    opcoes_dropdown = [
+        "No horário da tarefa",
+        "10 min antes",
+        "30 min antes",
+        "45 min antes",
+        "1 hora antes",
+        "2 horas antes",
+        "3 horas antes",
+        "1 dia antes",
+        "2 dias antes",
+        "3 dias antes",
+        "1 semana antes",
+    ]
+
     tab2 = ft.Tab(
         text="Antes da Tarefa",
         content=ft.Column(
             [
                 ft.Dropdown(
-                    label="Antes da tarefa",
-                    options=[
-                        ft.dropdown.Option("5 minutos antes"),
-                        ft.dropdown.Option("10 minutos antes"),
-                        ft.dropdown.Option("30 minutos antes"),
-                    ],
-                    width=200,
+                    value=opcoes_dropdown[0],
+                    options=[ft.dropdown.Option(texto) for texto in opcoes_dropdown],
+                    width=300,
                 ),
                 ft.Text(
                     "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
@@ -127,7 +137,7 @@ def main(page: ft.Page):
     )
 
     tabs = ft.Tabs(
-        selected_index=0,
+        selected_index=1,
         animation_duration=300,
         tabs=[
             tab1,
@@ -142,7 +152,14 @@ def main(page: ft.Page):
     )
 
     # Adiciona todos os elementos na página
-    page.add(ft.Stack([container, dropdown]))
+    page.add(
+        ft.Stack(
+            [
+                container,
+                dropdown,
+            ]
+        )
+    )
 
 
 # Inicializa o aplicativo
