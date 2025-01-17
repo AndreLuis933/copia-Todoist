@@ -41,7 +41,7 @@ def main(page: ft.Page):
     time_input = ft.TextField(
         icon=Icon(Icons.ACCESS_TIME),
         value=horarios[0],
-        width=200,
+        width=300,
         on_focus=show_dropdown,
     )
 
@@ -51,22 +51,21 @@ def main(page: ft.Page):
             [
                 ft.ElevatedButton(
                     text,
-                    width=200,
+                    width=240,
                     on_click=lambda e: print(e.control.text),
                     style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=0)),
                 )
                 for text in horarios
             ],
             spacing=1,
-            width=200,
             scroll=ft.ScrollMode.ALWAYS,
         ),
         bgcolor=ft.colors.SURFACE_VARIANT,
         visible=False,
         padding=1,
-        margin=ft.margin.only(top=100, left=30),
+        margin=ft.margin.only(top=110, left=50),
         height=260,
-        width=200,  # Definindo a largura do container externo
+        width=240,
     )
 
     tab1 = ft.Tab(
@@ -79,14 +78,25 @@ def main(page: ft.Page):
                         "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                         size=14,
                     ),
-                    ft.ElevatedButton(
-                        text="Adicionar lembrete",
-                        bgcolor=ft.colors.RED,
-                        color=ft.colors.WHITE,
+                    Row(
+                        [
+                            ElevatedButton(
+                                text="Adicionar lembrete",
+                                on_click=lambda e: print("Adicionar lembrete"),
+                                disabled=True,
+                                bgcolor=Colors.RED,
+                                color=Colors.WHITE,
+                                style=ButtonStyle(
+                                    shape=RoundedRectangleBorder(radius=4),
+                                ),
+                            )
+                        ],
+                        alignment=MainAxisAlignment.END,
                     ),
                 ]
             ),
             padding=10,
+            border_radius=20,
             # alignment="center",
         ),
     )
