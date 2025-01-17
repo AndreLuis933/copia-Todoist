@@ -8,6 +8,7 @@ from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
 from ui.components.prioridade import Card_prioridade
 from ui.components.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
+from ui.components.lembretes import Lembretes
 
 class HomeView:
     def __init__(self, page: Page):
@@ -26,12 +27,13 @@ class HomeView:
 
     def build(self):
 
+        lembretes = Lembretes()
         prioridade = Card_prioridade()
         calendario = Calendario()
         hover_control = HoverAdicionarTarefa()
         tarefa = Tarefa_vencimento(calendario)
         button = Button_adicionar_tarefa(hover_control)
-        card_container = Card_adicionar_tarefa(hover_control, tarefa, prioridade)
+        card_container = Card_adicionar_tarefa(hover_control, tarefa, prioridade, lembretes)
         calendario.load_more_months(3)
 
         self.content = Stack(
@@ -60,6 +62,7 @@ class HomeView:
                 ),
                 prioridade,
                 tarefa,
+                lembretes,
             ],
             width=self.page.window.width,
             height=self.page.window.height,

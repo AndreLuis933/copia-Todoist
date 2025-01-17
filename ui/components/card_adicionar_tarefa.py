@@ -2,10 +2,11 @@ from flet import *
 
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, hover_control, tarefa_vencimento, prioridade):
+    def __init__(self, hover_control, tarefa_vencimento, prioridade, lembretes):
         super().__init__()
         self.hover_control = hover_control
         self.prioridade = prioridade
+        self.lembretes = lembretes
         self.hover_control.card_container = self
         self.tarefa_vencimento = tarefa_vencimento
         self.visible = True
@@ -89,11 +90,12 @@ class Card_adicionar_tarefa(Container):
                         self.card_definitions(
                             Icons.FLAG,
                             "Prioridade",
-                            self.prioridade.toggle_menu,
+                            self.prioridade.show_card,
                         ),
                         self.card_definitions(
                             Icons.NOTIFICATIONS,
                             "Lembretes",
+                            self.lembretes.show_card
                         ),
                         Container(
                             content=Icon(

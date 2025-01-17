@@ -11,9 +11,9 @@ class Card_prioridade(Container):
         self.width = 150
         self.height = 170
         self.left = 350  # Posição fixa à esquerda
-        self.top = 170  # Posição fixa no topo
+        self.top = 200  # Posição fixa no topo
 
-    def toggle_menu(self, e):
+    def show_card(self, e):
         self.visible = not self.visible
         self.update()
 
