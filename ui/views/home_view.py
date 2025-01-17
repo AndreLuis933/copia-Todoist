@@ -47,8 +47,11 @@ class HomeView:
                         Slidbar(),
                         Column(
                             controls=[
+                                Text('Entrada', size=20, weight="bold"),
+                                Divider(height=2, opacity=0),
                                 button,
                                 card_container,
+                                Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
                                 TodoApp(),
                             ],
                             expand=True,

@@ -8,7 +8,7 @@ class Card_adicionar_tarefa(Container):
         self.prioridade = prioridade
         self.hover_control.card_container = self
         self.tarefa_vencimento = tarefa_vencimento
-        self.visible = False
+        self.visible = True
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
@@ -91,7 +91,10 @@ class Card_adicionar_tarefa(Container):
                             "Prioridade",
                             self.prioridade.toggle_menu,
                         ),
-                        self.card_definitions(Icons.NOTIFICATIONS, "Lembretes"),
+                        self.card_definitions(
+                            Icons.NOTIFICATIONS,
+                            "Lembretes",
+                        ),
                         Container(
                             content=Icon(
                                 name=Icons.MORE_HORIZ,
