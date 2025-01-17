@@ -1,21 +1,42 @@
 import flet as ft
 from flet import *
+from datetime import datetime, timedelta
 
 
 def main(page: ft.Page):
 
     page.window.width = 350
-    page.window.height = 330
+    page.window.height = 430
     page.window.always_on_top = True
+
+    now = datetime.now()
+
+    # Ajusta o próximo horário múltiplo de 15 minutos
+    minutes_to_add = (15 - now.minute % 15) % 15
+    if minutes_to_add == 0:
+        minutes_to_add = 15
+
+    # Ajusta o tempo inicial ao próximo múltiplo de 15 minutos
+    current_time = now + timedelta(minutes=minutes_to_add)
+    current_time = current_time.replace(second=0, microsecond=0)
+
+    # Cria uma lista para armazenar os horários
+    horarios = []
+
+    # Define o final do período (mesmo horário no dia seguinte)
+    end_time = now + timedelta(days=1)
+    end_time = end_time.replace(
+        hour=now.hour, minute=current_time.minute, second=0, microsecond=0
+    )
+
+    # Itera de 15 em 15 minutos até o mesmo horário no dia seguinte
+    while current_time < end_time:
+        horarios.append(current_time.strftime("%H:%M"))
+        current_time += timedelta(minutes=15)
 
     def show_dropdown(e):
         dropdown.visible = not dropdown.visible
         page.update()
-
-    def HighLight(self, e):
-        if e.data == "true":
-            e.content.bgcolor = "white10"
-            e.content.update()
 
     time_input = ft.TextField(
         hint_text="08:30 PM",
@@ -26,35 +47,27 @@ def main(page: ft.Page):
 
     # Modificação no dropdown para expandir até width=200
     dropdown = ft.Container(
-            ft.Column(
-                [
-                    ft.ElevatedButton(
-                        text,
-                        width=200,
-                        style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=0)),
-                    )
-                    for text in [
-                        "9:00 PM",
-                        "9:15 PM",
-                        "9:30 PM",
-                        "9:45 PM",
-                        "10:00 PM",
-                        "10:30 PM",
-                        "11:00 PM",
-                    ]
-                ],
-                visible=True,
-                spacing=1,
-                width=200,
-                scroll=ft.ScrollMode.ALWAYS,
-            ),
-            bgcolor=ft.colors.SURFACE_VARIANT,
-            padding=1,
-            margin=ft.margin.only(top=100, left=30),
-            height=150,
-            width=200,  # Definindo a largura do container externo
-        )
-    
+        ft.Column(
+            [
+                ft.ElevatedButton(
+                    text,
+                    width=200,
+                    on_click=lambda e: print(e.control.text),
+                    style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=0)),
+                )
+                for text in horarios
+            ],
+            visible=False,
+            spacing=1,
+            width=200,
+            scroll=ft.ScrollMode.ALWAYS,
+        ),
+        bgcolor=ft.colors.SURFACE_VARIANT,
+        padding=1,
+        margin=ft.margin.only(top=100, left=30),
+        height=260,
+        width=200,  # Definindo a largura do container externo
+    )
 
     tab1 = ft.Tab(
         text="Data & Hora",
