@@ -64,17 +64,12 @@ class HomeView:
                     ],
                 ),
                 # 2 camada
-                Container(
-                    content=Stack(
-                        [
-                            prioridade,
-                            tarefa,
-                            lembretes,
-                        ]
-                    ),
-                    expand=True,
-                    visible=True,
-                ),
+
+                prioridade,
+                tarefa,
+                lembretes,
+                        
+                    
                 # 3 camada
                 lembretes.dropdown,
             ],
