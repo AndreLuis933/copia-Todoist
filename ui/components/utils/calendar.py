@@ -1,10 +1,9 @@
 from flet import *
 from datetime import datetime, timedelta
 import calendar
-from .configs.CalendarioConfig import CalendarioConfig
+from ..configs.CalendarioConfig import CalendarioConfig
 import locale
-from .animations.calendar.on_scroll import OnScroll
-
+from ..animations.calendar.on_scroll import OnScroll
 
 locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
 
@@ -19,10 +18,7 @@ class Calendario(Container):
         self.height = config.height
         self.width = config.width
         self.padding = padding.only(left=config.padding, right=config.padding)
-        self.list = ListView(
-            expand=True,
-            on_scroll=self.on_scroll.on_scroll,
-        )
+        self.list = ListView(expand=True, on_scroll=self.on_scroll.on_scroll)
         self.visible_month = self.current_date
         self.current_month_text = Container(
             content=self.header(self.visible_month.month, self.visible_month.year),
@@ -58,7 +54,9 @@ class Calendario(Container):
                                         ),
                                         self.movimentacion_icons(
                                             Icons.KEYBOARD_ARROW_RIGHT,
-                                            lambda e: self.list.scroll_to(self.month_positions[1]),
+                                            lambda e: self.list.scroll_to(
+                                                self.month_positions[1]
+                                            ),
                                         ),
                                     ],
                                     # spacing=0,
@@ -178,19 +176,9 @@ class Calendario(Container):
             + self.month_positions[-1]
         )
         self.month_positions.append(distancia)
-        # print(self.month_positions)
         return Container(
             content=calendar_grid,
             margin=margin.only(bottom=self.config.margin),
-            # padding=20,
-            # bgcolor="#1E1E1E",
-            # border_radius=border_radius.all(10),
-            # shadow=BoxShadow(
-            #     spread_radius=1,
-            #     blur_radius=10,
-            #     color=Colors.BLACK54,
-            #     offset=Offset(0, 0),
-            # ),
         )
 
     def load_more_months(self, count):
@@ -217,4 +205,3 @@ class Calendario(Container):
             self.months_loaded += 1
 
         self.content.controls[1].controls.extend(new_months)
-

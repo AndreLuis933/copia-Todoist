@@ -1,5 +1,4 @@
 from flet import *
-import flet
 
 
 class Card_prioridade(Container):
@@ -10,8 +9,8 @@ class Card_prioridade(Container):
         self.content = self.build()
         self.width = 150
         self.height = 170
-        self.left = 350  # Posição fixa à esquerda
-        self.top = 200  # Posição fixa no topo
+        self.left = 350
+        self.top = 200  
 
     def select_priority(self, e, priority):
         self.selected_priority = priority
@@ -48,37 +47,3 @@ class Card_prioridade(Container):
             border_radius=border_radius.all(10),
             padding=padding.all(8),
         )
-
-
-if __name__ == "__main__":
-
-    def main(page: Page):
-        page.window.always_on_top = True
-        app = Card_prioridade()
-
-        prioridade_button = ElevatedButton(
-            text="Prioridade",
-            icon=Icons.FLAG,
-            on_click=app.toggle_menu,
-        )
-
-        # Layout principal
-        completo = Stack(
-            controls=[
-                Row(
-                    Container(
-                        content=prioridade_button,
-                        alignment=alignment.top_left,
-                    ),
-                    expand=True,
-                    bgcolor=Colors.ON_SURFACE_VARIANT,
-                ),
-                app,
-            ],
-            width=page.window_width,
-            height=page.window_height,
-        )
-        page.add(completo)
-        page.update()
-
-    flet.app(target=main)

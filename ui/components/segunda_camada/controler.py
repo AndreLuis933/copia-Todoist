@@ -2,7 +2,7 @@ from flet import *
 from ui.components.segunda_camada.lembretes import Lembretes
 from ui.components.segunda_camada.prioridade import Card_prioridade
 from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
-from ui.components.calendar import Calendario
+from ui.components.utils.calendar import Calendario
 
 
 class ControlerSegundaCamada:

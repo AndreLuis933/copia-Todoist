@@ -176,26 +176,3 @@ class Lembretes(Container):
                 ),
             ]
         )
-
-
-if __name__ == "__main__":
-
-    def main(page: Page):
-
-        page.window.height = 600
-        page.window.width = 800
-        page.window.always_on_top = True
-
-        container = Lembretes()
-        dropdown = container.dropdown
-
-        page.add(
-            Stack(
-                [
-                    container,
-                    dropdown,
-                ]
-            )
-        )
-
-    app(target=main)

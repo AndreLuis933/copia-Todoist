@@ -1,7 +1,7 @@
 from flet import *
 from functools import partial
-from .animations.slidbar.fechar_slidbar import create_animate_slidbar
-from .animations.slidbar.high_light_slidbar import HighLight
+from ..animations.slidbar.fechar_slidbar import create_animate_slidbar
+from ..animations.slidbar.high_light_slidbar import HighLight
 
 
 class Slidbar(Container):

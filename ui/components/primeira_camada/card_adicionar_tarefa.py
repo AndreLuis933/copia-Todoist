@@ -1,5 +1,5 @@
 from flet import *
-from .animations.card_adicionar_tarefa.ativar_envio import AtivarEnvio
+from ..animations.card_adicionar_tarefa.ativar_envio import AtivarEnvio
 
 
 class Card_adicionar_tarefa(Container):
