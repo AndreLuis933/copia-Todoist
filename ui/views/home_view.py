@@ -1,10 +1,5 @@
 from flet import *
-from ui.components.primeira_camada.slidbar import Slidbar
-from ui.components.primeira_camada.card_adicionar_tarefa import Card_adicionar_tarefa
-from ui.components.primeira_camada.button_adicionar_tarefa import Button_adicionar_tarefa
-from ui.components.animations.card_adicionar_tarefa.hover_adicionar_tarefa import HoverAdicionarTarefa
-from ui.components.primeira_camada.mostrar_tarefas import TodoApp
-from ui.components.segunda_camada.controler import ControlerSegundaCamada
+from ui.components.primeira_camada.controler import ControlerPrimeiraCamada
 
 
 class HomeView:
@@ -23,14 +18,9 @@ class HomeView:
             self.page.update()
 
     def build(self):
-
-        segunda_camada = ControlerSegundaCamada()
-        hover_control = HoverAdicionarTarefa(segunda_camada)
-        button = Button_adicionar_tarefa(hover_control)
-        card_container = Card_adicionar_tarefa(
-            segunda_camada, hover_control
-        )
-
+        
+        primeira_camada = ControlerPrimeiraCamada()
+        segunda_camada = primeira_camada.segunda_camada
 
         self.content = Stack(
             [  # 1 camada
@@ -38,26 +28,9 @@ class HomeView:
                     on_tap=segunda_camada.default,
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
                 ),
-                Row(
-                    expand=True,
-                    alignment=alignment.top_left,
-                    controls=[
-                        Slidbar(),
-                        Column(
-                            controls=[
-                                Text("Entrada", size=20, weight="bold"),
-                                Divider(height=2, opacity=0),
-                                button,
-                                card_container,
-                                Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
-                                TodoApp(),
-                            ],
-                            expand=True,
-                        ),
-                    ],
-                ),
+                primeira_camada,
                 # 2 camada
-                *segunda_camada.get_controls(),
+                *segunda_camada.controls,
                     
                 # 3 camada
                 segunda_camada.lembretes.dropdown,
