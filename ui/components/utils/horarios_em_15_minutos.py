@@ -22,4 +22,5 @@ def horarios_15_minutos():
         horarios.append(current_time.strftime("%I:%M %p"))
         current_time += timedelta(minutes=15)
 
+    print(horarios)
     return horarios
