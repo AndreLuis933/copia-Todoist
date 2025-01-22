@@ -29,7 +29,6 @@ class Lembretes(Container):
             "1 semana antes",
         ]
         self.content = self.build()
-        self.dropdown = self.dropdown_artificial()
 
     def horarios_15_minutos(self):
         now = datetime.now()
@@ -54,10 +53,6 @@ class Lembretes(Container):
 
         return horarios
 
-    def show_dropdown(self, e):
-        self.dropdown.visible = not self.dropdown.visible
-        self.dropdown.update()
-
     def envio(self, e):
         selecionada = self.content.controls[0].selected_index
         tab = self.content.controls[0].tabs[selecionada]
@@ -69,13 +64,6 @@ class Lembretes(Container):
     def tab1(self):
         return Tab(
             text="Data & Hora",
-            tab_content=Container(
-                height=40,
-                width=100,
-                bgcolor=Colors.INDIGO,
-                border_radius=20,
-                content=Text("Teste"),
-            ),
             content=Container(
                 content=Column(
                     [
@@ -88,20 +76,12 @@ class Lembretes(Container):
                 ),
                 padding=10,
                 border_radius=20,
-                # alignment="center",
             ),
         )
 
     def tab2(self):
         return Tab(
             text="Antes da Tarefa",
-            tab_content=Container(
-                height=40,
-                width=100,
-                bgcolor=Colors.INDIGO,
-                border_radius=20,
-                content=Text("Teste"),
-            ),
             content=Column(
                 [
                     DownDownCuston(self.opcoes_dropdown_2),
@@ -113,51 +93,11 @@ class Lembretes(Container):
             ),
         )
 
-    def atualizar_tab1(self, e):
-        selecionada = self.content.controls[0].selected_index
-        tab = self.content.controls[0].tabs[selecionada]
-        if selecionada == 0:
-            tab.content.content.controls[0].value = e.control.text
-        self.dropdown.visible = False
-        self.page.update()
-
-    def dropdown_artificial(self):
-        return Container(
-            Column(
-                [
-                    ElevatedButton(
-                        text,
-                        width=240,
-                        on_click=lambda e: self.atualizar_tab1(e),
-                        style=ButtonStyle(shape=RoundedRectangleBorder(radius=0)),
-                    )
-                    for text in self.horarios
-                ],
-                spacing=1,
-                scroll=ScrollMode.ALWAYS,
-            ),
-            bgcolor=Colors.ON_SURFACE_VARIANT,
-            visible=False,
-            padding=1,
-            margin=margin.only(top=110, left=50),
-            height=260,
-            width=240,
-            left=self.left,
-            top=self.top,
-        )
-
     def build(self):
         return Column(
             [
                 Text("Lembretes", size=20, weight="bold"),
-                Container(
-                    Tabs(
-                    unselected_label_color=Colors.AMBER,
-                    overlay_color=ControlState.FOCUSED,
-                    divider_color=Colors.BLUE,
-                    # indicator_border_side = BorderSide(color=Colors.AMBER, width=1),
-                    indicator_color=Colors.DEEP_ORANGE,
-                    label_color=Colors.BROWN,
+                Tabs(
                     selected_index=0,
                     animation_duration=300,
                     tabs=[
@@ -167,9 +107,6 @@ class Lembretes(Container):
                     width=300,
                     height=190,
                 ),
-                    bgcolor=Colors.GREEN
-                ),
-                
                 Row(
                     [
                         ElevatedButton(

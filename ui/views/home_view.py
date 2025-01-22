@@ -33,7 +33,6 @@ class HomeView:
                 *segunda_camada.controls,
                     
                 # 3 camada
-                segunda_camada.lembretes.dropdown,
                 segunda_camada.tarefa.hora,
             ],
             width=self.page.window.width,
