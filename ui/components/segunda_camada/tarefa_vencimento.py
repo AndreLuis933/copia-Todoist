@@ -5,7 +5,7 @@ class Tarefa_vencimento(Container):
     def __init__(self, calendario):
         super().__init__()
         self.calendario = calendario
-        self.visible = False
+        self.visible = True
         self.current_date = self.calendario.current_date
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
@@ -13,7 +13,7 @@ class Tarefa_vencimento(Container):
         self.bgcolor = "#1E1E1E"
         self.width = 250
         self.left = 220
-        self.top = 170
+        self.top = 0
         self.height = 580
         self.content = self.build()
         self.hora = self.build_hora()
@@ -110,7 +110,7 @@ class Tarefa_vencimento(Container):
                 ],
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
             ),
-            visible=False,
+            visible=True,
             padding=padding.only(left=10, right=10, top=20, bottom=20),
             bgcolor=self.bgcolor,
             border=self.border,
