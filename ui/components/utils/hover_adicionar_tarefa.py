@@ -1,15 +1,17 @@
 from flet import *
 
 class HoverAdicionarTarefa:
-    def __init__(self):
+    def __init__(self, controler_segunda_camada):
         self.button_hovered = False
         self.button = None
         self.card_container = None
+        self.controler_segunda_camada = controler_segunda_camada
 
     def toggle_card(self, e):
         self.button.visible = not self.button.visible
         self.card_container.visible = not self.card_container.visible
         # Reinicia o estado do hover
+        self.controler_segunda_camada.hide_all()
         self.button_hovered = False
         self.update_button_appearance()
         self.button.page.update()

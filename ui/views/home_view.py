@@ -9,6 +9,7 @@ from ui.components.segunda_camada.prioridade import Card_prioridade
 from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
 from ui.components.segunda_camada.lembretes import Lembretes
+from ui.components.segunda_camada.controler import ControlerSegundaCamada
 
 
 class HomeView:
@@ -28,21 +29,18 @@ class HomeView:
 
     def build(self):
 
-        calendario = Calendario()
-        lembretes = Lembretes()
-        prioridade = Card_prioridade()
-        tarefa = Tarefa_vencimento(calendario)
-        hover_control = HoverAdicionarTarefa()
+        segunda_camada = ControlerSegundaCamada()
+        hover_control = HoverAdicionarTarefa(segunda_camada)
         button = Button_adicionar_tarefa(hover_control)
         card_container = Card_adicionar_tarefa(
-            hover_control, tarefa, prioridade, lembretes
+            segunda_camada, hover_control
         )
-        calendario.load_more_months(3)
+
 
         self.content = Stack(
             [  # 1 camada
                 GestureDetector(
-                    on_tap=tarefa.hide_card,
+                    on_tap=segunda_camada.default,
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
                 ),
                 Row(
@@ -64,14 +62,11 @@ class HomeView:
                     ],
                 ),
                 # 2 camada
-
-                prioridade,
-                tarefa,
-                lembretes,
-                        
+                *segunda_camada.get_controls(),
                     
                 # 3 camada
-                lembretes.dropdown,
+                segunda_camada.lembretes.dropdown,
+                segunda_camada.tarefa.hora,
             ],
             width=self.page.window.width,
             height=self.page.window.height,

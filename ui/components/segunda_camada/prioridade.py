@@ -13,10 +13,6 @@ class Card_prioridade(Container):
         self.left = 350  # Posição fixa à esquerda
         self.top = 200  # Posição fixa no topo
 
-    def show_card(self, e):
-        self.visible = not self.visible
-        self.update()
-
     def select_priority(self, e, priority):
         self.selected_priority = priority
         self.visible = False

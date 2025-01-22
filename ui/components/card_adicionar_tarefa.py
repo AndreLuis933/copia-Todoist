@@ -2,14 +2,12 @@ from flet import *
 
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, hover_control, tarefa_vencimento, prioridade, lembretes):
+    def __init__(self, controler, hover_control):
         super().__init__()
+        self.controler = controler
         self.hover_control = hover_control
-        self.prioridade = prioridade
-        self.lembretes = lembretes
         self.hover_control.card_container = self
-        self.tarefa_vencimento = tarefa_vencimento
-        self.visible = True
+        self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
@@ -85,17 +83,17 @@ class Card_adicionar_tarefa(Container):
                         self.card_definitions(
                             Icons.CALENDAR_TODAY,
                             "Vencimento",
-                            self.tarefa_vencimento.show_card,
+                            self.controler.show_tarefa,
                         ),
                         self.card_definitions(
                             Icons.FLAG,
                             "Prioridade",
-                            self.prioridade.show_card,
+                            self.controler.show_prioridade,
                         ),
                         self.card_definitions(
                             Icons.NOTIFICATIONS,
                             "Lembretes",
-                            self.lembretes.show_card
+                            self.controler.show_lembretes
                         ),
                         Container(
                             content=Icon(

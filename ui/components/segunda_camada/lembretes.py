@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class Lembretes(Container):
     def __init__(self):
         super().__init__()
-        self.visible = True
+        self.visible = False
         self.padding = 10
         self.bgcolor = Colors.GREY_900
         self.width = 300
@@ -29,10 +29,6 @@ class Lembretes(Container):
         ]
         self.content = self.build()
         self.dropdown = self.dropdown_artificial()
-
-    def show_card(self, e):
-        self.visible = not self.visible
-        self.update()
 
     def horarios_15_minutos(self):
         now = datetime.now()
@@ -123,7 +119,8 @@ class Lembretes(Container):
         tab = self.content.controls[0].tabs[selecionada]
         if selecionada == 0:
             tab.content.content.controls[0].value = e.control.text
-        self.update()
+        self.dropdown.visible = False
+        self.page.update()
 
     def dropdown_artificial(self):
         return Container(

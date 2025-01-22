@@ -1,8 +1,26 @@
 from flet import *
 from datetime import datetime, timedelta
 import calendar
-from ui.components.configs.CalendarioConfig import CalendarioConfig
 import locale
+
+# from ui.components.configs.CalendarioConfig import CalendarioConfig
+
+from dataclasses import dataclass
+
+
+@dataclass
+class CalendarioConfig:
+    tamanho: int = 20
+    height: int = 405
+    width: int = 250
+    spacing_week: int = 5
+    margin: int = 10
+    divider_spacing: int = 20
+    border_color: str = "black"
+    border_radius: int = 10
+    header_color: str = "#BB86FC"
+    day_color: str = "#121212"
+    day_bg_color: str = "#1F1F1F"
 
 
 locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
@@ -17,10 +35,9 @@ class Calendario(Container):
         self.config = config
         self.height = config.height
         self.width = config.width
-        self.padding = padding.only(left=config.padding, right=config.padding)
-        #self.border = border.all(1, config.border_color)
-        #self.border_radius = config.border_radius
-        #self.bgcolor = "#1E1E1E"
+        self.border = border.all(1, config.border_color)
+        self.border_radius = config.border_radius
+        self.bgcolor = "#1E1E1E"
         self.list = ListView(
             expand=True,
             on_scroll=self.on_scroll,
@@ -49,6 +66,7 @@ class Calendario(Container):
                                     [
                                         self.movimentacion_icons(
                                             Icons.KEYBOARD_ARROW_LEFT,
+                                            lambda e: self.list.scroll_to(0),
                                             disabled=True,
                                             opacity=0.1,
                                         ),
@@ -61,7 +79,7 @@ class Calendario(Container):
                                         ),
                                         self.movimentacion_icons(
                                             Icons.KEYBOARD_ARROW_RIGHT,
-                                            lambda e: self.list.scroll_to(self.month_positions[1]),
+                                            lambda e: self.list.scroll_to(0),
                                         ),
                                     ],
                                     # spacing=0,
@@ -177,7 +195,6 @@ class Calendario(Container):
             + self.config.divider_spacing
             + self.config.margin
             + 24
-            + 5
             + self.month_positions[-1]
         )
         self.month_positions.append(distancia)
@@ -278,3 +295,18 @@ class Calendario(Container):
 
             self.update()
             self.is_loading = False
+
+
+if __name__ == "__main__":
+
+    def main(page: Page):
+        page.window.height = 500
+        page.window.width = 400
+        page.window.always_on_top = True
+        page.bgcolor = Colors.GREY_700
+
+        calendario = Calendario()
+        calendario.load_more_months(3)
+        page.add(calendario)
+
+    app(target=main)
