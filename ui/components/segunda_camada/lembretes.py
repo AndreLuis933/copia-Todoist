@@ -2,6 +2,7 @@ from flet import *
 from datetime import datetime, timedelta
 from ..unitarios.dropdow import DownDownCuston
 
+
 class Lembretes(Container):
     def __init__(self):
         super().__init__()
@@ -9,8 +10,8 @@ class Lembretes(Container):
         self.padding = 10
         self.bgcolor = Colors.GREY_900
         self.width = 300
-        self.height=300
-        self.left = 470  
+        self.height = 300
+        self.left = 470
         self.top = 200
         self.border_radius = 10
         self.horarios = self.horarios_15_minutos()
@@ -58,7 +59,7 @@ class Lembretes(Container):
         self.dropdown.update()
 
     def envio(self, e):
-        selecionada  =self.content.controls[0].selected_index
+        selecionada = self.content.controls[0].selected_index
         tab = self.content.controls[0].tabs[selecionada]
         if selecionada == 0:
             print(tab.content.content.controls[0].value)
@@ -68,10 +69,17 @@ class Lembretes(Container):
     def tab1(self):
         return Tab(
             text="Data & Hora",
+            tab_content=Container(
+                height=40,
+                width=100,
+                bgcolor=Colors.INDIGO,
+                border_radius=20,
+                content=Text("Teste"),
+            ),
             content=Container(
                 content=Column(
                     [
-                        DownDownCuston(self.horarios),   
+                        DownDownCuston(self.horarios),
                         Text(
                             "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                             size=14,
@@ -87,6 +95,13 @@ class Lembretes(Container):
     def tab2(self):
         return Tab(
             text="Antes da Tarefa",
+            tab_content=Container(
+                height=40,
+                width=100,
+                bgcolor=Colors.INDIGO,
+                border_radius=20,
+                content=Text("Teste"),
+            ),
             content=Column(
                 [
                     DownDownCuston(self.opcoes_dropdown_2),
@@ -99,7 +114,7 @@ class Lembretes(Container):
         )
 
     def atualizar_tab1(self, e):
-        selecionada  =self.content.controls[0].selected_index
+        selecionada = self.content.controls[0].selected_index
         tab = self.content.controls[0].tabs[selecionada]
         if selecionada == 0:
             tab.content.content.controls[0].value = e.control.text
@@ -127,20 +142,22 @@ class Lembretes(Container):
             margin=margin.only(top=110, left=50),
             height=260,
             width=240,
-            left = self.left,
-            top = self.top,
+            left=self.left,
+            top=self.top,
         )
 
     def build(self):
         return Column(
-            [   Text("Lembretes", size=20, weight="bold"),
-                Tabs(
-                    unselected_label_color = Colors.AMBER,
-                    overlay_color = ControlState.FOCUSED,
-                    divider_color = Colors.BLUE,
-                    #indicator_border_side = BorderSide(color=Colors.AMBER, width=1),
-                    indicator_color = Colors.DEEP_ORANGE,
-                    label_color = Colors.BROWN,
+            [
+                Text("Lembretes", size=20, weight="bold"),
+                Container(
+                    Tabs(
+                    unselected_label_color=Colors.AMBER,
+                    overlay_color=ControlState.FOCUSED,
+                    divider_color=Colors.BLUE,
+                    # indicator_border_side = BorderSide(color=Colors.AMBER, width=1),
+                    indicator_color=Colors.DEEP_ORANGE,
+                    label_color=Colors.BROWN,
                     selected_index=0,
                     animation_duration=300,
                     tabs=[
@@ -150,6 +167,9 @@ class Lembretes(Container):
                     width=300,
                     height=190,
                 ),
+                    bgcolor=Colors.GREEN
+                ),
+                
                 Row(
                     [
                         ElevatedButton(
