@@ -75,7 +75,6 @@ class Lembretes(Container):
                         Dropdown(
                             icon=Icons.ACCESS_TIME_FILLED,
                             value=self.horarios[0],
-                            #width=300,
                             color=Colors.AMBER,
                             bgcolor=Colors.GREY_900,
                             alignment=alignment.center,
