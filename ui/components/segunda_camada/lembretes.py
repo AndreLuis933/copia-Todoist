@@ -79,8 +79,9 @@ class Lembretes(Container):
                             color=Colors.AMBER,
                             bgcolor=Colors.GREY_900,
                             alignment=alignment.center,
+                            max_menu_height=600,
                             options=[
-                                dropdown.Option(text=texto)
+                                dropdown.Option(texto)
                                 for texto in self.horarios
                             ],
                         ),
