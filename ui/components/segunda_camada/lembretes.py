@@ -1,5 +1,5 @@
 from flet import *
-from datetime import datetime, timedelta
+from ..utils.horarios_em_15_minutos import horarios_15_minutos
 from ..unitarios.dropdow import DownDownCuston
 
 
@@ -14,7 +14,7 @@ class Lembretes(Container):
         self.left = 470
         self.top = 200
         self.border_radius = 10
-        self.horarios = self.horarios_15_minutos()
+        self.horarios = horarios_15_minutos()
         self.opcoes_dropdown_2 = [
             "No horário da tarefa",
             "10 min antes",
@@ -30,66 +30,27 @@ class Lembretes(Container):
         ]
         self.content = self.build()
 
-    def horarios_15_minutos(self):
-        now = datetime.now()
-
-        minutes_to_add = (15 - now.minute % 15) % 15
-        if minutes_to_add == 0:
-            minutes_to_add = 15
-
-        current_time = now + timedelta(minutes=minutes_to_add)
-        current_time = current_time.replace(second=0, microsecond=0)
-
-        horarios = []
-
-        end_time = now + timedelta(days=1)
-        end_time = end_time.replace(
-            hour=now.hour, minute=current_time.minute, second=0, microsecond=0
-        )
-
-        while current_time < end_time:
-            horarios.append(current_time.strftime("%I:%M %p"))
-            current_time += timedelta(minutes=15)
-
-        return horarios
-
     def envio(self, e):
         selecionada = self.content.controls[0].selected_index
         tab = self.content.controls[0].tabs[selecionada]
-        if selecionada == 0:
-            print(tab.content.content.controls[0].value)
-        else:
-            print(tab.content.controls[0].content.value)
 
-    def tab1(self):
+        print(tab.content.content.controls[0].content.value)
+
+    def tabs(self, title, content_dropdown, description):
         return Tab(
-            text="Data & Hora",
+            text=title,
             content=Container(
-                content=Column(
+                Column(
                     [
-                        DownDownCuston(self.horarios),
+                        DownDownCuston(content_dropdown),
                         Text(
-                            "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
+                            description,
                             size=14,
                         ),
                     ]
                 ),
                 padding=10,
                 border_radius=20,
-            ),
-        )
-
-    def tab2(self):
-        return Tab(
-            text="Antes da Tarefa",
-            content=Column(
-                [
-                    DownDownCuston(self.opcoes_dropdown_2),
-                    Text(
-                        "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
-                        size=14,
-                    ),
-                ]
             ),
         )
 
@@ -101,8 +62,12 @@ class Lembretes(Container):
                     selected_index=0,
                     animation_duration=300,
                     tabs=[
-                        self.tab1(),
-                        self.tab2(),
+                        self.tabs(
+                            "Data & Hora",
+                            self.horarios,
+                            "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
+                        ),
+                        self.tabs("Antes da Tarefa", self.opcoes_dropdown_2, "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos."),
                     ],
                     width=300,
                     height=190,
