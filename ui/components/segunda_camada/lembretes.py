@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class Lembretes(Container):
     def __init__(self):
         super().__init__()
-        self.visible = False
+        self.visible = True
         self.padding = 10
         self.bgcolor = Colors.GREY_900
         self.width = 300
@@ -71,12 +71,19 @@ class Lembretes(Container):
             content=Container(
                 content=Column(
                     [
-                        TextField(
-                            icon=Icons.ACCESS_TIME,
+                        Container(
+                        Dropdown(
+                            icon=Icons.ACCESS_TIME_FILLED,
                             value=self.horarios[0],
                             width=300,
-                            on_focus=self.show_dropdown,
+                            elevation=10,
+                            alignment=alignment.center,
+                            options=[
+                                dropdown.Option(text=texto)
+                                for texto in self.horarios
+                            ],
                         ),
+                    ),
                         Text(
                             "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                             size=14,
