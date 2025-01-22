@@ -1,6 +1,6 @@
 from flet import *
 from ..utils.horarios_em_15_minutos import horarios_15_minutos
-from ..unitarios.dropdow import DownDownCuston
+from ..unitarios.dropdow import downdown_custon
 
 
 class Lembretes(Container):
@@ -42,7 +42,7 @@ class Lembretes(Container):
             content=Container(
                 Column(
                     [
-                        DownDownCuston(content_dropdown),
+                        downdown_custon(content_dropdown,Icons.ACCESS_TIME_FILLED),
                         Text(
                             description,
                             size=14,

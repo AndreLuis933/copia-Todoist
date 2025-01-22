@@ -1,5 +1,5 @@
 from flet import *
-from ..unitarios.dropdow import DownDownCuston
+from ..unitarios.dropdow import downdown_custon
 from ..utils.horarios_em_15_minutos import horarios_15_minutos
 
 class Tarefa_vencimento(Container):
@@ -61,7 +61,7 @@ class Tarefa_vencimento(Container):
                     size=14,
                     weight="bold",
                 ),
-                DownDownCuston(horarios_15_minutos())
+                downdown_custon(horarios_15_minutos())
                 
             ]
         )
