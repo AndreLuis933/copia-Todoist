@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
-
+import locale
 
 def horarios_15_minutos():
+    locale.setlocale(locale.LC_TIME, 'en_US.UTF-8')
     now = datetime.now()
 
     minutes_to_add = (15 - now.minute % 15) % 15
@@ -22,5 +23,5 @@ def horarios_15_minutos():
         horarios.append(current_time.strftime("%I:%M %p"))
         current_time += timedelta(minutes=15)
 
-    print(horarios)
+    print(horarios[0])
     return horarios
