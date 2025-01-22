@@ -74,7 +74,7 @@ class Tarefa_vencimento(Container):
     def build_hora(self):
         return Container(
             Column(
-                [
+                [   
                     self.build_hora_container("Hora"),
                     self.build_hora_container("Duração"),
                     Row(
@@ -126,6 +126,7 @@ class Tarefa_vencimento(Container):
 
     def show_hora(self, e):
         self.hora.visible = not self.hora.visible
+        print(horarios_15_minutos())
         self.page.update()
 
     def build(self):
