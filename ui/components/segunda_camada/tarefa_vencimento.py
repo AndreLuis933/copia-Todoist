@@ -110,7 +110,7 @@ class Tarefa_vencimento(Container):
                 ],
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
             ),
-            visible=True,
+            visible=False,
             padding=padding.only(left=10, right=10, top=20, bottom=20),
             bgcolor=self.bgcolor,
             border=self.border,

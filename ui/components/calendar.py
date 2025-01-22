@@ -1,8 +1,9 @@
 from flet import *
 from datetime import datetime, timedelta
 import calendar
-from ui.components.configs.CalendarioConfig import CalendarioConfig
+from .configs.CalendarioConfig import CalendarioConfig
 import locale
+from .animations.calendar.on_scroll import OnScroll
 
 
 locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
@@ -12,25 +13,21 @@ class Calendario(Container):
     def __init__(self, config: CalendarioConfig = CalendarioConfig()):
         super().__init__()
         self.current_date = datetime.now()
+        self.on_scroll = OnScroll(self)
         self.months_loaded = 0
-        self.is_loading = False
         self.config = config
         self.height = config.height
         self.width = config.width
         self.padding = padding.only(left=config.padding, right=config.padding)
-        #self.border = border.all(1, config.border_color)
-        #self.border_radius = config.border_radius
-        #self.bgcolor = "#1E1E1E"
         self.list = ListView(
             expand=True,
-            on_scroll=self.on_scroll,
+            on_scroll=self.on_scroll.on_scroll,
         )
         self.visible_month = self.current_date
         self.current_month_text = Container(
             content=self.header(self.visible_month.month, self.visible_month.year),
             padding=padding.only(left=10),
         )
-        self.scroll_position = 0
         self.month_positions = [0]
         self.content = self.build()
 
@@ -221,60 +218,3 @@ class Calendario(Container):
 
         self.content.controls[1].controls.extend(new_months)
 
-    def get_month_from_position(self, scroll_position):
-        for i, position in enumerate(self.month_positions):
-            if scroll_position < position:
-                return i - 1 if i > 0 else 0
-        return len(self.month_positions) - 1
-
-    def adicionar_mais_meses(self):
-        if self.scroll_position >= self.max_scroll_extent - 200:
-            self.load_more_months(1)
-
-    def update_header(self):
-        new_visible_month = self.current_date + timedelta(
-            days=30.44 * self.month_offset
-        )
-        if new_visible_month.month != self.visible_month.month:
-            self.visible_month = new_visible_month
-            self.current_month_text.content = self.header(
-                self.visible_month.month, self.visible_month.year
-            )
-
-    def month_shortcut(self):
-        shortcuts = self.content.controls[0].controls[0].controls[2].controls
-
-        def disabled(shortcut):
-            if self.month_offset:
-                shortcut.disabled = False
-                shortcut.opacity = 1
-            else:
-                shortcut.disabled = True
-                shortcut.opacity = 0.1
-
-        def create_scroll_function(offset):
-            def scroll_to(e):
-                if self.month_offset + offset >= 0:
-                    Scroll = self.month_positions[self.month_offset + offset]
-                    self.list.scroll_to(Scroll)
-
-            return scroll_to
-
-        shortcuts[0].on_click = create_scroll_function(-1)
-        shortcuts[2].on_click = create_scroll_function(1)
-        disabled(shortcuts[0])
-        disabled(shortcuts[1])
-
-    def on_scroll(self, e: OnScrollEvent):
-        if not self.is_loading:
-            self.is_loading = True
-            self.scroll_position = int(e.pixels)
-            self.max_scroll_extent = int(e.max_scroll_extent)
-            self.month_offset = self.get_month_from_position(self.scroll_position)
-
-            self.adicionar_mais_meses()
-            self.update_header()
-            self.month_shortcut()
-
-            self.update()
-            self.is_loading = False

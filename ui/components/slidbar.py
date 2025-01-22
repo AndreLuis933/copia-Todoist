@@ -1,12 +1,14 @@
 from flet import *
 from functools import partial
-from ui.components.animations.fechar_slidbar import create_animate_slidbar
+from .animations.slidbar.fechar_slidbar import create_animate_slidbar
+from .animations.slidbar.high_light_slidbar import HighLight
 
 
 class Slidbar(Container):
     def __init__(self):
         super().__init__()
         self.func = create_animate_slidbar(self)
+        self.HighLight = HighLight
         self.width = 200
         self.bgcolor = "black"
         self.border_radius = 10
@@ -14,27 +16,10 @@ class Slidbar(Container):
         self.alignment = alignment.top_left
         self.padding = 10
         self.content = self.build()
-        
+
     def encontrar(self, e):
         print(self.content)
         pass
-
-    def HighLight(self, e):
-        if e.data == "true":
-            e.control.bgcolor = "white10"
-            e.control.update()
-
-            e.control.content.controls[0].icon_color = "white"
-            e.control.content.controls[1].color = "white"
-            e.control.content.update()
-
-        else:
-            e.control.bgcolor = None
-            e.control.update()
-
-            e.control.content.controls[0].icon_color = "white54"
-            e.control.content.controls[1].color = "white54"
-            e.control.content.update()
 
     def UserData(self, initials: str, name: str, descripion: str):
         return Container(

@@ -1,4 +1,5 @@
 from flet import *
+from .animations.card_adicionar_tarefa.ativar_envio import AtivarEnvio
 
 
 class Card_adicionar_tarefa(Container):
@@ -6,25 +7,13 @@ class Card_adicionar_tarefa(Container):
         super().__init__()
         self.controler = controler
         self.hover_control = hover_control
+        self.ativar_envio = AtivarEnvio(self)
         self.hover_control.card_container = self
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
-
-    def ativar_envio(self, e):
-        botao = self.content.controls[3].controls[1]
-        if e.data:
-            botao.opacity = 1
-            botao.bgcolor = Colors.RED
-            botao.disabled = False
-            botao.update()
-        else:
-            botao.opacity = 0.3
-            botao.bgdcolor = Colors.RED_900
-            botao.disabled = True
-            botao.update()
 
     def card_definitions(self, icon, label=None, on_click=None):
         return Container(
@@ -61,7 +50,7 @@ class Card_adicionar_tarefa(Container):
                             TextField(
                                 hint_text="Nome da tarefa",
                                 autofocus=True,
-                                on_change=lambda e: self.ativar_envio(e),
+                                on_change=lambda e: self.ativar_envio.ativar_envio(e),
                                 border=InputBorder.NONE,
                                 height=30,
                             ),
@@ -93,7 +82,7 @@ class Card_adicionar_tarefa(Container):
                         self.card_definitions(
                             Icons.NOTIFICATIONS,
                             "Lembretes",
-                            self.controler.show_lembretes
+                            self.controler.show_lembretes,
                         ),
                         Container(
                             content=Icon(

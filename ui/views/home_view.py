@@ -1,14 +1,9 @@
 from flet import *
 from ui.components.slidbar import Slidbar
 from ui.components.card_adicionar_tarefa import Card_adicionar_tarefa
-from ui.components.calendario import Calendario
-from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
 from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
-from ui.components.segunda_camada.prioridade import Card_prioridade
-from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
-from ui.components.segunda_camada.lembretes import Lembretes
 from ui.components.segunda_camada.controler import ControlerSegundaCamada
 
 

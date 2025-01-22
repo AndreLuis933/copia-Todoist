@@ -2,7 +2,7 @@ from flet import *
 from ui.components.segunda_camada.lembretes import Lembretes
 from ui.components.segunda_camada.prioridade import Card_prioridade
 from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
-from ui.components.calendario import Calendario
+from ui.components.calendar import Calendario
 
 
 class ControlerSegundaCamada:
@@ -48,4 +48,3 @@ class ControlerSegundaCamada:
             if control.page:
                 control.page.update()
         
-    
