@@ -5,13 +5,8 @@ from ui.controller.app_controller import AppController
 def main(page: ft.Page):
     page.title = "Todo App"
     page.window.always_on_top = True
-<<<<<<< HEAD
-    page.window.height = 700
-    page.window.width = 700
-=======
     page.window.height = 900
     page.window.width = 550
->>>>>>> trabalho-temporario
     page.theme_mode = ft.ThemeMode.DARK
 
     AppController(page)
