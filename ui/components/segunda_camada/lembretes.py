@@ -135,6 +135,12 @@ class Lembretes(Container):
         return Column(
             [   Text("Lembretes", size=20, weight="bold"),
                 Tabs(
+                    unselected_label_color = Colors.AMBER,
+                    overlay_color = ControlState.FOCUSED,
+                    divider_color = Colors.BLUE,
+                    #indicator_border_side = BorderSide(color=Colors.AMBER, width=1),
+                    indicator_color = Colors.DEEP_ORANGE,
+                    label_color = Colors.BROWN,
                     selected_index=0,
                     animation_duration=300,
                     tabs=[
