@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 
 
-
 def horarios_15_minutos():
     now = datetime.now()
 

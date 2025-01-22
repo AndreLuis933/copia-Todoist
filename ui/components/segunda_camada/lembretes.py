@@ -6,7 +6,7 @@ from ..unitarios.dropdow import DownDownCuston
 class Lembretes(Container):
     def __init__(self):
         super().__init__()
-        self.visible = True
+        self.visible = False
         self.padding = 10
         self.bgcolor = Colors.GREY_900
         self.width = 300
@@ -31,8 +31,8 @@ class Lembretes(Container):
         self.content = self.build()
 
     def envio(self, e):
-        selecionada = self.content.controls[0].selected_index
-        tab = self.content.controls[0].tabs[selecionada]
+        selecionada = self.content.controls[1].selected_index
+        tab = self.content.controls[1].tabs[selecionada]
 
         print(tab.content.content.controls[0].content.value)
 
@@ -67,7 +67,11 @@ class Lembretes(Container):
                             self.horarios,
                             "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                         ),
-                        self.tabs("Antes da Tarefa", self.opcoes_dropdown_2, "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos."),
+                        self.tabs(
+                            "Antes da Tarefa",
+                            self.opcoes_dropdown_2,
+                            "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+                        ),
                     ],
                     width=300,
                     height=190,
@@ -86,5 +90,6 @@ class Lembretes(Container):
                     ],
                     alignment=MainAxisAlignment.END,
                 ),
-            ]
+            ],
+            spacing=0,
         )

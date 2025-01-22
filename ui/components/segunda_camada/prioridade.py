@@ -10,7 +10,7 @@ class Card_prioridade(Container):
         self.width = 150
         self.height = 170
         self.left = 350
-        self.top = 200  
+        self.top = 170  
 
     def select_priority(self, e, priority):
         self.selected_priority = priority

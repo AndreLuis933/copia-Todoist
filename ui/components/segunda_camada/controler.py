@@ -17,7 +17,6 @@ class ControlerSegundaCamada:
     def hide_all(self):
         for control in self.controls:
             control.visible = False
-        self.lembretes.dropdown.visible = False
         self.tarefa.hora.visible = False
 
     def show_lembretes(self, e=None):
