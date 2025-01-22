@@ -5,8 +5,8 @@ def downdown_custon(lista, icon=None, height=None):
     return Dropdown(
         icon=icon,
         value=lista[0],
-        padding=0,
-        text_size=10,
+        padding=padding.all(0),
+        text_size=14,
         bgcolor=Colors.GREY_900,
         alignment=alignment.center,
         height=height,
