@@ -76,7 +76,8 @@ class Lembretes(Container):
                             icon=Icons.ACCESS_TIME_FILLED,
                             value=self.horarios[0],
                             width=300,
-                            elevation=10,
+                            color=Colors.AMBER,
+                            bgcolor=Colors.GREY_900,
                             alignment=alignment.center,
                             options=[
                                 dropdown.Option(text=texto)
