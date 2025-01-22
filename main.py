@@ -1,6 +1,8 @@
 import flet as ft
 from ui.controller.app_controller import AppController
+from ui.components.utils.locale_config import set_default_locale
 
+set_default_locale()
 
 def main(page: ft.Page):
     page.title = "Todo App"

@@ -2,10 +2,7 @@ from flet import *
 from datetime import datetime, timedelta
 import calendar
 from ..configs.CalendarioConfig import CalendarioConfig
-import locale
 from ..animations.calendar.on_scroll import OnScroll
-
-locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
 
 
 class Calendario(Container):

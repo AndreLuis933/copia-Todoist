@@ -126,7 +126,6 @@ class Tarefa_vencimento(Container):
 
     def show_hora(self, e):
         self.hora.visible = not self.hora.visible
-        print(horarios_15_minutos())
         self.page.update()
 
     def build(self):
