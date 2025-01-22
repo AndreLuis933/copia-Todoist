@@ -75,11 +75,11 @@ class Lembretes(Container):
                         Dropdown(
                             icon=Icons.ACCESS_TIME_FILLED,
                             value=self.horarios[0],
-                            width=300,
+                            #width=300,
                             color=Colors.AMBER,
                             bgcolor=Colors.GREY_900,
                             alignment=alignment.center,
-                            max_menu_height=600,
+                            max_menu_height=500,
                             options=[
                                 dropdown.Option(texto)
                                 for texto in self.horarios
@@ -107,6 +107,8 @@ class Lembretes(Container):
                         Dropdown(
                             icon=Icons.ACCESS_TIME_FILLED,
                             value=self.opcoes_dropdown_2[0],
+                            bgcolor=Colors.GREY_900,
+                            max_menu_height=600,
                             options=[
                                 dropdown.Option(texto)
                                 for texto in self.opcoes_dropdown_2
