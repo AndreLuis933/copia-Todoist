@@ -2,6 +2,7 @@ from flet import *
 from ..unitarios.dropdow import downdown_custon
 from ..utils.horarios_em_15_minutos import horarios_15_minutos
 
+
 class Tarefa_vencimento(Container):
     def __init__(self, calendario):
         super().__init__()
@@ -61,9 +62,13 @@ class Tarefa_vencimento(Container):
                     size=14,
                     weight="bold",
                 ),
-                downdown_custon(horarios_15_minutos())
-                
-            ]
+                Container(
+                    downdown_custon(horarios_15_minutos(),height=30),
+                    width=180,
+                ),
+            ],
+            spacing=0,
+            alignment=MainAxisAlignment.SPACE_BETWEEN,
         )
 
     def build_hora(self):
