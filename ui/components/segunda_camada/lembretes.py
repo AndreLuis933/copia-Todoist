@@ -12,7 +12,7 @@ class Lembretes(Container):
         self.width = 300
         self.height = 300
         self.left = 470
-        self.top = 200
+        self.top = 170
         self.border_radius = 10
         self.horarios = horarios_15_minutos()
         self.opcoes_dropdown_2 = [
