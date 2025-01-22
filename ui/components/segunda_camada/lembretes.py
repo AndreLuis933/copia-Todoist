@@ -1,6 +1,6 @@
 from flet import *
 from datetime import datetime, timedelta
-
+from ..unitarios.dropdow import DownDownCuston
 
 class Lembretes(Container):
     def __init__(self):
@@ -9,7 +9,7 @@ class Lembretes(Container):
         self.padding = 10
         self.bgcolor = Colors.GREY_900
         self.width = 300
-        self.height=270
+        self.height=300
         self.left = 470  
         self.top = 200
         self.border_radius = 10
@@ -71,20 +71,7 @@ class Lembretes(Container):
             content=Container(
                 content=Column(
                     [
-                        Container(
-                        Dropdown(
-                            icon=Icons.ACCESS_TIME_FILLED,
-                            value=self.horarios[0],
-                            color=Colors.AMBER,
-                            bgcolor=Colors.GREY_900,
-                            alignment=alignment.center,
-                            max_menu_height=500,
-                            options=[
-                                dropdown.Option(texto)
-                                for texto in self.horarios
-                            ],
-                        ),
-                    ),
+                        DownDownCuston(self.horarios),   
                         Text(
                             "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
                             size=14,
@@ -102,20 +89,7 @@ class Lembretes(Container):
             text="Antes da Tarefa",
             content=Column(
                 [
-                    Container(
-                        Dropdown(
-                            icon=Icons.ACCESS_TIME_FILLED,
-                            value=self.opcoes_dropdown_2[0],
-                            bgcolor=Colors.GREY_900,
-                            max_menu_height=600,
-                            options=[
-                                dropdown.Option(texto)
-                                for texto in self.opcoes_dropdown_2
-                            ],
-                            width=300,
-                            alignment=alignment.center,
-                        ),
-                    ),
+                    DownDownCuston(self.opcoes_dropdown_2),
                     Text(
                         "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
                         size=14,
@@ -159,7 +133,7 @@ class Lembretes(Container):
 
     def build(self):
         return Column(
-            [
+            [   Text("Lembretes", size=20, weight="bold"),
                 Tabs(
                     selected_index=0,
                     animation_duration=300,
