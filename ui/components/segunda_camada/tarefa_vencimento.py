@@ -12,7 +12,7 @@ class Tarefa_vencimento(Container):
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
         self.shadow = BoxShadow(blur_radius=5)
-        self.bgcolor = "#1E1E1E"
+        self.bgcolor = '#282828'
         self.width = 250
         self.left = 220
         self.top = 0
