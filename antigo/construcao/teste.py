@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import flet as ft
 
 class Tarefa(ft.UserControl):
@@ -142,3 +143,11 @@ def main(page: ft.Page):
     page.add(todo)
 
 ft.app(target=main)
+=======
+i = 1
+
+if i:
+    print("True")
+else:
+    print("False")
+>>>>>>> trabalho-temporario

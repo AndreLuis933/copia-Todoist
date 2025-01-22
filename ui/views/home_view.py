@@ -2,12 +2,24 @@ from flet import *
 from ui.components.slidbar import Slidbar
 from ui.components.card_adicionar_tarefa import Card_adicionar_tarefa
 from ui.components.calendario import Calendario
+<<<<<<< HEAD
 from ui.components.tarefa_vencimento import Tarefa_vencimento
 from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
 from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
 from ui.components.prioridade import Card_prioridade
 from ui.components.tarefa_vencimento import Tarefa_vencimento
 from ui.components.mostrar_tarefas import TodoApp
+=======
+from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
+from ui.components.button_adicionar_tarefa import Button_adicionar_tarefa
+from ui.components.utils.hover_adicionar_tarefa import HoverAdicionarTarefa
+from ui.components.segunda_camada.prioridade import Card_prioridade
+from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
+from ui.components.mostrar_tarefas import TodoApp
+from ui.components.segunda_camada.lembretes import Lembretes
+from ui.components.segunda_camada.controler import ControlerSegundaCamada
+
+>>>>>>> trabalho-temporario
 
 class HomeView:
     def __init__(self, page: Page):
@@ -17,7 +29,11 @@ class HomeView:
     def encontrar(self, e):
         print(self.page.views)
         pass
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> trabalho-temporario
     def update_layout(self, e=None):
         if self.content:
             self.content.width = self.page.window.width
@@ -26,6 +42,7 @@ class HomeView:
 
     def build(self):
 
+<<<<<<< HEAD
         prioridade = Card_prioridade()
         calendario = Calendario()
         hover_control = HoverAdicionarTarefa()
@@ -38,6 +55,20 @@ class HomeView:
             [
                 GestureDetector(
                     on_tap=tarefa.hide_card,
+=======
+        segunda_camada = ControlerSegundaCamada()
+        hover_control = HoverAdicionarTarefa(segunda_camada)
+        button = Button_adicionar_tarefa(hover_control)
+        card_container = Card_adicionar_tarefa(
+            segunda_camada, hover_control
+        )
+
+
+        self.content = Stack(
+            [  # 1 camada
+                GestureDetector(
+                    on_tap=segunda_camada.default,
+>>>>>>> trabalho-temporario
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
                 ),
                 Row(
@@ -47,21 +78,42 @@ class HomeView:
                         Slidbar(),
                         Column(
                             controls=[
+<<<<<<< HEAD
                                 button,
                                 card_container,
+=======
+                                Text("Entrada", size=20, weight="bold"),
+                                Divider(height=2, opacity=0),
+                                button,
+                                card_container,
+                                Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
+>>>>>>> trabalho-temporario
                                 TodoApp(),
                             ],
                             expand=True,
                         ),
                     ],
                 ),
+<<<<<<< HEAD
                 prioridade,
                 tarefa,
+=======
+                # 2 camada
+                *segunda_camada.get_controls(),
+                    
+                # 3 camada
+                segunda_camada.lembretes.dropdown,
+                segunda_camada.tarefa.hora,
+>>>>>>> trabalho-temporario
             ],
             width=self.page.window.width,
             height=self.page.window.height,
         )
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> trabalho-temporario
         self.page.on_resized = self.update_layout
 
         return self.content
