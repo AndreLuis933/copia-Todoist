@@ -1,9 +1,9 @@
-from zoneinfo import ZoneInfo
-from datetime import datetime
+from tzlocal import get_localzone
 
 def obter_fuso_horario_atual():
-    fuso_local = datetime.now(ZoneInfo("localtime")).tzinfo
-    return str(fuso_local)
+    # Obtém o fuso horário local
+    fuso_local = get_localzone()
+    return f"{fuso_local}\nSeu fuso horário atual"
 
 # Uso
-print(f"Seu fuso horário atual é: {obter_fuso_horario_atual()}")
+print(obter_fuso_horario_atual())

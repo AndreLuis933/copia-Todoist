@@ -1,6 +1,10 @@
 from flet import *
 from ..unitarios.dropdow import downdown_custon
-from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo,gerar_duracoes_ate_23h30
+from ..utils.horarios_em_15_minutos import (
+    gerar_horarios_24h_15min_intervalo,
+    gerar_duracoes_ate_23h30,
+)
+from tzlocal import get_localzone
 
 
 class Tarefa_vencimento(Container):
@@ -12,7 +16,7 @@ class Tarefa_vencimento(Container):
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
         self.shadow = BoxShadow(blur_radius=5)
-        self.bgcolor = '#282828'
+        self.bgcolor = "#282828"
         self.width = 250
         self.left = 220
         self.top = 0
@@ -63,7 +67,7 @@ class Tarefa_vencimento(Container):
                     weight="bold",
                 ),
                 Container(
-                    downdown_custon(lista,height=30),
+                    downdown_custon(lista, height=30),
                     width=180,
                 ),
             ],
@@ -74,17 +78,32 @@ class Tarefa_vencimento(Container):
     def build_hora(self):
         return Container(
             Column(
-                [   
-                    self.build_hora_container("Hora",gerar_horarios_24h_15min_intervalo()),
-                    self.build_hora_container("Duração",gerar_duracoes_ate_23h30()),
+                [
+                    self.build_hora_container(
+                        "Hora", gerar_horarios_24h_15min_intervalo()
+                    ),
+                    self.build_hora_container("Duração", gerar_duracoes_ate_23h30()),
                     Row(
                         [
                             Text(
                                 "Fuso horário",
                                 size=14,
                                 weight="bold",
-                            )
-                        ]
+                            ),
+                            Container(
+                                TextField(
+                                    get_localzone(),
+                                    height=30,
+                                    text_size=14,
+                                    width=180,
+                                    text_align=TextAlign.CENTER,
+                                    #read_only=True,
+                                ),
+                                padding=0,
+                            ),
+                        ],
+                        spacing=0,
+                        alignment=MainAxisAlignment.SPACE_BETWEEN,
                     ),
                     Row(
                         [
