@@ -19,7 +19,7 @@ class Tarefa_vencimento(Container):
         self.bgcolor = "#282828"
         self.width = 250
         self.left = 220
-        self.top = 0
+        self.top = 170
         self.height = 580
         self.content = self.build()
         self.hora = self.build_hora()
@@ -97,7 +97,8 @@ class Tarefa_vencimento(Container):
                                     text_size=14,
                                     width=180,
                                     text_align=TextAlign.CENTER,
-                                    #read_only=True,
+                                    content_padding=padding.only(top=5, bottom=5),
+                                    read_only=True,
                                 ),
                                 padding=0,
                             ),
@@ -132,7 +133,7 @@ class Tarefa_vencimento(Container):
                 ],
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
             ),
-            visible=True,
+            visible=False,
             padding=padding.only(left=10, right=10, top=20, bottom=20),
             bgcolor=self.bgcolor,
             border=self.border,

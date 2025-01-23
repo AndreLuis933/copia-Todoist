@@ -135,8 +135,7 @@ class Calendario(Container):
                                 color="#E0E0E0" if not is_current else Colors.RED,
                             ),
                             width=self.config.tamanho,
-                            height=self.config.tamanho,
-                            bgcolor=self.config.day_bg_color,
+                            height=self.config.tamanho,                            
                             border_radius=border_radius.all(5),
                             alignment=alignment.center,
                             on_click=lambda e: self.selecionar_data(e, month, year),
@@ -149,8 +148,7 @@ class Calendario(Container):
                                 str(day), size=16, color="#E0E0E0", opacity=0.5
                             ),
                             width=self.config.tamanho,
-                            height=self.config.tamanho,
-                            bgcolor=self.config.day_bg_color,
+                            height=self.config.tamanho,                        
                             border_radius=border_radius.all(5),
                             alignment=alignment.center,
                         )
