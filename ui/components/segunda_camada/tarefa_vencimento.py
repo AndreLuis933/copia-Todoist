@@ -1,6 +1,6 @@
 from flet import *
 from ..unitarios.dropdow import downdown_custon
-from ..utils.horarios_em_15_minutos import horarios_15_minutos
+from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo,gerar_duracoes_ate_23h30
 
 
 class Tarefa_vencimento(Container):
@@ -54,7 +54,7 @@ class Tarefa_vencimento(Container):
             ),
         )
 
-    def build_hora_container(self, text):
+    def build_hora_container(self, text, lista):
         return Row(
             [
                 Text(
@@ -63,7 +63,7 @@ class Tarefa_vencimento(Container):
                     weight="bold",
                 ),
                 Container(
-                    downdown_custon(horarios_15_minutos(),height=30),
+                    downdown_custon(lista,height=30),
                     width=180,
                 ),
             ],
@@ -75,8 +75,8 @@ class Tarefa_vencimento(Container):
         return Container(
             Column(
                 [   
-                    self.build_hora_container("Hora"),
-                    self.build_hora_container("Duração"),
+                    self.build_hora_container("Hora",gerar_horarios_24h_15min_intervalo()),
+                    self.build_hora_container("Duração",gerar_duracoes_ate_23h30()),
                     Row(
                         [
                             Text(

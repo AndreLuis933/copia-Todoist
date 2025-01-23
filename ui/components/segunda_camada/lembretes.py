@@ -1,5 +1,5 @@
 from flet import *
-from ..utils.horarios_em_15_minutos import horarios_15_minutos
+from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo
 from ..unitarios.dropdow import downdown_custon
 
 
@@ -14,7 +14,7 @@ class Lembretes(Container):
         self.left = 470
         self.top = 170
         self.border_radius = 10
-        self.horarios = horarios_15_minutos()
+        self.horarios = gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = [
             "No horário da tarefa",
             "10 min antes",
