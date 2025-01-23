@@ -49,9 +49,6 @@ class Card_adicionar_tarefa(Container):
 
         salvar_tarefa(values)
 
-        title_field.value = None
-        description_field.value = None
-
         self.hover_control.toggle_card(e)
         self.update()
 

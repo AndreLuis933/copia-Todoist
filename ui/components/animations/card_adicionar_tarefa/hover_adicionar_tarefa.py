@@ -16,12 +16,14 @@ class HoverAdicionarTarefa:
         self.button_hovered = False
         self.ativor_envio = False
         self.update_button_appearance()
+        self.update_button_appearance_envio()
+        self.clear_filds()
         self.button.page.update()
 
     def mudar_cor(self, e):
         self.button_hovered = e.data == "true"
         self.update_button_appearance()
-        self.button.page.update()
+        self.button.update()
 
     def update_button_appearance(self):
         if self.button_hovered:
@@ -32,22 +34,23 @@ class HoverAdicionarTarefa:
             self.button.content.controls[1].color = Colors.WHITE
             self.button.content.controls[0].controls[1].name = Icons.ADD
             self.button.content.controls[0].controls[0].visible = False
-        
+
+    def update_button_appearance_envio(self):
         botao = self.card_container.content.controls[3].controls[1]
         if self.ativor_envio:
             botao.opacity = 1
             botao.bgcolor = Colors.RED
             botao.disabled = False
-            botao.update()
         else:
             botao.opacity = 0.3
             botao.bgdcolor = Colors.RED_900
             botao.disabled = True
-            botao.update() 
 
     def ativar_envio(self, e):
         self.ativor_envio = e.data != ""
-        self.update_button_appearance()
-        self.card_container.page.update()
+        self.update_button_appearance_envio()
+        self.card_container.update()
 
-
+    def clear_filds(self):
+        self.card_container.content.controls[0].content.controls[0].value = None
+        self.card_container.content.controls[0].content.controls[1].value = None
