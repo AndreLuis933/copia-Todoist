@@ -43,8 +43,8 @@ class Card_adicionar_tarefa(Container):
         title_field = self.content.controls[0].content.controls[0]
         description_field = self.content.controls[0].content.controls[1]
 
-        title = title_field.value
-        description = description_field.value
+        title = title_field.value.strip()
+        description = description_field.value.strip()
         values = [title, description]
 
         salvar_tarefa(values)

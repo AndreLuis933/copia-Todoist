@@ -1,7 +1,3 @@
-a = ''
+from app.database.operations import *
 
-
-if a == '':
-    print("True")
-else:
-    print("False")
+print(listar_tarefas())

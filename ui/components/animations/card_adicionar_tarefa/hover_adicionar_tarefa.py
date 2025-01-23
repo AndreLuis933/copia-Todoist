@@ -47,7 +47,7 @@ class HoverAdicionarTarefa:
             botao.disabled = True
 
     def ativar_envio(self, e):
-        self.ativor_envio = e.data != ""
+        self.ativor_envio = len(e.data.strip()) > 0
         self.update_button_appearance_envio()
         self.card_container.update()
 
