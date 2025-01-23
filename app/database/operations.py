@@ -1,7 +1,6 @@
 from .setup import Tarefa, Session
 from sqlalchemy.exc import SQLAlchemyError
 from contextlib import contextmanager
-from inspect import signature
 
 @contextmanager
 def session_scope():
@@ -26,13 +25,12 @@ def salvar_tarefa(tarefas):
         
 def listar_tarefas():
     with session_scope() as session:
-        print(list(signature(Tarefa.__init__).parameters.keys())[1:])
         tarefas = session.query(Tarefa).all()
         tarefas_lista = []
         for tarefa in tarefas:
             tarefa_dict = {
                 'id': tarefa.id,
-                'titulo': tarefa.nome,
+                'titulo': tarefa.titulo,
                 'descricao': tarefa.descricao,
             }
             tarefas_lista.append(tarefa_dict)
