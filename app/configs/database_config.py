@@ -2,4 +2,5 @@ from dataclasses import dataclass
 
 @dataclass
 class CalendarioConfig:
-    pass
+    id : int = 'id'
+    titulo: str = "titulo"

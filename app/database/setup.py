@@ -25,5 +25,5 @@ Base = declarative_base()
 class Tarefa(Base):
     __tablename__ = "tarefas"
     id = Column(Integer, primary_key=True)
-    nome = Column(String, nullable=False)
+    titulo = Column(String, nullable=False)
     descricao = Column(String, nullable=True)
