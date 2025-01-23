@@ -19,8 +19,8 @@ set_default_locale()
 def main(page: ft.Page):
     page.title = "Todo App"
     page.window.always_on_top = True
-    page.window.height = 900
-    page.window.width = 550
+    page.window.height = 400
+    page.window.width = 400
     page.theme_mode = ft.ThemeMode.DARK
 
     AppController(page)
