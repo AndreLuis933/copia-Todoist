@@ -9,7 +9,7 @@ class Card_adicionar_tarefa(Container):
         self.hover_control = hover_control
         self.ativar_envio = AtivarEnvio(self)
         self.hover_control.card_container = self
-        self.visible = True
+        self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
@@ -42,10 +42,18 @@ class Card_adicionar_tarefa(Container):
         )
 
     def enviar(self, e):
-        title = self.content.controls[0].content.controls[0].value
-        description = self.content.controls[0].content.controls[1].value
-        values =[title, description]
+        title_field = self.content.controls[0].content.controls[0]
+        description_field = self.content.controls[0].content.controls[1]
+
+        title = title_field.value
+        description = description_field.value
+        values = [title, description]
+
         salvar_tarefa(values)
+
+        title_field.value = ""
+        description_field.value = ""
+
         self.visible = False
         self.update()
 

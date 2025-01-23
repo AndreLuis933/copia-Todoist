@@ -13,3 +13,9 @@ def salvar_tarefa(tarefas):
         session.rollback()
     finally:
         session.close()
+        
+def listar_tarefas():
+    session = Session()
+    tarefas = session.query(Tarefa).all()
+    session.close()
+    return tarefas

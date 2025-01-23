@@ -95,10 +95,10 @@ class TodoApp(Column):
 
     def adicionar_tarefas(self):
         tarefas_padrao = [
-            # "Comprar leite",
-            # "Fazer exercícios",
-            # "Ler um livro",
-            # "Ligar para o médico",
+            "Comprar leite",
+            "Fazer exercícios",
+            "Ler um livro",
+            "Ligar para o médico",
         ]
         for tarefa_nome in tarefas_padrao:
             tarefa = Tarefa(
