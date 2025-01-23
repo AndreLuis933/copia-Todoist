@@ -8,7 +8,6 @@ class Card_prioridade(Container):
         self.visible = False
         self.selected_priority = None
         self.width = 150
-        self.height = 160
         self.left = 350
         self.top = 170
         self.bgcolor = "#1E1E1E"
@@ -31,7 +30,7 @@ class Card_prioridade(Container):
                 ],
             ),
             padding=padding.symmetric(vertical=4, horizontal=8),
-            height=self.height/4,
+            height=40,
             on_click=lambda e: self.select_priority(e, texto),
             bgcolor='#272727',
             on_hover=high_light,

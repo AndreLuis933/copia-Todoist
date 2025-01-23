@@ -1,9 +1,13 @@
-from tzlocal import get_localzone
+import flet as ft
 
-def obter_fuso_horario_atual():
-    # Obtém o fuso horário local
-    fuso_local = get_localzone()
-    return f"{fuso_local}\nSeu fuso horário atual"
+def main(page: ft.Page):
+    page.add(
+        ft.Row([
+            ft.Icon(ft.icons.ADJUST),
+            ft.Icon(ft.icons.ADJUST_SHARP),
+            ft.Icon(ft.icons.ADJUST_ROUNDED),
+            ft.Icon(ft.icons.ADJUST_OUTLINED),
+        ])
+    )
 
-# Uso
-print(obter_fuso_horario_atual())
+ft.app(target=main)

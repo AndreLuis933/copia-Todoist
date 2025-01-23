@@ -93,7 +93,7 @@ class Card_adicionar_tarefa(Container):
                             padding=padding.symmetric(horizontal=8, vertical=6),
                             border_radius=border_radius.all(5),
                             ink=True,
-                            on_click=lambda e: None,
+                            on_click=lambda e: self.controler.show_more_options(e),
                             border=border.all(0.3, Colors.OUTLINE),
                         ),
                     ],
