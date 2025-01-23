@@ -1,3 +1,7 @@
-from app.database.operations import *
+a = ''
 
-print(listar_tarefas())
+
+if a == '':
+    print("True")
+else:
+    print("False")
