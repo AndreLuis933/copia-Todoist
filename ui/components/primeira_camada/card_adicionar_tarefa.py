@@ -1,5 +1,4 @@
 from flet import *
-from ..animations.card_adicionar_tarefa.ativar_envio import AtivarEnvio
 from app.database.operations import salvar_tarefa
 
 class Card_adicionar_tarefa(Container):
@@ -7,7 +6,6 @@ class Card_adicionar_tarefa(Container):
         super().__init__()
         self.controler = controler
         self.hover_control = hover_control
-        self.ativar_envio = AtivarEnvio(self)
         self.hover_control.card_container = self
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
@@ -66,7 +64,7 @@ class Card_adicionar_tarefa(Container):
                             TextField(
                                 hint_text="Nome da tarefa",
                                 autofocus=True,
-                                on_change=lambda e: self.ativar_envio.ativar_envio(e),
+                                on_change=lambda e: self.hover_control.ativar_envio(e),
                                 border=InputBorder.NONE,
                                 height=30,
                             ),
