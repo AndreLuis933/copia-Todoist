@@ -1,6 +1,9 @@
 storage/
 __pycache__/
 
+# Database
+*.db
+
 # Environments
 .vscode/
 .env

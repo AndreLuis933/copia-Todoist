@@ -1,6 +1,6 @@
 from flet import *
 from ..animations.card_adicionar_tarefa.ativar_envio import AtivarEnvio
-
+from app.database.operations import salvar_tarefa
 
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler, hover_control):
@@ -9,7 +9,7 @@ class Card_adicionar_tarefa(Container):
         self.hover_control = hover_control
         self.ativar_envio = AtivarEnvio(self)
         self.hover_control.card_container = self
-        self.visible = False
+        self.visible = True
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
@@ -41,9 +41,17 @@ class Card_adicionar_tarefa(Container):
             border=border.all(0.3, Colors.OUTLINE),
         )
 
+    def enviar(self, e):
+        title = self.content.controls[0].content.controls[0].value
+        description = self.content.controls[0].content.controls[1].value
+        values =[title, description]
+        salvar_tarefa(values)
+        self.visible = False
+        self.update()
+
     def build(self):
         return Column(
-            controls=[
+            [
                 Container(
                     Column(
                         controls=[
@@ -113,7 +121,7 @@ class Card_adicionar_tarefa(Container):
                         ),
                         ElevatedButton(
                             text="Adicionar tarefa",
-                            on_click=lambda e: print("adicionar tarefa"),
+                            on_click=lambda e: self.enviar(e),
                             disabled=True,
                             bgcolor=Colors.RED_900,
                             color=Colors.WHITE,

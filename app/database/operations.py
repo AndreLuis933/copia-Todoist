@@ -1,20 +1,15 @@
-import os
-from .setup import Session, Tarefa, ENGINE, Base
+from .setup import Tarefa, Session
 
 
-def database_exists():
-    return os.path.exists(
-        os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "TODO.db"
-        )
-    )
-
-
-def create_tables():
-    Base.metadata.create_all(ENGINE)
-
-
-if not database_exists():
-    print("Criando banco de dados...")
-    create_tables()
-
+def salvar_tarefa(tarefas):
+    tarefa = Tarefa(nome=tarefas[0], descricao=tarefas[1])
+    session = Session()
+    try:
+        session.add(tarefa)
+        session.commit()
+        print("Tarefa salva com sucesso!")
+    except Exception as e:
+        print(f"Erro ao salvar tarefa: {e}")
+        session.rollback()
+    finally:
+        session.close()
