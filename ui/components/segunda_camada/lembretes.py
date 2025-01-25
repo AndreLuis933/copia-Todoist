@@ -4,8 +4,9 @@ from ..unitarios.dropdow import downdown_custon
 
 
 class Lembretes(Container):
-    def __init__(self):
+    def __init__(self,controler):
         super().__init__()
+        self.controler = controler
         self.visible = False
         self.padding = 10
         self.bgcolor = Colors.GREY_900
@@ -34,7 +35,7 @@ class Lembretes(Container):
         selecionada = self.content.controls[1].selected_index
         tab = self.content.controls[1].tabs[selecionada]
 
-        print(tab.content.content.controls[0].content.value)
+        print(tab.content.content.controls[0].value)
 
     def tabs(self, title, content_dropdown, description):
         return Tab(

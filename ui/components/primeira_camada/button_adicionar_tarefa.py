@@ -28,6 +28,7 @@ class Button_adicionar_tarefa(Container):
                         Icon(
                             name=Icons.ADD,
                             color=Colors.RED,
+                            opacity=0.9,
                             size=self.button_height,
                         ),
                     ],
@@ -35,7 +36,7 @@ class Button_adicionar_tarefa(Container):
                 ),
                 Text(
                     "Adicionar tarefa",
-                    color=Colors.WHITE,
+                    color=Colors.WHITE54,
                     size=14,
                 ),
             ],

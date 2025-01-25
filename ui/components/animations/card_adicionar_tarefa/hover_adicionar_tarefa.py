@@ -31,7 +31,7 @@ class HoverAdicionarTarefa:
             self.button.content.controls[0].controls[1].name = Icons.ADD_CIRCLE
             self.button.content.controls[0].controls[0].visible = True
         else:
-            self.button.content.controls[1].color = Colors.WHITE
+            self.button.content.controls[1].color = Colors.WHITE54
             self.button.content.controls[0].controls[1].name = Icons.ADD
             self.button.content.controls[0].controls[0].visible = False
 

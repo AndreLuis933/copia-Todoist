@@ -6,9 +6,10 @@ from ..animations.calendar.on_scroll import OnScroll
 
 
 class Calendario(Container):
-    def __init__(self, config: CalendarioConfig = CalendarioConfig()):
+    def __init__(self,controler, config: CalendarioConfig = CalendarioConfig()):
         super().__init__()
         self.current_date = datetime.now()
+        self.controler = controler
         self.on_scroll = OnScroll(self)
         self.months_loaded = 0
         self.config = config
@@ -86,9 +87,12 @@ class Calendario(Container):
             and day == self.current_date.day
         )
 
-    def selecionar_data(self, e, month_name, year):
+    def selecionar_data(self, e, month, year):
         dia = e.control.content.value
-        print(f"{dia}/{month_name}/{year}")
+        data_datetime = datetime.strptime(f"{dia}/{month}/{year}", "%d/%m/%Y")
+        self.controler.save.vencimento = data_datetime
+
+        print(data_datetime)
 
     def header(self, month, ano=None):
         month_name = calendar.month_name[month].capitalize()[:3]

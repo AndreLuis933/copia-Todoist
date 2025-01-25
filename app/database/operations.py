@@ -17,7 +17,8 @@ def session_scope():
 
 def salvar_tarefa(tarefas):
     with session_scope() as session:
-        tarefa = Tarefa(titulo=tarefas[0], descricao=tarefas[1])
+        print(tarefas)
+        tarefa = Tarefa(*tarefas)
         session.add(tarefa)
         session.commit()
         print("Tarefa salva com sucesso!")
@@ -28,10 +29,16 @@ def listar_tarefas():
         tarefas = session.query(Tarefa).all()
         tarefas_lista = []
         for tarefa in tarefas:
-            tarefa_dict = {
-                'id': tarefa.id,
-                'titulo': tarefa.titulo,
-                'descricao': tarefa.descricao,
-            }
+            tarefa_dict = [
+                tarefa.id,
+                tarefa.titulo,
+                tarefa.prioridade,
+                tarefa.descricao,
+                tarefa.vencimento,
+                tarefa.prazo,
+                tarefa.lembrete,
+                tarefa.local,
+                tarefa.tag
+            ]
             tarefas_lista.append(tarefa_dict)
         return tarefas_lista

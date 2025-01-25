@@ -3,15 +3,16 @@ from ui.components.segunda_camada.lembretes import Lembretes
 from ui.components.segunda_camada.prioridade import Card_prioridade
 from ui.components.segunda_camada.tarefa_vencimento import Tarefa_vencimento
 from ui.components.utils.calendar import Calendario
-from .more_options import MoreOptions
+from ui.components.segunda_camada.more_options import MoreOptions
 
 
 class ControlerSegundaCamada:
-    def __init__(self):
-        self.calendario = Calendario()
-        self.prioridade = Card_prioridade()
+    def __init__(self,save):
+        self.save = save
+        self.calendario = Calendario(self)
+        self.prioridade = Card_prioridade(self)
         self.tarefa = Tarefa_vencimento(self.calendario)
-        self.lembretes = Lembretes()
+        self.lembretes = Lembretes(self)
         self.more_options = MoreOptions()
         self.calendario.load_more_months(3)
         self.controls = [self.prioridade, self.tarefa, self.lembretes, self.more_options]

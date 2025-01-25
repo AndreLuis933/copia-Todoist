@@ -1,5 +1,5 @@
 from flet import *
-from ui.components.primeira_camada.controler import ControlerPrimeiraCamada
+from ui.controller.camadas.primeira import ControlerPrimeiraCamada
 
 
 class HomeView:
@@ -35,11 +35,12 @@ class HomeView:
                 # 3 camada
                 segunda_camada.tarefa.hora,
             ],
-            width=self.page.window.width,
-            height=self.page.window.height,
+            expand=True,
+            #width=self.page.window.width,
+            #height=self.page.window.height,
         )
 
-        self.page.on_resized = self.update_layout
+        #self.page.on_resized = self.update_layout
 
         return self.content
 

@@ -2,9 +2,10 @@ from flet import *
 from app.database.operations import salvar_tarefa
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, controler, hover_control):
+    def __init__(self, controler_primeira, controler_segunda, hover_control):
         super().__init__()
-        self.controler = controler
+        self.controler_primeira = controler_primeira
+        self.controler_segunda = controler_segunda
         self.hover_control = hover_control
         self.hover_control.card_container = self
         self.visible = False
@@ -45,12 +46,12 @@ class Card_adicionar_tarefa(Container):
 
         title = title_field.value.strip()
         description = description_field.value.strip()
-        values = [title, description]
-
-        salvar_tarefa(values)
-
+        
+        self.controler_primeira.save.title = title
+        self.controler_primeira.save.description = description
+        self.controler_primeira.save.save_clicked()
         self.hover_control.toggle_card(e)
-        self.update()
+
 
     def build(self):
         return Column(
@@ -83,17 +84,17 @@ class Card_adicionar_tarefa(Container):
                         self.card_definitions(
                             Icons.CALENDAR_TODAY,
                             "Vencimento",
-                            self.controler.show_tarefa,
+                            self.controler_segunda.show_tarefa,
                         ),
                         self.card_definitions(
                             Icons.FLAG,
                             "Prioridade",
-                            self.controler.show_prioridade,
+                            self.controler_segunda.show_prioridade,
                         ),
                         self.card_definitions(
                             Icons.NOTIFICATIONS,
                             "Lembretes",
-                            self.controler.show_lembretes,
+                            self.controler_segunda.show_lembretes,
                         ),
                         Container(
                             content=Icon(
@@ -104,7 +105,7 @@ class Card_adicionar_tarefa(Container):
                             padding=padding.symmetric(horizontal=8, vertical=6),
                             border_radius=border_radius.all(5),
                             ink=True,
-                            on_click=lambda e: self.controler.show_more_options(e),
+                            on_click=lambda e: self.controler_segunda.show_more_options(e),
                             border=border.all(0.3, Colors.OUTLINE),
                         ),
                     ],

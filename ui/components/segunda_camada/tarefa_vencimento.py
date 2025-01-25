@@ -8,7 +8,7 @@ from tzlocal import get_localzone
 
 
 class Tarefa_vencimento(Container):
-    def __init__(self, calendario):
+    def __init__(self,calendario):
         super().__init__()
         self.calendario = calendario
         self.visible = False
