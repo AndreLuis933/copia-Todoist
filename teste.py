@@ -1,10 +1,22 @@
-from datetime import datetime
-import locale
+from datetime import datetime, timedelta
 
-# Criar o objeto datetime
-dt = datetime(2025, 1, 26, 19, 45, 0)
+def is_today_or_tomorrow(time_str):
+    # Obter o horário atual
+    now = datetime.now()
+    
+    # Converter a string de tempo para um objeto datetime
+    given_time = datetime.strptime(time_str, "%I:%M %p")
+    
+    # Combinar a data de hoje com o horário fornecido
+    today_time = now.replace(hour=given_time.hour, minute=given_time.minute, second=0, microsecond=0)
+    
+    # Se o horário já passou hoje, será amanhã
+    if now > today_time:
+        return "Amanhã"
+    else:
+        return "Hoje"
 
-# Converter para o formato desejado
-formatted_date = dt.strftime('%b %d %I:%M %p')
-print(locale.getlocale())
-print(formatted_date)
+# Exemplo de uso
+time_str = "07:00 PM"
+result = is_today_or_tomorrow(time_str)
+print(f"O horário {time_str} será {result}.")
