@@ -4,16 +4,14 @@ from ..unitarios.dropdow import downdown_custon
 
 
 class Lembretes(Container):
-    def __init__(self,controler):
+    def __init__(self, controler):
         super().__init__()
         self.controler = controler
         self.visible = True
         self.padding = 10
         self.bgcolor = Colors.GREY_900
-        #self.width = 300
-        #self.height = 300
-        #self.left = 470
-        #self.top = 170
+
+        self.expand = True
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = [
@@ -33,7 +31,7 @@ class Lembretes(Container):
 
     def envio(self, e):
         selecionada = self.content.controls[1].selected_index
-        tab = self.content.controls[1].tabs[selecionada]
+        tab = self.content.controls[2].controls[0].tabs[selecionada]
 
         print(tab.content.content.controls[0].value)
 
@@ -43,7 +41,7 @@ class Lembretes(Container):
             content=Container(
                 Column(
                     [
-                        downdown_custon(content_dropdown,Icons.ACCESS_TIME_FILLED),
+                        downdown_custon(content_dropdown, Icons.ACCESS_TIME_FILLED),
                         Text(
                             description,
                             size=14,
@@ -59,40 +57,49 @@ class Lembretes(Container):
         return Column(
             [
                 Text("Lembretes", size=16, weight="bold"),
-                Tabs(
-                    selected_index=0,
-                    animation_duration=300,
-                    tabs=[
-                        self.tabs(
-                            "Data & Hora",
-                            self.horarios,
-                            "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
-                        ),
-                        self.tabs(
-                            "Antes da Tarefa",
-                            self.opcoes_dropdown_2,
-                            "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
-                        ),
-                    ],
-                    width=300,
-                    height=190,
-                ),
-                Row(
+                Column([
+                    Text(
+                    'sem tamanho definido'
+                )]),
+                Column(
                     [
-                        ElevatedButton(
-                            text="Adicionar lembrete",
-                            on_click=lambda e: self.envio(e),
-                            bgcolor=Colors.RED,
-                            color=Colors.WHITE,
-                            style=ButtonStyle(
-                                shape=RoundedRectangleBorder(radius=4),
-                            ),
-                        )
+                        Tabs(
+                            selected_index=0,
+                            animation_duration=300,
+                            tabs=[
+                                self.tabs(
+                                    "Data & Hora",
+                                    self.horarios,
+                                    "Defina uma notificação para um horário específico (09h00) ou data e horário (seg 18h00).",
+                                ),
+                                self.tabs(
+                                    "Antes da Tarefa",
+                                    self.opcoes_dropdown_2,
+                                    "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+                                ),
+                            ],
+                            width=300,
+                            height=190,
+                        ),
+                        Row(
+                            [
+                                ElevatedButton(
+                                    text="Adicionar lembrete",
+                                    on_click=lambda e: self.envio(e),
+                                    bgcolor=Colors.RED,
+                                    color=Colors.WHITE,
+                                    style=ButtonStyle(
+                                        shape=RoundedRectangleBorder(radius=4),
+                                    ),
+                                )
+                            ],
+                            alignment=MainAxisAlignment.END,
+                        ),
                     ],
-                    alignment=MainAxisAlignment.END,
+                    spacing=0,
+                    height=270,
+                    width=270,
                 ),
             ],
-            height=270,
-            width=270,
             spacing=0,
         )
