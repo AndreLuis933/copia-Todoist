@@ -1,5 +1,6 @@
 from flet import *
 from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo
+from ..utils.is_today_or_tomorrow import is_today_or_tomorrow
 from ..unitarios.dropdow import downdown_custon
 
 
@@ -60,10 +61,13 @@ class Lembretes(Container):
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
+        
+        resultado = tab.content.content.controls[0].value
+        resultado, string = is_today_or_tomorrow(resultado)
 
-        self.content.controls[1].controls.append(self.adicionar_lembrete(tab.content.content.controls[0].value))
+        self.content.controls[1].controls.append(self.adicionar_lembrete(resultado))
 
-        print(tab.content.content.controls[0].value)
+        print(resultado)
         self.update()
 
     def tabs(self, title, content_dropdown, description):
