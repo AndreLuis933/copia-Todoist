@@ -10,7 +10,7 @@ class Lembretes(Container):
         self.visible = True
         self.padding = 10
         self.bgcolor = Colors.GREY_900
-        #self.width = 300
+        # self.width = 300
         # self.height = 300
         # self.left = 470
         # self.top = 170
@@ -31,12 +31,30 @@ class Lembretes(Container):
             "1 semana antes",
         ]
         self.content = self.build()
+        self.content.controls[1].controls.append(self.adicionar_lembrete())
+
+    def adicionar_lembrete(self, data=None):
+        return Container(
+            Row(
+                [
+                    Icon(Icons.ACCESS_TIME_FILLED),
+                    Text("Lembre-me de mim em 10 min", size=14),
+                    Container(expand=True),
+                    
+                    Icon(Icons.CLOSE),
+                ],
+                expand=True,
+                alignment=MainAxisAlignment.SPACE_BETWEEN,
+            ),
+            width=270,
+            expand=True
+        )
 
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
-        
-        self.content.controls[1].controls.append(Text(tab.content.content.controls[0].value))
+
+        self.content.controls[1].controls.append(self.adicionar_lembrete())
 
         print(tab.content.content.controls[0].value)
         self.update()
@@ -63,10 +81,7 @@ class Lembretes(Container):
         return Column(
             [
                 Text("Lembretes", size=16, weight="bold"),
-                Column([
-                    Text(
-                    'sem tamanho definido'
-                )for _ in range(1)]),
+                Column(),
                 Column(
                     [
                         Tabs(
