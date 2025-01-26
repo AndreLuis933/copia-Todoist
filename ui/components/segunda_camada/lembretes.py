@@ -33,8 +33,6 @@ class Lembretes(Container):
             "1 semana antes",
         ]
         self.content = self.build()
-        self.content.controls[1].controls.append(self.adicionar_lembrete())
-        self.content.controls[1].controls.append(self.adicionar_lembrete())
 
     def adicionar_lembrete(self, data=None):
         return Container(
@@ -63,11 +61,12 @@ class Lembretes(Container):
         tab = self.content.controls[2].controls[0].tabs[selecionada]
         
         resultado = tab.content.content.controls[0].value
-        resultado, string = is_today_or_tomorrow(resultado)
+        if not selecionada:
+            hora_date, resultado = is_today_or_tomorrow(resultado)
 
         self.content.controls[1].controls.append(self.adicionar_lembrete(resultado))
 
-        print(resultado)
+        
         self.update()
 
     def tabs(self, title, content_dropdown, description):

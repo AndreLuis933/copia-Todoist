@@ -18,7 +18,7 @@ def is_today_or_tomorrow(time_str):
         return [today_time, f"Hoje {time_str}"]
 
 # Exemplo de uso
-time_str = "09:00 PM"
+time_str = "08:00 PM"
 result_datetime, result_string = is_today_or_tomorrow(time_str)
 print(f"Datetime: {result_datetime}")
 print(f"String: {result_string}")
