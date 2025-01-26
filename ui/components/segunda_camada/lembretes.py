@@ -32,22 +32,29 @@ class Lembretes(Container):
         ]
         self.content = self.build()
         self.content.controls[1].controls.append(self.adicionar_lembrete())
+        self.content.controls[1].controls.append(self.adicionar_lembrete())
 
     def adicionar_lembrete(self, data=None):
         return Container(
-            Row(
+            Column(
                 [
-                    Icon(Icons.ACCESS_TIME_FILLED),
-                    Text("Lembre-me de mim em 10 min", size=14),
-                    Container(expand=True),
-                    
-                    Icon(Icons.CLOSE),
+                    Row(
+                        [
+                            Icon(Icons.ACCESS_TIME_FILLED, color=Colors.WHITE54),
+                            Text("Lembre-me ", size=14),
+                            Container(expand=True),
+                            Container(
+                                Icon(Icons.CLOSE, size=14, color=Colors.WHITE54),
+                                on_click=lambda e: print("remover lembrete"),
+                            ),
+                        ],
+                    ),
+                    Divider(height=2),
                 ],
-                expand=True,
-                alignment=MainAxisAlignment.SPACE_BETWEEN,
+                # spacing=5,
             ),
+            padding=padding.only(top=6, left=10, right=10),
             width=270,
-            expand=True
         )
 
     def envio(self, e):
@@ -80,7 +87,11 @@ class Lembretes(Container):
     def build(self):
         return Column(
             [
-                Text("Lembretes", size=16, weight="bold"),
+                Text(
+                    "Lembretes",
+                    size=16,
+                    weight="bold",
+                ),
                 Column(),
                 Column(
                     [
