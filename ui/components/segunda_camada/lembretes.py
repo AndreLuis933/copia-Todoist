@@ -1,6 +1,6 @@
 from flet import *
-from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo
-from ..unitarios.dropdow import downdown_custon
+#from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo
+#from ..unitarios.dropdow import downdown_custon
 
 
 class Lembretes(Container):
@@ -10,10 +10,12 @@ class Lembretes(Container):
         self.visible = True
         self.padding = 10
         self.bgcolor = Colors.GREY_900
-
-        self.expand = True
+        #self.width = 300
+        # self.height = 300
+        # self.left = 470
+        # self.top = 170
         self.border_radius = 10
-        self.horarios = gerar_horarios_24h_15min_intervalo()
+        self.horarios = None  #gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = [
             "No horário da tarefa",
             "10 min antes",
@@ -41,7 +43,7 @@ class Lembretes(Container):
             content=Container(
                 Column(
                     [
-                        downdown_custon(content_dropdown, Icons.ACCESS_TIME_FILLED),
+                        #downdown_custon(content_dropdown, Icons.ACCESS_TIME_FILLED),
                         Text(
                             description,
                             size=14,
@@ -103,3 +105,8 @@ class Lembretes(Container):
             ],
             spacing=0,
         )
+
+if __name__ == "__main__":
+    def main(page: Page):
+        page.add(Lembretes(controler=None))
+    app(target=Lembretes)
