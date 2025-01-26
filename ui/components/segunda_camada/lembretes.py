@@ -14,6 +14,7 @@ class Lembretes(Container):
         # self.height = 300
         # self.left = 470
         # self.top = 170
+        self.lembretes = []
         self.top = 1
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
@@ -41,7 +42,7 @@ class Lembretes(Container):
                     Row(
                         [
                             Icon(Icons.ACCESS_TIME_FILLED, color=Colors.WHITE54),
-                            Text("Lembre-me ", size=14),
+                            Text(data, size=14,color=Colors.WHITE),
                             Container(expand=True),
                             Container(
                                 Icon(Icons.CLOSE, size=14, color=Colors.WHITE54),
@@ -51,7 +52,6 @@ class Lembretes(Container):
                     ),
                     Divider(height=2),
                 ],
-                # spacing=5,
             ),
             padding=padding.only(top=6, left=10, right=10),
             width=270,
@@ -61,7 +61,7 @@ class Lembretes(Container):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
 
-        self.content.controls[1].controls.append(self.adicionar_lembrete())
+        self.content.controls[1].controls.append(self.adicionar_lembrete(tab.content.content.controls[0].value))
 
         print(tab.content.content.controls[0].value)
         self.update()
