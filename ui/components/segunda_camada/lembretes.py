@@ -7,13 +7,13 @@ class Lembretes(Container):
     def __init__(self,controler):
         super().__init__()
         self.controler = controler
-        self.visible = False
+        self.visible = True
         self.padding = 10
         self.bgcolor = Colors.GREY_900
-        self.width = 300
-        self.height = 300
-        self.left = 470
-        self.top = 170
+        #self.width = 300
+        #self.height = 300
+        #self.left = 470
+        #self.top = 170
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = [
@@ -58,7 +58,7 @@ class Lembretes(Container):
     def build(self):
         return Column(
             [
-                Text("Lembretes", size=20, weight="bold"),
+                Text("Lembretes", size=16, weight="bold"),
                 Tabs(
                     selected_index=0,
                     animation_duration=300,
@@ -92,5 +92,7 @@ class Lembretes(Container):
                     alignment=MainAxisAlignment.END,
                 ),
             ],
+            height=270,
+            width=270,
             spacing=0,
         )
