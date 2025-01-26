@@ -26,7 +26,7 @@ class ControlerPrimeiraCamada(Row):
 
     def build(self):
         return [
-            Slidbar(),
+            #Slidbar(),
             Column(
                 controls=[
                     Text("Entrada", size=20, weight="bold", max_lines=1),

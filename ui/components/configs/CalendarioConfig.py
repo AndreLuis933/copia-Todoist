@@ -2,7 +2,9 @@ from dataclasses import dataclass
 
 @dataclass
 class CalendarioConfig:
-    tamanho: int = 20
+    height_container: int = 25
+    width_container: int = 20
+    size_text_header: int = 16
     padding: int = 8
     height: int = 305
     width: int = 250

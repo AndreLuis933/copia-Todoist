@@ -12,7 +12,6 @@ def set_default_locale():
 @contextmanager
 def temp_locale(temp_locale):    
     try:
-
         locale.setlocale(locale.LC_TIME, temp_locale)
         yield
     finally:

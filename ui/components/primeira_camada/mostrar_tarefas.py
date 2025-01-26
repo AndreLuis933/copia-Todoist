@@ -4,7 +4,6 @@ from app.database.operations import listar_tarefas
 class TodoApp(Column):
     def __init__(self):
         super().__init__()
-        # self.width = 600
         self.scroll = ScrollMode.ALWAYS
         self.expand = True
         self.adicionar_tarefas()

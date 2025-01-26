@@ -4,7 +4,6 @@ from ui.components.utils.locale_config import set_default_locale
 from app.database.setup import ENGINE, Base, DB_PATH
 import os
 
-
 def database_exists():
     return os.path.exists(DB_PATH)
 
@@ -19,8 +18,8 @@ set_default_locale()
 def main(page: ft.Page):
     page.title = "Todo App"
     page.window.always_on_top = True
-    page.window.height = 700
-    page.window.width = 700
+    page.window.height = 900
+    page.window.width = 600
     page.theme_mode = ft.ThemeMode.DARK
 
     AppController(page)

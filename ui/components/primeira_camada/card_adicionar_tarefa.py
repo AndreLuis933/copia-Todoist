@@ -8,7 +8,7 @@ class Card_adicionar_tarefa(Container):
         self.controler_segunda = controler_segunda
         self.hover_control = hover_control
         self.hover_control.card_container = self
-        self.visible = False
+        self.visible = True
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
