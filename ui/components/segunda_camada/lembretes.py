@@ -108,5 +108,7 @@ class Lembretes(Container):
 
 if __name__ == "__main__":
     def main(page: Page):
+        page.window.allways_on_top = True
         page.add(Lembretes(controler=None))
-    app(target=Lembretes)
+        page.update()
+    app(target=main)
