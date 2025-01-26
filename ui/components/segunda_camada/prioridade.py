@@ -5,11 +5,11 @@ from ..animations.prioridade.high_light import high_light
 class Card_prioridade(Container):
     def __init__(self, controler):
         super().__init__()
-        self.visible = False
+        self.visible = True
         self.controler = controler
         self.selected_priority = None
         self.width = 150
-        self.left = 350
+        #self.left = 350
         self.top = 170
         self.bgcolor = "#1E1E1E"
         self.border = border.all(0.5, Colors.OUTLINE)
@@ -17,9 +17,12 @@ class Card_prioridade(Container):
         self.content = self.build()
 
     def select_priority(self, e, priority):
-        self.controler.save.prioridade = int(priority.split()[1])
+        priority = int(priority.split()[1])
+        self.controler.save.prioridade = priority
         self.visible = False
-        print(f"Prioridade selecionada: {priority}")
+        for i in range(4):
+            self.content.controls[i].content.controls[2].visible = False
+        self.content.controls[priority-1].content.controls[2].visible = True
         self.update()
 
     def cards_prioridade(self, icon, cor, texto):
@@ -28,6 +31,7 @@ class Card_prioridade(Container):
                 controls=[
                     Icon(icon, color=cor, size=22),
                     Text(texto, size=14),
+                    Icon(Icons.CHECK,size=14,color=Colors.RED,visible=False),
                 ],
             ),
             padding=padding.symmetric(vertical=4, horizontal=8),

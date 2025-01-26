@@ -17,7 +17,7 @@ class Tarefa_vencimento(Container):
         super().__init__()
         self.controler = controler
         self.calendario = calendario
-        self.visible = True
+        self.visible = False
         self.current_date = self.calendario.current_date
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
