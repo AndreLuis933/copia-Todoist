@@ -15,7 +15,6 @@ class Lembretes(Container):
         # self.left = 470
         # self.top = 170
         self.top = 1
-        self.expand = True
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = [
@@ -34,10 +33,13 @@ class Lembretes(Container):
         self.content = self.build()
 
     def envio(self, e):
-        selecionada = self.content.controls[1].selected_index
+        selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
+        
+        self.content.controls[1].controls.append(Text(tab.content.content.controls[0].value))
 
         print(tab.content.content.controls[0].value)
+        self.update()
 
     def tabs(self, title, content_dropdown, description):
         return Tab(
@@ -64,7 +66,7 @@ class Lembretes(Container):
                 Column([
                     Text(
                     'sem tamanho definido'
-                )]),
+                )for _ in range(1)]),
                 Column(
                     [
                         Tabs(
@@ -101,9 +103,7 @@ class Lembretes(Container):
                         ),
                     ],
                     spacing=0,
-                    height=270,
                     width=270,
                 ),
             ],
-            spacing=0,
         )
