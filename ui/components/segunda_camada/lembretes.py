@@ -63,6 +63,7 @@ class Lembretes(Container):
         for i, item in enumerate(parent_list):
             if item.content.controls[0].controls[1].value == date:
                 parent_list.pop(i)
+                print('sdfa')
                 break
         
         self.update()
