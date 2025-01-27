@@ -33,7 +33,7 @@ class Lembretes(Container):
         ]
         self.content = self.build()
 
-    def adicionar_lembrete(self, data_string=None, date=None):
+    def adicionar_lembrete(self, data_string,date, indice):
         return Container(
             Column(
                 [
@@ -44,7 +44,7 @@ class Lembretes(Container):
                             Container(expand=True),
                             Container(
                                 Icon(Icons.CLOSE, size=14, color=Colors.WHITE54),
-                                on_click=lambda e: self.deletar(e,date),
+                                on_click=lambda e: self.deletar(e,date,indice),
                             ),
                         ],
                     ),
@@ -55,17 +55,10 @@ class Lembretes(Container):
             width=270,
         )
 
-    def deletar(self, e, date):
-        # container_to_remove = e.control.parent.parent
-        # container_to_remove.visible = False
-        
-        # parent_list = self.content.controls[1].controls
-        # for i, item in enumerate(parent_list):
-        #     if item.content.controls[0].controls[1].value == date:
-        #         parent_list.pop(i)
-        #         print('sdfa')
-        #         break
-        
+    def deletar(self,e, date, indice):        
+        #self.content.controls[1].controls.pop(indice)
+        self.content.controls[1].controls.remove(self.content.controls[1].controls[indice])
+        self.controler.save.lembrete.remove(date)
         self.update()
         
     def envio(self, e):
@@ -75,11 +68,11 @@ class Lembretes(Container):
         resultado = tab.content.content.controls[0].value
         if not selecionada:
             date, resultado = is_today_or_tomorrow(resultado)
-        tamanho = len(self.content.controls[1].controls)
-        self.content.controls[1].controls.append(self.adicionar_lembrete(resultado,tamanho))
+        indice = len(self.content.controls[1].controls)
+        self.content.controls[1].controls.append(self.adicionar_lembrete(resultado,date,indice))
         self.controler.save.lembrete.append(date)
         self.update()
-        print(self.controler.save.lembrete)
+        #print(self.controler.save.lembrete)
 
     def tabs(self, title, content_dropdown, description):
         return Tab(
