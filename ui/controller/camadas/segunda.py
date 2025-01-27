@@ -23,6 +23,10 @@ class ControlerSegundaCamada:
             self.more_options,
             
         ]
+        
+    def atualizar_lembretes(self):
+        self.lembretes.content = self.lembretes.build()
+        self.update()
 
     def detector(self):
         return GestureDetector(

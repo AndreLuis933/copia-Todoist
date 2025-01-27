@@ -78,6 +78,7 @@ class Tarefa_vencimento(Container):
             data = datetime.now()
         self.controler.save.vencimento = datetime.combine(data.date(), horario)
         self.controler.save.hora = horario
+        self.controler.atualizar_lembretes()
         self.show_hora(e)
         self.update_text()
 

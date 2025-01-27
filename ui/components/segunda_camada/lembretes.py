@@ -76,8 +76,21 @@ class Lembretes(Container):
         )
         self.controler.save.lembrete.append(date)
         self.update()
+    
+    def texto_alternativo(self):
+        print(self.controler.save.hora)
+        return Container(
+            Column(
+                [
+                    Text(
+                        "Primeiro adicione um horário à tarefa.",
+                        size=14,
+                    ),
+                ]
+            ),
+        ) if self.controler.save.hora is None else None
 
-    def tabs(self, title, content_dropdown, description):
+    def tabs(self, title, content_dropdown, description, condicao = None):
         return Tab(
             text=title,
             content=Container(
@@ -92,8 +105,9 @@ class Lembretes(Container):
                 ),
                 padding=10,
                 border_radius=20,
-            ),
+            ) if not condicao else condicao,
         )
+        
 
     def build(self):
         return Column(
@@ -119,6 +133,7 @@ class Lembretes(Container):
                                     "Antes da Tarefa",
                                     self.opcoes_dropdown_2,
                                     "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+                                    self.texto_alternativo()
                                 ),
                             ],
                             width=300,
