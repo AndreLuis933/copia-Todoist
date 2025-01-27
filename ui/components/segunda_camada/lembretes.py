@@ -15,7 +15,6 @@ class Lembretes(Container):
         # self.height = 300
         # self.left = 470
         # self.top = 170
-        self.lembretes = []
         self.top = 1
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
@@ -56,11 +55,18 @@ class Lembretes(Container):
             width=270,
         )
 
-    def deletar(self, e,date):
-        e.control.parent.parent.visible = False
-        self.lembretes.remove(date)
+    def deletar(self, e, date):
+        container_to_remove = e.control.parent.parent
+        container_to_remove.visible = False
+        
+        parent_list = self.content.controls[1].controls
+        for i, item in enumerate(parent_list):
+            if item.content.controls[0].controls[1].value == date:
+                parent_list.pop(i)
+                break
+        
         self.update()
-
+        
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
@@ -68,11 +74,11 @@ class Lembretes(Container):
         resultado = tab.content.content.controls[0].value
         if not selecionada:
             date, resultado = is_today_or_tomorrow(resultado)
-
+        []
         self.content.controls[1].controls.append(self.adicionar_lembrete(resultado,date))
-        self.lembretes.append(date)
-        print(self.lembretes)
+        self.controler.save.lembrete.append(date)
         self.update()
+        print(self.controler.save.lembrete)
 
     def tabs(self, title, content_dropdown, description):
         return Tab(

@@ -8,7 +8,7 @@ class SaveInDB:
         self.description = None
         self.vencimento = None
         self.prioridade = None
-        self.lembrete = None
+        self.lembrete = []
         self.prazo = None
         self.local = None
         self.tag = None
