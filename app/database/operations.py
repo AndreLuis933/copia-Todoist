@@ -1,4 +1,4 @@
-from .setup import Tarefa, Session
+from .setup import Tarefa, Session, Lembrete
 from sqlalchemy.exc import SQLAlchemyError
 from contextlib import contextmanager
 
@@ -15,12 +15,15 @@ def session_scope():
         session.close()
 
 
-def salvar_tarefa(tarefas):
+def salvar_tarefa(tarefas,lembretes):
     with session_scope() as session:
         print(tarefas)
         tarefa = Tarefa(*tarefas)
         session.add(tarefa)
         session.commit()
+        for data_lembrete in lembretes:
+            lembrete = Lembrete(data=data_lembrete, tarefa=tarefa)
+            session.add(lembrete)
         print("Tarefa salva com sucesso!")
 
         
@@ -36,7 +39,7 @@ def listar_tarefas():
                 tarefa.descricao,
                 tarefa.vencimento,
                 tarefa.prazo,
-                tarefa.lembrete,
+                #tarefa.lembretes,
                 tarefa.local,
                 tarefa.tag
             ]

@@ -21,15 +21,20 @@ class ControlerSegundaCamada:
             self.tarefa,
             self.lembretes,
             self.more_options,
-            
         ]
-        
+
     def atualizar_lembretes(self):
-        self.lembretes.content = self.lembretes.build()
+        self.lembretes.content.controls[2].controls[0].tabs[1] = self.lembretes.tabs(
+            "Antes da Tarefa",
+            list(self.lembretes.opcoes_dropdown_2.keys()),
+            "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
+            self.lembretes.texto_alternativo(),
+        )
         self.update()
 
     def detector(self):
         return GestureDetector(
+            visible=False,
             on_tap=self.default,
             content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
         )
@@ -75,3 +80,4 @@ class ControlerSegundaCamada:
         for control in self.controls:
             if control.page:
                 control.page.update()
+                break

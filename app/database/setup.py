@@ -9,6 +9,7 @@ from sqlalchemy import (
     Date,
     ForeignKey,
     LargeBinary,
+    
 )
 from sqlalchemy.orm import relationship, declarative_base, sessionmaker
 from datetime import datetime, timezone
@@ -28,12 +29,13 @@ class Tarefa(Base):
     id = Column(Integer, primary_key=True)
     titulo = Column(String, nullable=False)
     descricao = Column(String, nullable=True)
-    vencimento = Column(Date, nullable=True)
+    vencimento = Column(DateTime, nullable=True)
     prioridade = Column(Integer, nullable=False, default=4, server_default="4")
-    lembrete = Column(DateTime, nullable=True)
-    prazo = Column(Time, nullable=True)
+    prazo = Column(DateTime, nullable=True)
     local = Column(String, nullable=True)
     tag = Column(String, nullable=True)
+    
+    lembretes = relationship("Lembrete", back_populates="tarefa")
 
     def __init__(
         self,
@@ -41,7 +43,6 @@ class Tarefa(Base):
         descricao,
         vencimento=None,
         prioridade=None,
-        lembrete=None,
         prazo=None,
         local=None,
         tag=None,
@@ -50,7 +51,18 @@ class Tarefa(Base):
         self.descricao = descricao
         self.vencimento = vencimento
         self.prioridade = prioridade
-        self.lembrete = lembrete
         self.prazo = prazo
         self.local = local
         self.tag = tag
+
+class Lembrete(Base):
+    __tablename__ = "lembretes"
+    id = Column(Integer, primary_key=True)
+    data = Column(DateTime, nullable=False)
+    tarefa_id = Column(Integer, ForeignKey('tarefas.id'))
+    
+    tarefa = relationship("Tarefa", back_populates="lembretes")
+
+    def __init__(self, data, tarefa):
+        self.data = data
+        self.tarefa = tarefa

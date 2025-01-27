@@ -97,7 +97,7 @@ class Calendario(Container):
 
     def salvar_data(self, data):
         if data is None:
-            self.controler.save.vencimento = None
+            self.controler.save.data = None
             self.remover_destaque()
         else:
             atual = self.controler.save.vencimento
@@ -107,7 +107,9 @@ class Calendario(Container):
                 data = datetime.combine(data.date(), atual.time())
 
             self.controler.save.vencimento = data
+            self.controler.save.data = data.date()
             self.buscar_data(data)
+        print(self.controler.save.data)
         #self.controler.hide_all()
         self.controler.tarefa.update_text()
 

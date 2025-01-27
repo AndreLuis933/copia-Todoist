@@ -1,6 +1,7 @@
 from flet import *
 from app.database.operations import salvar_tarefa
 
+
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler_primeira, controler_segunda, hover_control):
         super().__init__()
@@ -41,17 +42,32 @@ class Card_adicionar_tarefa(Container):
         )
 
     def enviar(self, e):
-        title_field = self.content.controls[0].content.controls[0]
+        title_field = self.content.controls[0].content.controls[0].controls[1]
         description_field = self.content.controls[0].content.controls[1]
 
         title = title_field.value.strip()
         description = description_field.value.strip()
-        
+
         self.controler_primeira.save.title = title
         self.controler_primeira.save.description = description
         self.controler_primeira.save.save_clicked()
         self.hover_control.toggle_card(e)
 
+    def prefixos(self, text, func=None):
+        return Container(
+            content=Text(
+                text,
+                color="white",
+                weight=FontWeight.BOLD,
+                size=16,
+            ),
+            bgcolor="#7a2c2c",
+            padding=padding.only(left=5, right=10, top=0, bottom=2),
+            alignment=alignment.bottom_left,
+            margin=margin.only(left=0, right=0, top=15, bottom=0),
+            on_click=lambda _: func,
+            height=35,
+        )
 
     def build(self):
         return Column(
@@ -59,12 +75,28 @@ class Card_adicionar_tarefa(Container):
                 Container(
                     Column(
                         controls=[
-                            TextField(
-                                hint_text="Nome da tarefa",
-                                autofocus=True,
-                                on_change=lambda e: self.hover_control.ativar_envio(e),
-                                border=InputBorder.NONE,
-                                height=30,
+                            Row(
+                                controls=[
+                                    Row(
+                                        [
+                                            #self.prefixos("Jan 27 1:30 PM"),
+                                            #self.prefixos("p2"),
+                                        ],
+                                        spacing=5,
+                                    ),
+                                    TextField(
+                                        hint_text="Nome da tarefa",
+                                        autofocus=True,
+                                        border=InputBorder.NONE,
+                                        on_change=lambda e: self.hover_control.ativar_envio(
+                                            e
+                                        ),
+                                        height=30,
+                                    ),
+                                ],
+                                spacing=0,
+                                alignment=MainAxisAlignment.START,
+                                height=40,
                             ),
                             TextField(
                                 hint_text="Descrição",
@@ -105,7 +137,9 @@ class Card_adicionar_tarefa(Container):
                             padding=padding.symmetric(horizontal=8, vertical=6),
                             border_radius=border_radius.all(5),
                             ink=True,
-                            on_click=lambda e: self.controler_segunda.show_more_options(e),
+                            on_click=lambda e: self.controler_segunda.show_more_options(
+                                e
+                            ),
                             border=border.all(0.3, Colors.OUTLINE),
                         ),
                     ],

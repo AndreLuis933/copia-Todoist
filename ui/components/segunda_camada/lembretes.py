@@ -2,36 +2,38 @@ from flet import *
 from ..utils.horarios_em_15_minutos import gerar_horarios_24h_15min_intervalo
 from ..utils.is_today_or_tomorrow import is_today_or_tomorrow
 from ..unitarios.dropdow import downdown_custon
+from ..utils.ajuste_tempo import ajusta_tempo
+from datetime import datetime, timedelta
 
 
 class Lembretes(Container):
     def __init__(self, controler):
         super().__init__()
         self.controler = controler
-        self.visible = True
+        self.visible = False
         self.padding = 10
         self.bgcolor = Colors.GREY_900
-        # self.width = 300
-        # self.height = 300
-        # self.left = 470
-        # self.top = 170
-        self.top = 1
+        self.left = 470
+        self.top = 170
+        #self.top = 1
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
-        self.opcoes_dropdown_2 = [
-            "No horário da tarefa",
-            "10 min antes",
-            "30 min antes",
-            "45 min antes",
-            "1 hora antes",
-            "2 horas antes",
-            "3 horas antes",
-            "1 dia antes",
-            "2 dias antes",
-            "3 dias antes",
-            "1 semana antes",
-        ]
+        self.opcoes_dropdown_2 = {
+            "No horário da tarefa": (timedelta(), "0m antes"),
+            "10 min antes": (timedelta(minutes=-10), "10m antes"),
+            "30 min antes": (timedelta(minutes=-30), "30m antes"),
+            "45 min antes": (timedelta(minutes=-45), "45m antes"),
+            "1 hora antes": (timedelta(hours=-1), "1h antes"),
+            "2 horas antes": (timedelta(hours=-2), "2h antes"),
+            "3 horas antes": (timedelta(hours=-3), "3h antes"),
+            "1 dia antes": (timedelta(days=-1), "1d antes"),
+            "2 dias antes": (timedelta(days=-2), "2d antes"),
+            "3 dias antes": (timedelta(days=-3), "3d antes"),
+            "1 semana antes": (timedelta(weeks=-1), "1w antes"),
+        }
         self.content = self.build()
+        self.ativor_envio = True
+        self.close = False
 
     def adicionar_lembrete(self, data_string, date):
         return Container(
@@ -56,58 +58,149 @@ class Lembretes(Container):
         )
 
     def deletar(self, date, data_string):
+        def encontrar_chave_por_valor(dicionario, valor_procurado):
+            for chave, (_, valor) in dicionario.items():
+                if valor == valor_procurado:
+                    return chave
+            return None  # Retorna None se não encontrar
+
         controle = self.content.controls[1].controls
         for i, container in enumerate(controle):
             if controle[i].content.controls[0].controls[1].value == data_string:
                 controle.remove(container)
                 break
+
+        dropdown = (
+            self.content.controls[2].controls[0].tabs[1].content.content.controls[0]
+        )
+        options = dropdown.options
+        for option in options:
+            if option.key == encontrar_chave_por_valor(
+                self.opcoes_dropdown_2, data_string
+            ):
+                option.visible = True
+                break
         self.controler.save.lembrete.remove(date)
+
+        dropdown.visible = True
+        self.ativor_envio = True
+        self.close = False
+        self.update_button_appearance_envio()
         self.update()
+
+    def update_button_appearance_envio(self):
+        botao = self.content.controls[2].controls[1].controls[0]
+        if self.ativor_envio:
+            botao.opacity = 1
+            botao.bgcolor = Colors.RED
+            botao.disabled = False
+        else:
+            botao.opacity = 0.3
+            botao.bgdcolor = Colors.RED_900
+            botao.disabled = True
 
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
 
-        resultado = tab.content.content.controls[0].value
-        if not selecionada:
-            date, resultado = is_today_or_tomorrow(resultado)
-        self.content.controls[1].controls.append(
-            self.adicionar_lembrete(resultado, date)
-        )
-        self.controler.save.lembrete.append(date)
-        self.update()
-    
-    def texto_alternativo(self):
-        print(self.controler.save.hora)
-        return Container(
-            Column(
-                [
-                    Text(
-                        "Primeiro adicione um horário à tarefa.",
-                        size=14,
-                    ),
-                ]
-            ),
-        ) if self.controler.save.hora is None else None
+        def proximo_visivel(options, resultado):
+            if not options:
+                return None
 
-    def tabs(self, title, content_dropdown, description, condicao = None):
-        return Tab(
-            text=title,
-            content=Container(
+            inicio = next(
+                (i for i, opt in enumerate(options) if opt.key == resultado), -1
+            )
+            if inicio == -1:
+                return None
+
+            options[inicio].visible = False
+
+            for i in range(1, len(options) + 1):
+                indice = (inicio + i) % len(options)
+                if options[indice].visible:
+                    return options[indice].key
+
+            return None
+
+        dropdown = tab.content.content.controls[0]
+        resultado = dropdown.value
+        options = dropdown.options
+        if not selecionada:
+            date, exibir = is_today_or_tomorrow(resultado)
+        else:
+            atual = self.opcoes_dropdown_2.get(resultado)
+            if not atual:
+                dropdown.visible = False
+                self.update()
+                return
+
+            delta, exibir = atual
+
+            date = (
+                datetime.combine(self.controler.save.data, self.controler.save.hora)
+                + delta
+            )
+
+        self.content.controls[1].controls.append(self.adicionar_lembrete(exibir, date))
+        self.controler.save.lembrete.append(date)
+        proximo = proximo_visivel(options, resultado)
+
+        if proximo:
+            dropdown.value = proximo
+        else:
+            dropdown.visible = False
+            self.ativor_envio = False
+            self.close = True
+        self.update_button_appearance_envio()
+        self.update()
+
+    def texto_alternativo(self):
+        return (
+            Container(
                 Column(
                     [
-                        downdown_custon(content_dropdown, Icons.ACCESS_TIME_FILLED),
                         Text(
-                            description,
+                            "Primeiro adicione um horário à tarefa.",
                             size=14,
                         ),
                     ]
                 ),
-                padding=10,
-                border_radius=20,
-            ) if not condicao else condicao,
+            )
+            if self.controler.save.hora is None
+            else None
         )
-        
+
+    def tabs(self, title, content_dropdown, description, condicao=None):
+        return Tab(
+            text=title,
+            content=(
+                Container(
+                    Column(
+                        [
+                            downdown_custon(content_dropdown, Icons.ACCESS_TIME_FILLED),
+                            Text(
+                                description,
+                                size=14,
+                            ),
+                        ]
+                    ),
+                    padding=10,
+                    border_radius=20,
+                )
+                if not condicao
+                else condicao
+            ),
+        )
+
+    def ativar_envio(self, e):
+        if e.data == '0':
+            self.ativor_envio = True
+        else:
+            if self.close:
+                self.ativor_envio = False
+                
+        self.update_button_appearance_envio()       
+        self.update()
 
     def build(self):
         return Column(
@@ -121,8 +214,9 @@ class Lembretes(Container):
                 Column(
                     [
                         Tabs(
-                            selected_index=0,
+                            selected_index=1,
                             animation_duration=300,
+                            on_change=lambda e: self.ativar_envio(e),
                             tabs=[
                                 self.tabs(
                                     "Data & Hora",
@@ -131,11 +225,12 @@ class Lembretes(Container):
                                 ),
                                 self.tabs(
                                     "Antes da Tarefa",
-                                    self.opcoes_dropdown_2,
+                                    list(self.opcoes_dropdown_2.keys()),
                                     "Defina uma notificação para um período antes da tarefa, como 5 ou 10 minutos.",
-                                    self.texto_alternativo()
+                                    self.texto_alternativo(),
                                 ),
                             ],
+                            
                             width=300,
                             height=190,
                         ),

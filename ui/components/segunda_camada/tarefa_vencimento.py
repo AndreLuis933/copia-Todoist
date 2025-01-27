@@ -17,7 +17,7 @@ class Tarefa_vencimento(Container):
         super().__init__()
         self.controler = controler
         self.calendario = calendario
-        self.visible = False
+        self.visible = True
         self.current_date = self.calendario.current_date
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
@@ -73,12 +73,16 @@ class Tarefa_vencimento(Container):
         if duracao != "Sem duração":
             print(duracao)
 
-        data = self.controler.save.vencimento
+        data = self.controler.save.data
         if not data:
             data = datetime.now()
         self.controler.save.vencimento = datetime.combine(data.date(), horario)
+            
+        self.controler.save.hora = horario
         self.controler.save.hora = horario
         self.controler.atualizar_lembretes()
+        
+        print(self.controler.save.hora)
         self.show_hora(e)
         self.update_text()
 

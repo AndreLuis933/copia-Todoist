@@ -7,26 +7,27 @@ class SaveInDB:
         self.title = None
         self.description = None
         self.vencimento = None
+        self.data = None
+        self.hora = None
         self.prioridade = None
         self.lembrete = []
         self.prazo = None
         self.local = None
         self.tag = None
-        self.hora = None
+        
 
     def save_clicked(self):
         values = [
             self.title,
             self.description,
-            self.vencimento,
+            self.data,
             self.prioridade,
             self.prazo,
-            self.lembrete,
             self.local,
             self.tag,
         ]
 
-        salvar_tarefa(values)
+        salvar_tarefa(values,self.lembrete)
 
         self.controler.lista_tarefas.adicionar_tarefas()
         self.controler.page.update()
