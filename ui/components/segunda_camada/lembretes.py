@@ -56,15 +56,15 @@ class Lembretes(Container):
         )
 
     def deletar(self, e, date):
-        container_to_remove = e.control.parent.parent
-        container_to_remove.visible = False
+        # container_to_remove = e.control.parent.parent
+        # container_to_remove.visible = False
         
-        parent_list = self.content.controls[1].controls
-        for i, item in enumerate(parent_list):
-            if item.content.controls[0].controls[1].value == date:
-                parent_list.pop(i)
-                print('sdfa')
-                break
+        # parent_list = self.content.controls[1].controls
+        # for i, item in enumerate(parent_list):
+        #     if item.content.controls[0].controls[1].value == date:
+        #         parent_list.pop(i)
+        #         print('sdfa')
+        #         break
         
         self.update()
         
@@ -75,8 +75,8 @@ class Lembretes(Container):
         resultado = tab.content.content.controls[0].value
         if not selecionada:
             date, resultado = is_today_or_tomorrow(resultado)
-        []
-        self.content.controls[1].controls.append(self.adicionar_lembrete(resultado,date))
+        tamanho = len(self.content.controls[1].controls)
+        self.content.controls[1].controls.append(self.adicionar_lembrete(resultado,tamanho))
         self.controler.save.lembrete.append(date)
         self.update()
         print(self.controler.save.lembrete)
