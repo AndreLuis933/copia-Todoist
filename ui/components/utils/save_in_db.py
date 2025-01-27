@@ -12,6 +12,7 @@ class SaveInDB:
         self.prazo = None
         self.local = None
         self.tag = None
+        self.hora = None
 
     def save_clicked(self):
         values = [
