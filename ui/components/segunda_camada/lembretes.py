@@ -45,7 +45,7 @@ class Lembretes(Container):
                             Container(expand=True),
                             Container(
                                 Icon(Icons.CLOSE, size=14, color=Colors.WHITE54),
-                                on_click=lambda e: print("remover lembrete"),
+                                on_click=lambda e: self.deletar(e),
                             ),
                         ],
                     ),
@@ -56,17 +56,20 @@ class Lembretes(Container):
             width=270,
         )
 
+    def deletar(self, e):
+        self.content.controls[1].controls.remove(e.control.parent.parent)
+
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
         tab = self.content.controls[2].controls[0].tabs[selecionada]
         
         resultado = tab.content.content.controls[0].value
         if not selecionada:
-            hora_date, resultado = is_today_or_tomorrow(resultado)
+            date, resultado = is_today_or_tomorrow(resultado)
 
         self.content.controls[1].controls.append(self.adicionar_lembrete(resultado))
-
-        
+        self.lembretes.append(date)
+        print(self.lembretes)
         self.update()
 
     def tabs(self, title, content_dropdown, description):
