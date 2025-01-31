@@ -20,7 +20,7 @@ class SaveInDB:
         values = [
             self.title,
             self.description,
-            self.data,
+            self.vencimento,
             self.prioridade,
             self.prazo,
             self.local,

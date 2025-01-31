@@ -7,7 +7,8 @@ class Card_prioridade(Container):
         super().__init__()
         self.visible = False
         self.controler = controler
-        self.selected_priority = None
+        self.padrao = 4
+        self.controler.save.prioridade = self.padrao
         self.width = 150
         self.left = 350
         self.top = 170
@@ -16,15 +17,29 @@ class Card_prioridade(Container):
         self.border_radius = border_radius.all(10)
         self.content = self.build()
 
-    def select_priority(self, e, priority):
-        priority = int(priority.split()[1])
+    def select_priority(self, priority, e=None):
+        card = self.controler.primeira_camada.card_container
+        if len(priority) == 2:
+            priority = "p" + f'{self.padrao}'
+
+        priority_sting = priority[-1]
+        priority = int(priority_sting)
+
         for i in range(4):
             self.content.controls[i].content.controls[2].visible = False
 
         self.content.controls[priority - 1].content.controls[2].visible = True
         self.controler.save.prioridade = priority
         self.controler.hide_all()
-        high_light(e)
+
+        if priority == 4:
+            card.adicionar_prefixo(1, None)
+            card.atualizar_definitions(1, "Prioridade")
+        else:
+            card.adicionar_prefixo(1, "p" + priority_sting, self.select_priority)
+            card.atualizar_definitions(1, "P" + priority_sting,e.control.content.controls[0].color, self.select_priority)
+        if e:
+            high_light(e)
         self.page.update()
 
     def cards_prioridade(self, icon, cor, texto, visible=False):
@@ -38,7 +53,7 @@ class Card_prioridade(Container):
             ),
             padding=padding.symmetric(vertical=4, horizontal=8),
             height=40,
-            on_click=lambda e: self.select_priority(e, texto),
+            on_click=lambda e: self.select_priority(texto, e),
             bgcolor="#272727",
             on_hover=high_light,
         )

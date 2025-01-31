@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import re
 from flet import *
 
@@ -17,7 +17,7 @@ class Tarefa_vencimento(Container):
         super().__init__()
         self.controler = controler
         self.calendario = calendario
-        self.visible = True
+        self.visible = False
         self.current_date = self.calendario.current_date
         self.border_radius = 15
         self.border = border.all(0.7, Colors.GREY_800)
@@ -32,11 +32,23 @@ class Tarefa_vencimento(Container):
         self.hora = self.build_hora()
 
     def update_text(self):
+        card = self.controler.primeira_camada.card_container
         due_date = self.controler.save.vencimento
         text_element = self.content.controls[0].content
         icon_element = self.content.controls[6]
+        atual = datetime.now()
+
+        def dias_da_semana():
+            dias_semana = ["Hoje", "Amanhã"]
+            for i in range(2, 8):
+                dia = atual + timedelta(days=i)
+                dias_semana.append(dia.strftime("%A"))
+
+            return dias_semana
 
         if due_date is None:
+            card.adicionar_prefixo(0, None)
+            card.atualizar_definitions(0, "Vencimento")
             text_element.value = None
             icon_element.visible = False
         else:
@@ -47,6 +59,23 @@ class Tarefa_vencimento(Container):
 
             text_element.value = formatted_date
             icon_element.visible = True
+            card.adicionar_prefixo(0, formatted_date, self.calendario.salvar_data)
+            color = Colors.ON_SURFACE_VARIANT
+
+            diferenca = (due_date - atual).days
+            if diferenca < 7:
+                dia = dias_da_semana()[diferenca + 1]
+                formatted_date = dia
+                if diferenca == -1:
+                    color = "#25b84c"
+                elif diferenca == 0:
+                    color = "#ff9a14"
+                else:
+                    color = "#a970ff"
+
+            card.atualizar_definitions(
+                0, formatted_date, color, self.calendario.salvar_data, color
+            )
 
         self.update()
 
@@ -75,14 +104,12 @@ class Tarefa_vencimento(Container):
 
         data = self.controler.save.data
         if not data:
-            data = datetime.now()
-        self.controler.save.vencimento = datetime.combine(data.date(), horario)
-            
-        self.controler.save.hora = horario
+            data = datetime.now().date()
+        self.controler.save.vencimento = datetime.combine(data, horario)
+
         self.controler.save.hora = horario
         self.controler.atualizar_lembretes()
         
-        print(self.controler.save.hora)
         self.show_hora(e)
         self.update_text()
 

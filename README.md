@@ -1,0 +1,1 @@
+flet run .\main.py -r --ignore-dirs .venv,.vscode,antigo,app

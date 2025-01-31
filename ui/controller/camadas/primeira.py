@@ -15,8 +15,8 @@ class ControlerPrimeiraCamada(Row):
         self.expand = True
         self.alignment = alignment.top_left
         self.save = SaveInDB(self)
+        self.segunda_camada = ControlerSegundaCamada(self)
         self.lista_tarefas = TodoApp()
-        self.segunda_camada = ControlerSegundaCamada(self.save)
         self.hover_control = HoverAdicionarTarefa(self.segunda_camada)
         self.button = Button_adicionar_tarefa(self.hover_control)
         self.card_container = Card_adicionar_tarefa(
@@ -24,9 +24,14 @@ class ControlerPrimeiraCamada(Row):
         )
         self.controls = self.build()
 
+    def adicionar_prefixo(self, prefixo):
+        row = self.card_container.content.controls[0].content.controls[0].controls[0]
+        row.controls.append(self.card_container.prefixos(prefixo))
+        self.update()
+
     def build(self):
         return [
-            #Slidbar(),
+            Slidbar(),
             Column(
                 controls=[
                     Text("Entrada", size=20, weight="bold", max_lines=1),

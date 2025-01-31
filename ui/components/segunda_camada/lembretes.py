@@ -214,7 +214,7 @@ class Lembretes(Container):
                 Column(
                     [
                         Tabs(
-                            selected_index=1,
+                            selected_index=0,
                             animation_duration=300,
                             on_change=lambda e: self.ativar_envio(e),
                             tabs=[

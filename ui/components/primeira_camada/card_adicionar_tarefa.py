@@ -9,11 +9,51 @@ class Card_adicionar_tarefa(Container):
         self.controler_segunda = controler_segunda
         self.hover_control = hover_control
         self.hover_control.card_container = self
-        self.visible = True
+        self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
         self.content = self.build()
+        # self.atualizar_definitions(1, "p1", "red")
+
+    def adicionar_prefixo(self, i, prefixo, func=None):
+        container = self.content.controls[0].content.controls[0].controls[0].controls[i]
+
+        if prefixo is None:
+            container.visible = False
+        else:
+            container.on_click = lambda e: func(container.content.value)
+            container.visible = True
+        container.content.value = prefixo
+        self.update()
+
+    def atualizar_definitions(
+        self,
+        i,
+        texto,
+        color_icon=Colors.ON_SURFACE_VARIANT,
+        func=None,
+        color_text=Colors.ON_SURFACE_VARIANT,
+    ):
+
+        card = self.content.controls[1].controls[i].content
+        card.controls[0].color = color_icon
+        card.controls[1].color = color_text
+        card.controls[1].value = texto
+        card.controls[2].on_click = lambda e: func(texto)
+        if func:
+            card.controls[2].visible = True
+        else:
+            card.controls[2].visible = False
+        self.update()
+
+    def high_light(self, e):
+        if e.data == "true":
+            e.control.bgcolor = "#1E1E1E"
+            e.control.update()
+        else:
+            e.control.bgcolor = Colors.TRANSPARENT
+            e.control.update()
 
     def card_definitions(self, icon, label=None, on_click=None):
         return Container(
@@ -27,7 +67,16 @@ class Card_adicionar_tarefa(Container):
                     Text(
                         label,
                         size=14,
-                        color=Colors.ON_SURFACE,
+                        color=Colors.ON_SURFACE_VARIANT,
+                    ),
+                    Container(
+                        Icon(
+                            Icons.CLOSE,
+                            size=14,
+                            color=Colors.WHITE60,
+                        ),
+                        visible=False,
+                        padding=padding.only(left=5),
                     ),
                 ],
                 spacing=4,
@@ -36,6 +85,7 @@ class Card_adicionar_tarefa(Container):
             ),
             padding=padding.symmetric(horizontal=12, vertical=6),
             border_radius=border_radius.all(5),
+            on_hover=lambda e: self.high_light(e),
             ink=True,
             on_click=lambda e: on_click(e) if on_click else None,
             border=border.all(0.3, Colors.OUTLINE),
@@ -53,7 +103,11 @@ class Card_adicionar_tarefa(Container):
         self.controler_primeira.save.save_clicked()
         self.hover_control.toggle_card(e)
 
-    def prefixos(self, text, func=None):
+    def hide_prefixos(self, e):
+        e.control.visible = False
+        self.update()
+
+    def prefixos(self, text):
         return Container(
             content=Text(
                 text,
@@ -62,10 +116,10 @@ class Card_adicionar_tarefa(Container):
                 size=16,
             ),
             bgcolor="#7a2c2c",
+            visible=False,
             padding=padding.only(left=5, right=10, top=0, bottom=2),
             alignment=alignment.bottom_left,
             margin=margin.only(left=0, right=0, top=15, bottom=0),
-            on_click=lambda _: func,
             height=35,
         )
 
@@ -79,8 +133,10 @@ class Card_adicionar_tarefa(Container):
                                 controls=[
                                     Row(
                                         [
-                                            #self.prefixos("Jan 27 1:30 PM"),
-                                            #self.prefixos("p2"),
+                                            self.prefixos(""),
+                                            self.prefixos("p2"),
+                                            self.prefixos("@ler"),
+                                            self.prefixos("{Jan 27 1:30 PM}"),
                                         ],
                                         spacing=5,
                                     ),
@@ -137,6 +193,7 @@ class Card_adicionar_tarefa(Container):
                             padding=padding.symmetric(horizontal=8, vertical=6),
                             border_radius=border_radius.all(5),
                             ink=True,
+                            on_hover=lambda e: self.high_light(e),
                             on_click=lambda e: self.controler_segunda.show_more_options(
                                 e
                             ),
@@ -148,6 +205,18 @@ class Card_adicionar_tarefa(Container):
                 Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
                 Row(
                     controls=[
+                        # ElevatedButton(
+                        #     text="Entrada",
+                        #     on_click=lambda e: print("Entrada"),
+                        #     #bgcolor=Colors.GREY_800,
+                        #     color=Colors.WHITE70,
+                        #     style=ButtonStyle(
+                        #         shape=RoundedRectangleBorder(radius=8),
+                        #     ),
+                        # ),
+                        Container(
+                            expand=True,
+                        ),
                         ElevatedButton(
                             text="Cancelar",
                             on_click=self.hover_control.toggle_card,
@@ -169,7 +238,6 @@ class Card_adicionar_tarefa(Container):
                             ),
                         ),
                     ],
-                    alignment=MainAxisAlignment.END,
                 ),
             ],
             spacing=12,

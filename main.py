@@ -20,6 +20,7 @@ def main(page: ft.Page):
     page.window.always_on_top = True
     #page.window.min_width = 500
     page.window.height = 500
+    page.window.width = 500
     page.theme_mode = ft.ThemeMode.DARK
 
     AppController(page)

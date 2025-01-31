@@ -7,8 +7,9 @@ from ui.components.segunda_camada.more_options import MoreOptions
 
 
 class ControlerSegundaCamada:
-    def __init__(self, save):
-        self.save = save
+    def __init__(self, primeira_camada):
+        self.primeira_camada = primeira_camada
+        self.save = self.primeira_camada.save
         self.calendario = Calendario(self)
         self.prioridade = Card_prioridade(self)
         self.tarefa = Tarefa_vencimento(self, self.calendario)
@@ -47,6 +48,7 @@ class ControlerSegundaCamada:
             control.visible = False
         self.tarefa.hora.visible = False
         self.controls[0].visible = False
+        self.update()
 
     def show_lembretes(self, e=None):
         self.hide_all()

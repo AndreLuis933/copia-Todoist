@@ -36,7 +36,7 @@ class HoverAdicionarTarefa:
             self.button.content.controls[0].controls[0].visible = False
 
     def update_button_appearance_envio(self):
-        botao = self.card_container.content.controls[3].controls[1]
+        botao = self.card_container.content.controls[3].controls[-1]
         if self.ativor_envio:
             botao.opacity = 1
             botao.bgcolor = Colors.RED

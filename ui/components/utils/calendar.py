@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import calendar
 from ..configs.CalendarioConfig import CalendarioConfig
 from ..animations.calendar.on_scroll import OnScroll
-
+from dateutil.relativedelta import relativedelta
 
 class Calendario(Container):
     def __init__(self, controler, config: CalendarioConfig = CalendarioConfig()):
@@ -96,8 +96,8 @@ class Calendario(Container):
         self.salvar_data(data_datetime)
 
     def salvar_data(self, data):
-        if data is None:
-            self.controler.save.data = None
+        if not isinstance(data, datetime):
+            self.controler.save.vencimento = None
             self.remover_destaque()
         else:
             atual = self.controler.save.vencimento
@@ -109,7 +109,6 @@ class Calendario(Container):
             self.controler.save.vencimento = data
             self.controler.save.data = data.date()
             self.buscar_data(data)
-        print(self.controler.save.data)
         #self.controler.hide_all()
         self.controler.tarefa.update_text()
 
@@ -284,7 +283,7 @@ class Calendario(Container):
     def load_more_months(self, count):
         new_months = []
         for _ in range(count):
-            date = self.current_date + timedelta(days=30.44 * self.months_loaded)
+            date = self.current_date + relativedelta(months=self.months_loaded)
             year, month = date.year, date.month
             if year == self.current_date.year and month == self.current_date.month:
                 month_calendar = self.create_month_calendar(
