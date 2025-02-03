@@ -9,7 +9,7 @@ class Slidbar(Container):
         super().__init__()
         self.func = create_animate_slidbar(self)
         self.HighLight = HighLight
-        self.width = 200
+        self.width = 220
         self.bgcolor = "black"
         self.border_radius = 10
         self.animate = animation.Animation(500, "decelerate")

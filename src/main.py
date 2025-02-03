@@ -19,8 +19,8 @@ def main(page: ft.Page):
     page.title = "Todo App"
     page.window.always_on_top = True
     #page.window.min_width = 500
-    page.window.height = 500
-    page.window.width = 500
+    page.window.height = 800
+    page.window.width = 235
     page.theme_mode = ft.ThemeMode.DARK
     #page.window.icon = "icon.png"
 
@@ -30,6 +30,5 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     if not database_exists():
-        print("Criando banco de dados...")
         create_tables()
     ft.app(target=main)
