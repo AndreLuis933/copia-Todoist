@@ -74,19 +74,16 @@ class Slidbar(Container):
             height=45,
             border_radius=10,
             on_hover=lambda e: self.HighLight(e),
+            on_click=lambda e: self.page.go("/s"),
             content=Row(
                 controls=[
-                    IconButton(
-                        icon=icon_name,
-                        icon_size=18,
-                        icon_color="white54",
-                        on_click=lambda _: self.page.go("/s"),
-                        style=ButtonStyle(
-                            shape={
-                                "": RoundedRectangleBorder(radius=7),
-                            },
-                            overlay_color={"": "transparent"},
-                        ),
+                    Container(
+                        Icon(
+                            name=icon_name,
+                            size=20,
+                            color="white54",
+                        )if icon_name == Icons else Container(),
+                        padding=padding.only(left=10),
                     ),
                     Text(
                         value=text,
