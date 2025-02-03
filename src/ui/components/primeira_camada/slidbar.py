@@ -43,7 +43,7 @@ class Slidbar(Container):
                             ),
                             Container(
                                 Image(
-                                    src="down-arrow.png",
+                                    src=r"icons\down-arrow.png",
                                     width=13,
                                     height=13,
                                     color=Colors.WHITE,
@@ -57,11 +57,11 @@ class Slidbar(Container):
                     on_click=lambda e: print("home"),
                 ),
                 Container(
-                    Image(src="image.png", width=20, height=20, color=Colors.WHITE),
+                    Image(src=r"icons\bell.png", width=20, height=20, color=Colors.WHITE),
                     on_click=lambda e: print("home"),
                 ),
                 Container(
-                    Image(src="screen.png", width=25, height=25, color=Colors.WHITE),
+                    Image(src=r"icons\screen.png", width=25, height=25, color=Colors.WHITE),
                     on_click=partial(self.func),
                 ),
             ],
@@ -78,11 +78,7 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
-                        Icon(
-                            name=icon_name,
-                            size=20,
-                            color="white54",
-                        )if isinstance(icon_name, Icons) else Image(src=icon_name, width=18, height=18, color=Colors.WHITE54),
+                        Image(src=icon_name, width=18, height=18, color=Colors.WHITE54),
                         padding=padding.only(left=10),
                     ),
                     Text(
@@ -117,13 +113,12 @@ class Slidbar(Container):
                 controls=[
                     self.UserData("perfil.jpg", "Andre"),
                     Divider(height=5, color="transparent"),
-                    self.ContainedIcon('search-interface-symbol.png', "Search"),
-                    self.ContainedIcon('inbox.png', "Dashboard"),
-                    self.ContainedIcon('calendar.png', "Revenue"),
-                    self.ContainedIcon(Icons.NOTIFICATIONS, "Notifications"),
-                    self.ContainedIcon('menu.png', "Analytics"),
+                    self.ContainedIcon(r"icons\search-interface-symbol.png", "Search"),
+                    self.ContainedIcon(r"icons\inbox.png", "Dashboard"),
+                    self.ContainedIcon(r"icons\calendar.png", "Revenue"),
+                    # self.ContainedIcon(Icons.NOTIFICATIONS, "Notifications"),
+                    self.ContainedIcon(r"icons\menu.png", "Analytics"),
                     Divider(height=10, color="transparent"),
-                    self.ContainedIcon(Icons.LOGOUT_ROUNDED, "Logout"),
                 ],
                 spacing=0,
             ),
