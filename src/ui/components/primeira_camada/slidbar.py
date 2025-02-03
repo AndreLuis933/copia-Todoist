@@ -122,7 +122,7 @@ class Slidbar(Container):
                     self.ContainedIcon('calendar.png', "Revenue"),
                     self.ContainedIcon(Icons.NOTIFICATIONS, "Notifications"),
                     self.ContainedIcon('menu.png', "Analytics"),
-                    Divider(height=5, color="wite24"),
+                    Divider(height=10, color="transparent"),
                     self.ContainedIcon(Icons.LOGOUT_ROUNDED, "Logout"),
                 ],
                 spacing=0,
