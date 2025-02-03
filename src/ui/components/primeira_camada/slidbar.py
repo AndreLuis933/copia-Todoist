@@ -26,17 +26,12 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
-                        image_src='icon.png',
+                        #image=Image(src='icon.png'),
                         width=42,
                         height=42,
-                        bgcolor="bluegrey900",
                         alignment=alignment.center,
                         border_radius=20,
-                        content=Text(
-                            value=initials,
-                            size=20,
-                            weight="bold",
-                        ),
+                        content=Image(src='icon.png'),
                     ),
                     Column(
                         key="titulo_texto",
