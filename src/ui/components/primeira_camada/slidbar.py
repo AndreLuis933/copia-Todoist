@@ -2,7 +2,10 @@ from flet import *
 from functools import partial
 from ..animations.slidbar.fechar_slidbar import create_animate_slidbar
 from ..animations.slidbar.high_light_slidbar import HighLight
-import flet
+from .button_adicionar_tarefa import Button_adicionar_tarefa
+from ..animations.card_adicionar_tarefa.hover_adicionar_tarefa import (
+    HoverAdicionarTarefa,
+)
 
 
 class Slidbar(Container):
@@ -17,10 +20,6 @@ class Slidbar(Container):
         self.alignment = alignment.top_left
         self.padding = 10
         self.content = self.build()
-
-    def encontrar(self, e):
-        print(self.content)
-        pass
 
     def UserData(self, photo: str, name: str):
         return Row(
@@ -72,7 +71,15 @@ class Slidbar(Container):
             alignment=MainAxisAlignment.SPACE_BETWEEN,
         )
 
-    def ContainedIcon(self, icon_name: str, text: str,opacity=1,height=18, padding_left=10):
+    def ContainedIcon(
+        self,
+        icon_name: str,
+        text: str,
+        opacity=1,
+        height=18,
+        padding_left=10,
+        color=Colors.WHITE,
+    ):
         return Container(
             width=self.width - 20,
             height=45,
@@ -82,13 +89,18 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
-                        Image(src=icon_name, width=height, height=height, color=Colors.WHITE, opacity=opacity),
+                        Image(
+                            src=icon_name,
+                            width=height,
+                            height=height,
+                            color=color,
+                            opacity=opacity,
+                        ),
                         padding=padding.only(left=padding_left),
                     ),
                     Text(
                         value=text,
-                        color="white54",
-                        # weight="bold",
+                        color=color,
                         size=14,
                         opacity=1,
                         animate_opacity=200,
@@ -115,6 +127,9 @@ class Slidbar(Container):
                 controls=[
                     self.UserData("perfil.jpg", "Andre"),
                     Divider(height=5, color="transparent"),
+                    self.ContainedIcon(
+                        r"icons\add.png", "Add task", 1, 25, 8, Colors.RED
+                    ),
                     self.ContainedIcon(r"icons\search.png", "Search"),
                     self.ContainedIcon(r"icons\inbox.png", "Inbox"),
                     self.ContainedIcon(r"icons\calendar.png", "Today"),
@@ -153,11 +168,13 @@ class Slidbar(Container):
                         on_hover=lambda e: self.HighLight(e),
                         padding=padding.symmetric(horizontal=10),
                     ),
-                    self.ContainedIcon(r"icons\hastag.png", "Casa",0.5,15,20),
-                    self.ContainedIcon(r"icons\hastag.png", "Estudos",0.5,15,20),
-                    self.ContainedIcon(r"icons\hastag.png", "Investimentos",0.5,15,20),
+                    self.ContainedIcon(r"icons\hastag.png", "Casa", 0.5, 15, 20),
+                    self.ContainedIcon(r"icons\hastag.png", "Estudos", 0.5, 15, 20),
+                    self.ContainedIcon(
+                        r"icons\hastag.png", "Investimentos", 0.5, 15, 20
+                    ),
                     Container(expand=True),
-                    self.ContainedIcon(r"icons\chart.png", "Browse templates"),                    
+                    self.ContainedIcon(r"icons\chart.png", "Browse templates"),
                 ],
                 spacing=0,
             ),
