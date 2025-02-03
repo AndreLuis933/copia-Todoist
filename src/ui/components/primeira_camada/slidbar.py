@@ -2,7 +2,7 @@ from flet import *
 from functools import partial
 from ..animations.slidbar.fechar_slidbar import create_animate_slidbar
 from ..animations.slidbar.high_light_slidbar import HighLight
-
+import flet
 
 class Slidbar(Container):
     def __init__(self):
@@ -44,8 +44,8 @@ class Slidbar(Container):
                         )
                     ),
                     Container(
-                        Image(src='home.svg',width=20, height=20, color="blue"),
-                        on_click=lambda e: print('home')
+                        flet.Svg(src='home.svg',width=20, height=20, color="blue"),
+                        on_click=lambda e: print('home'),
                     ),
                 ]
             )
