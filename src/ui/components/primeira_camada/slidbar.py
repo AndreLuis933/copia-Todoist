@@ -10,8 +10,8 @@ class Slidbar(Container):
         self.func = create_animate_slidbar(self)
         self.HighLight = HighLight
         self.width = 220
-        self.bgcolor = "black"
-        self.border_radius = 10
+        self.bgcolor = "#222222"
+        #self.border_radius = 10
         self.animate = animation.Animation(500, "decelerate")
         self.alignment = alignment.top_left
         self.padding = 10
@@ -26,11 +26,12 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
+                        image_src='icon.png',
                         width=42,
                         height=42,
                         bgcolor="bluegrey900",
                         alignment=alignment.center,
-                        border_radius=8,
+                        border_radius=20,
                         content=Text(
                             value=initials,
                             size=20,
