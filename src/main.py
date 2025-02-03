@@ -20,7 +20,7 @@ def main(page: ft.Page):
     page.window.always_on_top = True
     #page.window.min_width = 500
     page.window.height = 800
-    page.window.width = 840
+    page.window.width = 240
     page.theme_mode = ft.ThemeMode.DARK
     #page.window.icon = "icon.png"
 
