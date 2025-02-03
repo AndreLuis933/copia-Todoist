@@ -23,32 +23,41 @@ class Slidbar(Container):
         pass
 
     def UserData(self, initials: str, name: str, descripion: str):
-        return Container(
-            content=Row(
-                controls=[
-                    Container(
-                        width=42,
-                        height=42,
-                        alignment=alignment.center,
-                        content=Image(src="perfil.jpg", border_radius=20),
+        return Row(
+            controls=[
+                Container(
+                    Row(
+                        [
+                            Container(
+                                width=42,
+                                height=42,
+                                alignment=alignment.center,
+                                content=Image(src="perfil.jpg", border_radius=20),
+                            ),
+                            Text(
+                                value=name,
+                                size=14,
+                                weight="bold",
+                                opacity=1,
+                                animate_opacity=200,
+                            ),
+                            Icon(
+                                Icons.CHEVRON_RIGHT,)
+                        ]
                     ),
-                    Text(
-                        value=name,
-                        size=14,
-                        weight="bold",
-                        opacity=1,
-                        animate_opacity=200,
-                    ),
-                    Container(
-                        Image(src="bell.png", width=20, height=20, color=Colors.WHITE),
-                        on_click=lambda e: print("home"),
-                    ),
-                    Container(
-                        Image(src="screen.png", width=25, height=25, color=Colors.WHITE),
-                        on_click=lambda e: print("home"),
-                    ),
-                ]
-            )
+                    ink=True,
+                    on_click=lambda e: print("home"),
+                ),
+                #Container(expand=True),
+                Container(
+                    Image(src="image.png", width=20, height=20, color=Colors.WHITE),
+                    on_click=lambda e: print("home"),
+                ),
+                Container(
+                    Image(src="screen.png", width=25, height=25, color=Colors.WHITE),
+                    on_click=lambda e: print("home"),
+                ),
+            ],
         )
 
     def ContainedIcon(self, icon_name: str, text: str):
