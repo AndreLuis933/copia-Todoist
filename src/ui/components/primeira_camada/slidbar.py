@@ -49,7 +49,7 @@ class Slidbar(Container):
                         on_click=lambda e: print("home"),
                     ),
                     Container(
-                        Image(src="image 1.svg", width=20, height=20, color="blue"),
+                        Image(src="screen.png", width=40, height=40, color="blue"),
                         on_click=lambda e: print("home"),
                     ),
                 ]
