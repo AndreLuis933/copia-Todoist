@@ -31,11 +31,13 @@ def create_animate_slidbar(page):
             # Fechar a barra lateral
             #toggle_opacity(state.titulo_texto.controls, False)
             toggle_opacity(state.icons_texto.controls[2:], False)
+            #page.bgcolor = Colors.TRANSPARENT
+            #page.height = 40
             time.sleep(0.2)
-            state.slidbar.width = 0
+            #state.slidbar.width = 62
         else:
             # Abrir a barra lateral
-            state.slidbar.width = 230
+            state.slidbar.width = page.width
             time.sleep(0.2)
             #toggle_opacity(state.titulo_texto.controls, True)
             toggle_opacity(state.icons_texto.controls[2:], True)
