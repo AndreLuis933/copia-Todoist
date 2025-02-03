@@ -40,8 +40,13 @@ class Slidbar(Container):
                     ),
                     Container(
                         Icon(
-                            name=Icons.NOTIFICATIONS_NONE,)
-                    )
+                            name=Icons.NOTIFICATIONS_NONE,
+                        )
+                    ),
+                    Container(
+                        Image(src='home.svg',width=20, height=20, color="blue"),
+                        on_click=lambda e: print('home')
+                    ),
                 ]
             )
         )
