@@ -32,15 +32,15 @@ class ControlerPrimeiraCamada(Row):
     def build(self):
         return [
             Slidbar(),
-            Column(
-                controls=[
-                    Text("Entrada", size=20, weight="bold", max_lines=1),
-                    Divider(height=2, opacity=0),
-                    self.button,
-                    self.card_container,
-                    Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
-                    self.lista_tarefas,
-                ],
-                expand=True,
-            ),
+            # Column(
+            #     controls=[
+            #         Text("Entrada", size=20, weight="bold", max_lines=1),
+            #         Divider(height=2, opacity=0),
+            #         self.button,
+            #         self.card_container,
+            #         Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
+            #         self.lista_tarefas,
+            #     ],
+            #     expand=True,
+            # ),
         ]
