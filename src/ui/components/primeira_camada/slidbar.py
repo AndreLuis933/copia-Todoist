@@ -22,7 +22,7 @@ class Slidbar(Container):
         print(self.content)
         pass
 
-    def UserData(self, initials: str, name: str, descripion: str):
+    def UserData(self, photo: str, name: str):
         return Row(
             controls=[
                 Container(
@@ -32,7 +32,7 @@ class Slidbar(Container):
                                 width=42,
                                 height=42,
                                 alignment=alignment.center,
-                                content=Image(src="perfil.jpg", border_radius=20),
+                                content=Image(src=photo, border_radius=20),
                             ),
                             Text(
                                 value=name,
@@ -41,23 +41,31 @@ class Slidbar(Container):
                                 opacity=1,
                                 animate_opacity=200,
                             ),
-                            Icon(
-                                Icons.CHEVRON_RIGHT,)
-                        ]
+                            Container(
+                                Image(
+                                    src="down-arrow.png",
+                                    width=13,
+                                    height=13,
+                                    color=Colors.WHITE,
+                                ),
+                                margin=margin.only(right=8),
+                            ),
+                        ],
+                        spacing=5
                     ),
                     ink=True,
                     on_click=lambda e: print("home"),
                 ),
-                #Container(expand=True),
                 Container(
                     Image(src="image.png", width=20, height=20, color=Colors.WHITE),
                     on_click=lambda e: print("home"),
                 ),
                 Container(
                     Image(src="screen.png", width=25, height=25, color=Colors.WHITE),
-                    on_click=lambda e: print("home"),
+                    on_click=partial(self.func),
                 ),
             ],
+            alignment=MainAxisAlignment.SPACE_BETWEEN
         )
 
     def ContainedIcon(self, icon_name: str, text: str):
@@ -100,14 +108,7 @@ class Slidbar(Container):
             content=Column(
                 horizontal_alignment="center",
                 controls=[
-                    self.UserData("LI", "Andre", "Software Engineer"),
-                    Container(
-                        width=24,
-                        height=24,
-                        bgcolor="bluegrey800",
-                        border_radius=8,
-                        on_click=partial(self.func),
-                    ),
+                    self.UserData("perfil.jpg", "Andre"),
                     Divider(height=5, color="transparent"),
                     self.ContainedIcon(Icons.SEARCH, "Search"),
                     self.ContainedIcon(Icons.DASHBOARD_ROUNDED, "Dashboard"),
