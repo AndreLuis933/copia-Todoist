@@ -2,11 +2,6 @@ from flet import *
 from functools import partial
 from ..animations.slidbar.fechar_slidbar import create_animate_slidbar
 from ..animations.slidbar.high_light_slidbar import HighLight
-from .button_adicionar_tarefa import Button_adicionar_tarefa
-from ..animations.card_adicionar_tarefa.hover_adicionar_tarefa import (
-    HoverAdicionarTarefa,
-)
-
 
 class Slidbar(Container):
     def __init__(self):
@@ -119,22 +114,19 @@ class Slidbar(Container):
         )
 
     def build(self):
-        return Container(
-            padding=padding.only(top=10),
-            alignment=alignment.center,
-            content=Column(
+        return Column(
                 horizontal_alignment="center",
                 controls=[
                     self.UserData("perfil.jpg", "Andre"),
                     Divider(height=5, color="transparent"),
                     self.ContainedIcon(
-                        r"icons\add.png", "Add task", 1, 25, 8, Colors.RED
+                        r"icons\add.png", "Adicionar tarefa", 1, 25, 8, Colors.RED
                     ),
-                    self.ContainedIcon(r"icons\search.png", "Search"),
-                    self.ContainedIcon(r"icons\inbox.png", "Inbox"),
-                    self.ContainedIcon(r"icons\calendar.png", "Today"),
-                    self.ContainedIcon(r"icons\calculator.png", "Upcoming"),
-                    self.ContainedIcon(r"icons\menu.png", "Filters & Labels"),
+                    self.ContainedIcon(r"icons\search.png", "Buscar"),
+                    self.ContainedIcon(r"icons\inbox.png", "Entrada"),
+                    self.ContainedIcon(r"icons\calendar.png", "Hoje"),
+                    self.ContainedIcon(r"icons\calculator.png", "Em breve"),
+                    self.ContainedIcon(r"icons\menu.png", "Filtros e Etiquetas"),
                     Divider(height=10, color="transparent"),
                     Container(
                         Row(
@@ -177,5 +169,5 @@ class Slidbar(Container):
                     self.ContainedIcon(r"icons\chart.png", "Browse templates"),
                 ],
                 spacing=0,
-            ),
-        )
+            )
+        

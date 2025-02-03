@@ -8,8 +8,8 @@ def create_animate_slidbar(page):
     class SlidbarState:
         def __init__(self):
             self.slidbar = page
-            self.icons_texto = self.slidbar.content.content
-            self.titulo_texto = self.icons_texto.controls[0].content.controls[1]
+            self.icons_texto = self.slidbar.content
+            #self.titulo_texto = self.icons_texto.controls[0].content.controls[1]
             self.is_open = True
 
     def toggle_opacity(controls, show):
@@ -28,15 +28,15 @@ def create_animate_slidbar(page):
 
         if state.is_open:
             # Fechar a barra lateral
-            toggle_opacity(state.titulo_texto.controls, False)
-            toggle_opacity(state.icons_texto.controls[3:], False)
+            #toggle_opacity(state.titulo_texto.controls, False)
+            toggle_opacity(state.icons_texto.controls[2:], False)
             time.sleep(0.2)
             state.slidbar.width = 62
         else:
             # Abrir a barra lateral
             state.slidbar.width = 230
             time.sleep(0.2)
-            toggle_opacity(state.titulo_texto.controls, True)
+            #toggle_opacity(state.titulo_texto.controls, True)
             toggle_opacity(state.icons_texto.controls[3:], True)
 
         state.slidbar.update()
