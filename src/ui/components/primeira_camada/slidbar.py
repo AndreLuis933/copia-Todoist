@@ -11,7 +11,7 @@ class Slidbar(Container):
         self.HighLight = HighLight
         self.width = 220
         self.bgcolor = "#222222"
-        #self.border_radius = 10
+        # self.border_radius = 10
         self.animate = animation.Animation(500, "decelerate")
         self.alignment = alignment.top_left
         self.padding = 10
@@ -26,35 +26,22 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
-                        #image=Image(src='icon.png'),
                         width=42,
                         height=42,
                         alignment=alignment.center,
-                        border_radius=20,
-                        content=Image(src='icon.png'),
+                        content=Image(src="unnamed.jpg", border_radius=20),
                     ),
-                    Column(
-                        key="titulo_texto",
-                        spacing=1,
-                        alignment="center",
-                        controls=[
-                            Text(
-                                value=name,
-                                size=11,
-                                weight="bold",
-                                opacity=1,
-                                animate_opacity=200,
-                            ),
-                            Text(
-                                value=descripion,
-                                size=9,
-                                weight="w400",
-                                color="white54",
-                                opacity=1,
-                                animate_opacity=200,
-                            ),
-                        ],
+                    Text(
+                        value=name,
+                        size=14,
+                        weight="bold",
+                        opacity=1,
+                        animate_opacity=200,
                     ),
+                    Container(
+                        Icon(
+                            name=Icons.NOTIFICATIONS_NONE,)
+                    )
                 ]
             )
         )
@@ -101,7 +88,7 @@ class Slidbar(Container):
                 key="icons_texto",
                 horizontal_alignment="center",
                 controls=[
-                    self.UserData("LI", "Line Indent", "Software Engineer"),
+                    self.UserData("LI", "Andre", "Software Engineer"),
                     Container(
                         width=24,
                         height=24,
