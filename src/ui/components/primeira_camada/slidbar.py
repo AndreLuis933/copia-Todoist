@@ -72,7 +72,7 @@ class Slidbar(Container):
             alignment=MainAxisAlignment.SPACE_BETWEEN,
         )
 
-    def ContainedIcon(self, icon_name: str, text: str):
+    def ContainedIcon(self, icon_name: str, text: str,opacity=1,height=18, padding_left=10):
         return Container(
             width=self.width - 20,
             height=45,
@@ -82,8 +82,8 @@ class Slidbar(Container):
             content=Row(
                 controls=[
                     Container(
-                        Image(src=icon_name, width=18, height=18, color=Colors.WHITE54),
-                        padding=padding.only(left=10),
+                        Image(src=icon_name, width=height, height=height, color=Colors.WHITE, opacity=opacity),
+                        padding=padding.only(left=padding_left),
                     ),
                     Text(
                         value=text,
@@ -155,7 +155,9 @@ class Slidbar(Container):
                         on_hover=lambda e: self.HighLight(e),
                         padding=padding.symmetric(horizontal=10),
                     ),
-                    self.ContainedIcon(r"icons\hastage.png", "Casa"),
+                    self.ContainedIcon(r"icons\hastag.png", "Casa",0.5,15,20),
+                    self.ContainedIcon(r"icons\hastag.png", "Estudos",0.5,15,20),
+                    self.ContainedIcon(r"icons\hastag.png", "Investimentos",0.5,15,20),
                 ],
                 spacing=0,
             ),
