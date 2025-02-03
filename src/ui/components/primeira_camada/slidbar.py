@@ -57,11 +57,15 @@ class Slidbar(Container):
                     on_click=lambda e: print("home"),
                 ),
                 Container(
-                    Image(src=r"icons\bell.png", width=20, height=20, color=Colors.WHITE),
+                    Image(
+                        src=r"icons\bell.png", width=20, height=20, color=Colors.WHITE
+                    ),
                     on_click=lambda e: print("home"),
                 ),
                 Container(
-                    Image(src=r"icons\screen.png", width=25, height=25, color=Colors.WHITE),
+                    Image(
+                        src=r"icons\screen.png", width=25, height=25, color=Colors.WHITE
+                    ),
                     on_click=partial(self.func),
                 ),
             ],
@@ -113,12 +117,33 @@ class Slidbar(Container):
                 controls=[
                     self.UserData("perfil.jpg", "Andre"),
                     Divider(height=5, color="transparent"),
-                    self.ContainedIcon(r"icons\search-interface-symbol.png", "Search"),
-                    self.ContainedIcon(r"icons\inbox.png", "Dashboard"),
-                    self.ContainedIcon(r"icons\calendar.png", "Revenue"),
-                    # self.ContainedIcon(Icons.NOTIFICATIONS, "Notifications"),
-                    self.ContainedIcon(r"icons\menu.png", "Analytics"),
+                    self.ContainedIcon(r"icons\search.png", "Search"),
+                    self.ContainedIcon(r"icons\inbox.png", "Inbox"),
+                    self.ContainedIcon(r"icons\calendar.png", "Today"),
+                    self.ContainedIcon(r"icons\calculator.png", "Upcoming"),
+                    self.ContainedIcon(r"icons\menu.png", "Filters & Labels"),
                     Divider(height=10, color="transparent"),
+                    Container(
+                        Row(
+                            [
+                                Text("My Projects", size=12, color=Colors.WHITE70),
+                                Container(expand=True),
+                                Icon(Icons.ADD, size=20, color=Colors.WHITE70),
+                                Image(
+                                    src=r"icons\down-arrow.png",
+                                    width=18,
+                                    height=18,
+                                    color=Colors.WHITE70,
+                                ),
+                                
+                            ],
+                        ),
+                        #bgcolor=Colors.RED_900,
+                        alignment=alignment.center,
+                        height=45,
+                        width=self.width - 20,
+                        on_click=lambda e: print("home"),
+                    ),
                 ],
                 spacing=0,
             ),
