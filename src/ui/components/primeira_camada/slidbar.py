@@ -126,24 +126,36 @@ class Slidbar(Container):
                     Container(
                         Row(
                             [
-                                Text("My Projects", size=12, color=Colors.WHITE70),
-                                Container(expand=True),
-                                Icon(Icons.ADD, size=20, color=Colors.WHITE70),
-                                Image(
-                                    src=r"icons\down-arrow.png",
-                                    width=18,
-                                    height=18,
+                                Text(
+                                    "My Projects",
+                                    size=14,
+                                    weight="w500",
                                     color=Colors.WHITE70,
                                 ),
-                                
+                                Container(expand=True),
+                                Container(
+                                    Icon(Icons.ADD, size=20, color=Colors.WHITE70),
+                                    on_click=lambda e: print("Adicionar"),
+                                ),
+                                Container(
+                                    Image(
+                                        src=r"icons\down-arrow.png",
+                                        width=18,
+                                        height=18,
+                                        color=Colors.WHITE70,
+                                    ),
+                                    on_click=lambda e: print("esconder"),
+                                ),
                             ],
                         ),
-                        #bgcolor=Colors.RED_900,
                         alignment=alignment.center,
                         height=45,
                         width=self.width - 20,
-                        on_click=lambda e: print("home"),
+                        on_click=lambda e: print("My Projects"),
+                        on_hover=lambda e: self.HighLight(e),
+                        padding=padding.symmetric(horizontal=10),
                     ),
+                    self.ContainedIcon(r"icons\hastage.png", "Casa"),
                 ],
                 spacing=0,
             ),
