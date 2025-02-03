@@ -30,7 +30,7 @@ class Slidbar(Container):
                         width=42,
                         height=42,
                         alignment=alignment.center,
-                        content=Image(src="unnamed.jpg", border_radius=20),
+                        content=Image(src="perfil.jpg", border_radius=20),
                     ),
                     Text(
                         value=name,
@@ -40,16 +40,11 @@ class Slidbar(Container):
                         animate_opacity=200,
                     ),
                     Container(
-                        Icon(
-                            name=Icons.NOTIFICATIONS_NONE,
-                        )
-                    ),
-                    Container(
-                        Image(src="home.svg", width=20, height=20, color="blue"),
+                        Image(src="bell.png", width=20, height=20, color=Colors.WHITE),
                         on_click=lambda e: print("home"),
                     ),
                     Container(
-                        Image(src="home.png", width=20, height=20, color="blue"),
+                        Image(src="screen.png", width=25, height=25, color=Colors.WHITE),
                         on_click=lambda e: print("home"),
                     ),
                 ]
