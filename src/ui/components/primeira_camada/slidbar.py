@@ -51,7 +51,7 @@ class Slidbar(Container):
                                 margin=margin.only(right=8),
                             ),
                         ],
-                        spacing=5
+                        spacing=5,
                     ),
                     ink=True,
                     on_click=lambda e: print("home"),
@@ -65,12 +65,12 @@ class Slidbar(Container):
                     on_click=partial(self.func),
                 ),
             ],
-            alignment=MainAxisAlignment.SPACE_BETWEEN
+            alignment=MainAxisAlignment.SPACE_BETWEEN,
         )
 
     def ContainedIcon(self, icon_name: str, text: str):
         return Container(
-            width=180,
+            width=self.width - 20,
             height=45,
             border_radius=10,
             on_hover=lambda e: self.HighLight(e),
@@ -91,9 +91,19 @@ class Slidbar(Container):
                     Text(
                         value=text,
                         color="white54",
-                        size=11,
+                        # weight="bold",
+                        size=14,
                         opacity=1,
                         animate_opacity=200,
+                    ),
+                    Container(expand=True),
+                    Container(
+                        Text(
+                            value="",
+                            color=Colors.WHITE54,
+                            opacity=0.6,
+                        ),
+                        padding=padding.only(right=10),
                     ),
                 ]
             ),
@@ -119,10 +129,7 @@ class Slidbar(Container):
                     self.ContainedIcon(Icons.WALLET_ROUNDED, "Wallet"),
                     Divider(height=5, color="wite24"),
                     self.ContainedIcon(Icons.LOGOUT_ROUNDED, "Logout"),
-                    ElevatedButton(
-                        "Encontrar",
-                        on_click=self.encontrar,
-                    ),
                 ],
+                spacing=0,
             ),
         )
