@@ -108,8 +108,6 @@ class Slidbar(Container):
 
     def build(self):
         return Container(
-            width=200,
-            height=580,
             padding=padding.only(top=10),
             alignment=alignment.center,
             content=Column(
@@ -158,6 +156,8 @@ class Slidbar(Container):
                     self.ContainedIcon(r"icons\hastag.png", "Casa",0.5,15,20),
                     self.ContainedIcon(r"icons\hastag.png", "Estudos",0.5,15,20),
                     self.ContainedIcon(r"icons\hastag.png", "Investimentos",0.5,15,20),
+                    Container(expand=True),
+                    self.ContainedIcon(r"icons\chart.png", "Browse templates"),                    
                 ],
                 spacing=0,
             ),
