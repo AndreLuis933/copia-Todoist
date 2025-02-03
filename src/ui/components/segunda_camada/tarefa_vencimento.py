@@ -9,7 +9,7 @@ from ..utils.horarios_em_15_minutos import (
     gerar_duracoes_ate_23h30,
 )
 from tzlocal import get_localzone
-from ..utils.indentificar_datas import identificar_datas, DIAS_SEMANA, MESES
+from ..utils.indentificar_datas import identificar_datas, DIAS_SEMANA, DIAS_SEMANA_COMPLETOS, MESES
 
 
 class Tarefa_vencimento(Container):
@@ -40,9 +40,12 @@ class Tarefa_vencimento(Container):
 
         def dias_da_semana():
             dias_semana = ["Hoje", "Amanhã"]
+            
+            
             for i in range(2, 8):
                 dia = atual + timedelta(days=i)
-                dias_semana.append(dia.strftime("%A"))
+                indice_dia = dia.weekday()
+                dias_semana.append(DIAS_SEMANA_COMPLETOS[indice_dia])
 
             return dias_semana
 

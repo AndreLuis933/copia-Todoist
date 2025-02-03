@@ -22,6 +22,7 @@ def main(page: ft.Page):
     page.window.height = 500
     page.window.width = 500
     page.theme_mode = ft.ThemeMode.DARK
+    #page.window.icon = "icon.png"
 
     AppController(page)
     page.go("/")
