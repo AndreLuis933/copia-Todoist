@@ -19,9 +19,9 @@ def create_animate_slidbar(page):
             if isinstance(item, Container) and not item.content is None:
                 if isinstance(item.content, Image):
                     if 'screen' not in item.content.src:
-                        item.opacity = opacity
+                        item.visible = show
                 else:
-                    item.opacity = opacity
+                    item.visible = show
 
 
             item.update()
@@ -30,18 +30,21 @@ def create_animate_slidbar(page):
         nonlocal state
         if state is None:
             state = SlidbarState()
+        slidbar = state.slidbar
 
         if state.is_open:
             # Fechar a barra lateral
             toggle_opacity(state.titulo_texto.controls, False)
             toggle_opacity(state.icons_texto.controls[2:], False)
-            page.bgcolor = Colors.TRANSPARENT
+            slidbar.bgcolor = Colors.TRANSPARENT
             time.sleep(0.2)
-            #state.slidbar.width = 62
+            slidbar.width = 50
+            slidbar.height = 50
         else:
             # Abrir a barra lateral
-            state.slidbar.width = 220
-            page.bgcolor = "#222222"
+            slidbar.width = 220
+            slidbar.height = None
+            slidbar.bgcolor = "#222222"
             time.sleep(0.2)
             toggle_opacity(state.titulo_texto.controls, True)
             toggle_opacity(state.icons_texto.controls[2:], True)
