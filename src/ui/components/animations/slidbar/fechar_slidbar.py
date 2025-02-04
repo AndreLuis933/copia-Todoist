@@ -50,10 +50,10 @@ def create_animate_slidbar(page):
 
             toggle_opacity(total, False)
             #toggle_opacity(state.icons_texto.controls[2:], False)
-            #slidbar.bgcolor = Colors.TRANSPARENT
+            slidbar.bgcolor = Colors.TRANSPARENT
             time.sleep(0.2)
             slidbar.width = 50
-            slidbar.height = 50
+            #slidbar.height = 50
         else:
             # Abrir a barra lateral
             slidbar.width = 220
