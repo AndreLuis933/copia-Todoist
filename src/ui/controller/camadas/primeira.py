@@ -29,9 +29,9 @@ class ControlerPrimeiraCamada(Row):
         row.controls.append(self.card_container.prefixos(prefixo))
         self.update()
 
-    def build(self):
+    def build(self): 
         return [
-            Slidbar(),
+            Column([Slidbar()]),
             Column(
                 controls=[
                     Text("Entrada", size=20, weight="bold", max_lines=1),
@@ -40,6 +40,7 @@ class ControlerPrimeiraCamada(Row):
                     self.card_container,
                     Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4),
                     self.lista_tarefas,
+                    Text("Entrada", size=20, weight="bold", max_lines=1),
                 ],
                 expand=True,
             ),
