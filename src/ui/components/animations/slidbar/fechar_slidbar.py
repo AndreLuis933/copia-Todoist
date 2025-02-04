@@ -17,8 +17,12 @@ def create_animate_slidbar(page):
         opacity = 1 if show else 0
         for item in controls:
             if isinstance(item, Container) and not item.content is None:
-                if isinstance(item.content, Image) and 'scrfdsafdeen' not in item.content.src:
+                if isinstance(item.content, Image):
+                    if 'screen' not in item.content.src:
+                        item.opacity = opacity
+                else:
                     item.opacity = opacity
+
 
             item.update()
 
@@ -31,18 +35,19 @@ def create_animate_slidbar(page):
             # Fechar a barra lateral
             toggle_opacity(state.titulo_texto.controls, False)
             toggle_opacity(state.icons_texto.controls[2:], False)
-            #page.bgcolor = Colors.TRANSPARENT
-            #page.height = 40
+            page.bgcolor = Colors.TRANSPARENT
             time.sleep(0.2)
             #state.slidbar.width = 62
         else:
             # Abrir a barra lateral
-            state.slidbar.width = page.width
+            state.slidbar.width = 220
+            page.bgcolor = "#222222"
             time.sleep(0.2)
             toggle_opacity(state.titulo_texto.controls, True)
             toggle_opacity(state.icons_texto.controls[2:], True)
 
         state.slidbar.update()
         state.is_open = not state.is_open
+        page.update()
 
     return animate_slidbar
