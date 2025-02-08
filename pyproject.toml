@@ -1,0 +1,20 @@
+[project]
+name = "TodoApp"
+version = "0.1.0"
+description = "copia do Todoist"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "flet==0.26.0",
+  "SQLAlchemy==2.0.37",
+  "tzlocal==5.2",
+  "python-dateutil==2.9.0.post0",
+]
+
+
+[tool.flet]
+product = "TodoApp"
+
+[tool.flet.app]
+path = "src"
+
