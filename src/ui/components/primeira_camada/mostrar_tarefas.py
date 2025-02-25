@@ -216,7 +216,7 @@ class TodoApp(Column):
         self.page.views[0].controls[0].controls[2].top = ajuste
         controle.content = None
         controle.content = Card_adicionar_tarefa(
-            self.controler, self.controler.hover_control,controle.data,self.voltar
+            self.controler, self.controler.hover_control,controle,self.voltar
         )
         self.controler.hover_control.toggle_card(e)
         # controle.content = None
@@ -231,8 +231,9 @@ class TodoApp(Column):
         tarefa = self.build_tarefa(
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
-        print(card.parent)
-        #card.content = tarefa
+        #print(card.content)
+        time.sleep(1)
+        card.content = tarefa
         self.page.update()
 
     def icons_on_hover(self, icon, func=None):
