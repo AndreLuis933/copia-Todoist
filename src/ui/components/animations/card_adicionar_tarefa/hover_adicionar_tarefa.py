@@ -14,7 +14,7 @@ class HoverAdicionarTarefa:
 
         if self.edit:
              self.edit.visible = not self.edit.visible
-             self.edit = None
+             
         elif self.button.visible !=  any([card.visible for card in self.card_container]):
             self.button.visible = not self.button.visible
             self.card_container[0].visible = not self.card_container[0].visible
@@ -44,7 +44,8 @@ class HoverAdicionarTarefa:
             self.button.content.controls[0].controls[0].visible = False
 
     def update_button_appearance_envio(self):
-        botao = self.card_container.content.controls[3].controls[-1]
+        atual = self.edit if self.edit else self.card_container[0]
+        botao = atual.content.controls[3].controls[-1]
         if self.ativor_envio:
             botao.opacity = 1
             botao.bgcolor = Colors.RED
