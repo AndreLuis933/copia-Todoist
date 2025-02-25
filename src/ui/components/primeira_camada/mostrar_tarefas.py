@@ -1,16 +1,26 @@
 from flet import *
-from app.database.operations import listar_tarefas,search_tarefa
+from app.database.operations import listar_tarefas, search_tarefa
 from ..animations.high_light import high_light
 from ..utils.days_of_week import dia_da_semana_e_cor
 from .card_adicionar_tarefa import Card_adicionar_tarefa
 
+
 class TodoApp(Column):
-    def __init__(self,controler):
+    def __init__(self, controler):
         super().__init__()
         self.controler = controler
         self.scroll = ScrollMode.ALWAYS
+        self.spacing = 10
+        self.visible = True
         self.expand = True
+        self.on_scroll = self.on_scrol
+        self.position = {}
+        self.atual = 0
+        self.edit = False
         self.adicionar_tarefas()
+
+    def on_scrol(self, e):
+        self.atual = int(e.pixels)
 
     def adicionar_tarefas(self):
         self.controls.clear()
@@ -122,6 +132,25 @@ class TodoApp(Column):
             ),
         }
 
+        spacin = self.spacing
+        size_titulo = 20
+        descrisao = 0
+        adicional = 0
+
+        if components["descricao"].visible:
+            descrisao = 25
+        list_componentes = list(components.values())[2:]
+        for component in list_componentes:
+            if component.visible:
+                adicional = 25
+                break
+
+        if not adicional:
+            size_titulo += 4
+        posisao = size_titulo + descrisao + adicional + spacin + 10
+        posisao += self.position.get(id - 1, 0)
+        self.position[id] = posisao
+
         components["tag"].opacity = 0.5
 
         return Container(
@@ -180,12 +209,18 @@ class TodoApp(Column):
 
     def edit_task(self, e):
         controle = e.control.parent.parent
-        print(e.control.height)
+        posisao = self.position.get(controle.data - 1, 0)
+        ajuste = posisao - self.atual + 160
+        self.edit = True
+
+        self.page.views[0].controls[0].controls[2].top = ajuste
+        controle.content = None
+        controle.content = Card_adicionar_tarefa(
+            self.controler, self.controler.segunda_camada, self.controler.hover_control
+        )
+        controle.content.visible = True
         # controle.content = None
-        # controle.content = Card_adicionar_tarefa(self.controler, self.controler.segunda_camada, self.controler.hover_control)
-        # controle.content.visible = True
-        #controle.content = None
-        controle.update()
+        controle.page.update()
 
     def icons_on_hover(self, icon, func=None):
         return Container(

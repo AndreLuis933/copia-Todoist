@@ -11,7 +11,6 @@ from ui.components.animations.card_adicionar_tarefa.hover_adicionar_tarefa impor
 from .segunda import ControlerSegundaCamada
 from ...components.utils.save_in_db import SaveInDB
 
-
 class ControlerPrimeiraCamada(Row):
     def __init__(self):
         super().__init__()
