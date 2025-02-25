@@ -10,14 +10,29 @@ class HoverAdicionarTarefa:
 
     def toggle_card(self, e):
 
-        if self.button.visible and not self.card_container.visible:
+        # if self.button.visible and not self.card_container.visible:
+        #     self.button.visible = not self.button.visible
+        #     self.card_container.visible = not self.card_container.visible
+        # elif not self.button.visible and self.card_container.visible:
+        #     self.button.visible = not self.button.visible
+        #     self.card_container.visible = not self.card_container.visible
+        # elif self.card_container.visible:
+        #     self.card_container.visible = False
+            
+        if self.button.visible and self.card_container.visible:
+            print("Ação 1: Ambos são True")
+            # Adicione aqui o código para a ação quando ambos são True
+        elif self.button.visible and not self.card_container.visible:
+            print("Ação 2: A é True e B é False")
             self.button.visible = not self.button.visible
             self.card_container.visible = not self.card_container.visible
         elif not self.button.visible and self.card_container.visible:
+            print("Ação 3: A é False e B é True")
             self.button.visible = not self.button.visible
             self.card_container.visible = not self.card_container.visible
-        elif self.card_container.visible:
-            self.card_container.visible = False
+        else:
+            print("Ação 4: Ambos são False")
+
         # Reinicia o estado do hover
         self.controler_segunda_camada.hide_all()
         self.button_hovered = False
