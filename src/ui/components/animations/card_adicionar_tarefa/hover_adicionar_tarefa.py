@@ -12,13 +12,13 @@ class HoverAdicionarTarefa:
 
     def toggle_card(self, e):
 
-
-        if self.button.visible != self.card_container[0].visible:
+        if self.edit:
+             self.edit.visible = not self.edit.visible
+             self.edit = None
+        elif self.button.visible !=  any([card.visible for card in self.card_container]):
             self.button.visible = not self.button.visible
             self.card_container[0].visible = not self.card_container[0].visible
-        elif self.edit:
-             self.card_container.visible = False
-             self.edit = False
+        
 
         # Reinicia o estado do hover
         self.controler_segunda_camada.hide_all()

@@ -9,7 +9,7 @@ class Card_adicionar_tarefa(Container):
         self.controler_segunda = self.controler_primeira.segunda_camada
         self.hover_control = hover_control
         self.task_id = edit_id
-        self.hover_control.edit = edit_id
+        self.hover_control.edit = self if  edit_id else None
         self.hover_control.card_container.append(self)
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
