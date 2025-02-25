@@ -1,6 +1,6 @@
 from flet import *
 from ..animations.high_light import high_light
-
+from app.database.operations import search_tarefa
 
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
@@ -19,6 +19,12 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.data = edit.data if edit else 0
         self.content = self.build()
+        self.carregar_tarefa()
+    
+    def carregar_tarefa(self):
+        if self.edit:
+            id, titulo, prioridade, descricao, vencimento, prazo, local, tag = search_tarefa(self.task_id)
+            print(titulo)
 
     def limpar_campos(self):
         for control in (
