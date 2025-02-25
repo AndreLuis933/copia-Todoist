@@ -10,6 +10,7 @@ class Card_adicionar_tarefa(Container):
         self.hover_control = hover_control
         self.task_id = edit.data if edit else None
         self.edit_back = edit_back
+        self.edit = edit
         self.hover_control.edit = edit if edit else None
         self.hover_control.card_container.append(self)
         self.visible = False
