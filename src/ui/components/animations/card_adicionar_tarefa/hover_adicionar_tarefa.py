@@ -11,7 +11,6 @@ class HoverAdicionarTarefa:
         self.edit = None
 
     def show_card_edit(self):
-        print(len(self.card_container))
         for card in self.card_container:
             if card.edit and card.edit.data != self.edit.content.task_id:
                 card.edit_back(card.edit,card.task_id)
@@ -21,6 +20,24 @@ class HoverAdicionarTarefa:
                 card.visible = False
         self.edit.content.visible = True
         self.button.visible = True
+    
+    def card_add(self,e):
+        for card in self.card_container:
+            if card.edit:
+                card.edit_back(card.edit,card.task_id)
+            if card.data:
+                self.card_container.remove(card)
+        
+        self.edit = None
+        
+        self.button.visible = not self.button.visible
+        self.card_container[0].visible = not self.card_container[0].visible
+        self.controler_segunda_camada.hide_all()
+        self.button_hovered = False
+        self.ativor_envio = False
+        self.update_button_appearance()
+        self.update_button_appearance_envio()
+        self.button.page.update()
         
     def toggle_card(self, e):
 
@@ -61,7 +78,7 @@ class HoverAdicionarTarefa:
             self.button.content.controls[0].controls[0].visible = False
 
     def update_button_appearance_envio(self):
-        atual = self.edit if self.edit else self.card_container[0]
+        atual = self.edit.content if self.edit else self.card_container[0]
         botao = atual.content.controls[3].controls[-1]
         if self.ativor_envio:
             botao.opacity = 1
@@ -75,4 +92,4 @@ class HoverAdicionarTarefa:
     def ativar_envio(self, e):
         self.ativor_envio = len(e.data.strip()) > 0
         self.update_button_appearance_envio()
-        self.card_container.update()
+        self.button.page.update()

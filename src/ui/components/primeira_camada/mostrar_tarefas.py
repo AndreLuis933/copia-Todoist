@@ -232,7 +232,7 @@ class TodoApp(Column):
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
         card.content = tarefa
-        self.page.update()
+        #self.page.update()
 
     def icons_on_hover(self, icon, func=None):
         return Container(

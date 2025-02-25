@@ -8,7 +8,7 @@ class Button_adicionar_tarefa(Container):
         self.hover_control.button = self
         self.visible = True
         self.button_height = 24
-        self.on_click = self.hover_control.toggle_card
+        self.on_click = self.hover_control.card_add
         self.on_hover = self.hover_control.mudar_cor
         self.content = self.build()
 
