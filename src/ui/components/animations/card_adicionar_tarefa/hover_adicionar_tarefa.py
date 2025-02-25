@@ -6,6 +6,7 @@ class HoverAdicionarTarefa:
         self.ativor_envio = False
         self.button = None
         self.card_container = None
+        self.task = None
         self.controler_segunda_camada = controler_segunda_camada
 
     def toggle_card(self, e):
