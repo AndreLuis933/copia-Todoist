@@ -231,8 +231,8 @@ class TodoApp(Column):
         tarefa = self.build_tarefa(
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
-        #print(card.parent)
-        card.content = tarefa
+        print(card.parent)
+        #card.content = tarefa
         self.page.update()
 
     def icons_on_hover(self, icon, func=None):

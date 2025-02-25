@@ -16,6 +16,7 @@ class Card_adicionar_tarefa(Container):
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
+        self.data = 'Card'
         self.content = self.build()
 
     def limpar_campos(self):

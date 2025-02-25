@@ -13,7 +13,7 @@ class HoverAdicionarTarefa:
     def toggle_card(self, e):
 
         if self.edit:
-             print(self.edit)
+             print(self.edit.content)
              self.edit.visible = not self.edit.visible
              self.edit.edit_back(self.edit,self.edit.task_id)
              self.edit = None
@@ -47,7 +47,6 @@ class HoverAdicionarTarefa:
 
     def update_button_appearance_envio(self):
         atual = self.edit if self.edit else self.card_container[0]
-        
         botao = atual.content.controls[3].controls[-1]
         if self.ativor_envio:
             botao.opacity = 1
