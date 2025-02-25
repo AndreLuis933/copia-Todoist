@@ -214,13 +214,20 @@ class TodoApp(Column):
         self.edit = True
 
         self.page.views[0].controls[0].controls[2].top = ajuste
-        controle.content = None
+        #print(controle.page)
+        self.adicionar_tarefas()
+        print(controle.page)
+        #controle.content = None
         controle.content = Card_adicionar_tarefa(
             self.controler, self.controler.hover_control,controle.data
         )
-        self.controler.hover_control.toggle_card(e)
+        print(controle.content)
+        #self.controler.hover_control.toggle_card(e)
         # controle.content = None
         controle.page.update()
+    
+    def voltar(self, e):
+        pass
 
     def icons_on_hover(self, icon, func=None):
         return Container(
