@@ -216,24 +216,22 @@ class TodoApp(Column):
         self.page.views[0].controls[0].controls[2].top = ajuste
         controle.content = None
         controle.content = Card_adicionar_tarefa(
-            self.controler, self.controler.hover_control,controle.data
+            self.controler, self.controler.hover_control,controle.data,self.voltar
         )
         self.controler.hover_control.toggle_card(e)
         # controle.content = None
         controle.page.update()
-        time.sleep(0.5)
-        self.voltar(controle.content,controle.data)
+        #time.sleep(0.5)
+        #self.voltar(controle,controle.data)
     
     def voltar(self, card,id):
-        #print('dfsaf')
         id, titulo, prioridade, descricao, vencimento, prazo, local, tag = search_tarefa(id)
         if vencimento:
             _, *vencimento = dia_da_semana_e_cor(vencimento)
         tarefa = self.build_tarefa(
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
-        print(titulo)
-        self.controls[0] = tarefa
+        card.content = tarefa
         self.page.update()
 
     def icons_on_hover(self, icon, func=None):
