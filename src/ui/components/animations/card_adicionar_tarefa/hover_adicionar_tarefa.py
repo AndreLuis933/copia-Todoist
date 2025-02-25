@@ -3,44 +3,22 @@ from flet import *
 
 class HoverAdicionarTarefa:
     def __init__(self, controler_segunda_camada):
+        self.controler_segunda_camada = controler_segunda_camada
         self.button_hovered = False
         self.ativor_envio = False
         self.button = None
-        self.card_container = None
+        self.card_container = []
         self.edit = None
-        self.controler_segunda_camada = controler_segunda_camada
 
     def toggle_card(self, e):
 
-        # if self.button.visible and not self.card_container.visible:
-        #     self.button.visible = not self.button.visible
-        #     self.card_container.visible = not self.card_container.visible
-        # elif not self.button.visible and self.card_container.visible:
-        #     self.button.visible = not self.button.visible
-        #     self.card_container.visible = not self.card_container.visible
-        # elif self.card_container.visible:
-        #     self.card_container.visible = False
 
-        if self.button.visible != self.card_container.visible:
+        if self.button.visible != self.card_container[0].visible:
             self.button.visible = not self.button.visible
-            self.card_container.visible = not self.card_container.visible
+            self.card_container[0].visible = not self.card_container[0].visible
         elif self.edit:
              self.card_container.visible = False
              self.edit = False
-
-        # if self.button.visible and self.card_container.visible:
-        #     print("Ação 1: Ambos são True")
-        #     # Adicione aqui o código para a ação quando ambos são True
-        # elif self.button.visible and not self.card_container.visible:
-        #     print("Ação 2: A é True e B é False")
-        #     self.button.visible = not self.button.visible
-        #     self.card_container.visible = not self.card_container.visible
-        # elif not self.button.visible and self.card_container.visible:
-        #     print("Ação 3: A é False e B é True")
-        #     self.button.visible = not self.button.visible
-        #     self.card_container.visible = not self.card_container.visible
-        # else:
-        #     print("Ação 4: Ambos são False")
 
         # Reinicia o estado do hover
         self.controler_segunda_camada.hide_all()

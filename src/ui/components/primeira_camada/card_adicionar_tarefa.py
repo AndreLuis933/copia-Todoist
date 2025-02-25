@@ -10,7 +10,7 @@ class Card_adicionar_tarefa(Container):
         self.hover_control = hover_control
         self.task_id = edit_id
         self.hover_control.edit = edit_id
-        self.hover_control.card_container = self
+        self.hover_control.card_container.append(self)
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
