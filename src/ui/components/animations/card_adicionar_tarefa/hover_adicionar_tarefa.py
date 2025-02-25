@@ -23,8 +23,11 @@ class HoverAdicionarTarefa:
 
         if self.edit:
              self.edit.content.visible = not self.edit.content.visible
+             for i in self.card_container:
+                 if i.data ==self.edit.content.task_id:
+                     self.card_container.remove(i)
+                     break
              self.edit.content.edit_back(self.edit,self.edit.content.task_id)
-             print(self.card_container[1] == self.edit)
              #self.card_container.remove(self.edit.content)
              self.edit = None
         elif self.button.visible !=  any([card.visible for card in self.card_container]):
