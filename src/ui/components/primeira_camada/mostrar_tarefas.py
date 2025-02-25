@@ -216,7 +216,7 @@ class TodoApp(Column):
         self.page.views[0].controls[0].controls[2].top = ajuste
         controle.content = None
         controle.content = Card_adicionar_tarefa(
-            self.controler, self.controler.segunda_camada, self.controler.hover_control
+            self.controler, self.controler.hover_control,controle.data
         )
         controle.content.visible = True
         # controle.content = None

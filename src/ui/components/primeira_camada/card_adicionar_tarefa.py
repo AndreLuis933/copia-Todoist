@@ -3,12 +3,13 @@ from ..animations.high_light import high_light
 
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, controler_primeira, controler_segunda, hover_control):
+    def __init__(self, controler_primeira, hover_control, edit_id=None):
         super().__init__()
         self.controler_primeira = controler_primeira
-        self.controler_segunda = controler_segunda
+        self.controler_segunda = self.controler_primeira.segunda_camada
         self.hover_control = hover_control
-        self.task = None
+        self.task_id = edit_id
+        self.hover_control.edit = edit_id
         self.hover_control.card_container = self
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
@@ -22,7 +23,7 @@ class Card_adicionar_tarefa(Container):
         ):
             if control.visible:
                 control.on_click(control.content.value)
-        
+
         self.content.controls[0].content.controls[0].controls[1].value = None
         self.content.controls[0].content.controls[1].value = None
 

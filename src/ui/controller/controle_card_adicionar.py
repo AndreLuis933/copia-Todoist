@@ -9,7 +9,7 @@ class ControleCardAdicionarTarefa:
         self.hover_control = hover_control
     
     def show_card(self):
-        return Card_adicionar_tarefa(self.controler_primeira, self.controler_segunda, self.hover_control)
+        return Card_adicionar_tarefa(self.controler_primeira, self.hover_control)
         
 
 

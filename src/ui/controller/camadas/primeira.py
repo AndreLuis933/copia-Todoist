@@ -21,7 +21,7 @@ class ControlerPrimeiraCamada(Row):
         self.hover_control = HoverAdicionarTarefa(self.segunda_camada)
         self.button = Button_adicionar_tarefa(self.hover_control)
         self.card_container = Card_adicionar_tarefa(
-            self, self.segunda_camada, self.hover_control
+            self, self.hover_control
         )
         self.lista_tarefas = TodoApp(self)
         self.slidbar = Slidbar(self)
