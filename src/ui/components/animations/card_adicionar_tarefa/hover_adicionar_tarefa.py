@@ -10,6 +10,16 @@ class HoverAdicionarTarefa:
         self.card_container = []
         self.edit = None
 
+    def show_card_edit(self):
+        for card in self.card_container:
+            if card.edit_back:
+                #card.edit_back(card,card.task_id)
+                pass
+            else:
+                card.visible = False
+        self.edit.content.visible = True
+        self.button.visible = True
+        
     def toggle_card(self, e):
 
         if self.edit:

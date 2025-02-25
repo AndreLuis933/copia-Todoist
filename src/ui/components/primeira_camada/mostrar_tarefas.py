@@ -218,7 +218,7 @@ class TodoApp(Column):
         controle.content = Card_adicionar_tarefa(
             self.controler, self.controler.hover_control,controle,self.voltar
         )
-        self.controler.hover_control.toggle_card(e)
+        self.controler.hover_control.show_card_edit()
         # controle.content = None
         controle.page.update()
         #time.sleep(0.5)
@@ -231,8 +231,6 @@ class TodoApp(Column):
         tarefa = self.build_tarefa(
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
-        #print(card.content)
-        time.sleep(1)
         card.content = tarefa
         self.page.update()
 
