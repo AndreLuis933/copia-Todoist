@@ -214,15 +214,11 @@ class TodoApp(Column):
         self.edit = True
 
         self.page.views[0].controls[0].controls[2].top = ajuste
-        #print(controle.page)
-        self.adicionar_tarefas()
-        print(controle.page)
-        #controle.content = None
+        controle.content = None
         controle.content = Card_adicionar_tarefa(
             self.controler, self.controler.hover_control,controle.data
         )
-        print(controle.content)
-        #self.controler.hover_control.toggle_card(e)
+        self.controler.hover_control.toggle_card(e)
         # controle.content = None
         controle.page.update()
     
