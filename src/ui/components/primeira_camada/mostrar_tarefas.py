@@ -210,11 +210,10 @@ class TodoApp(Column):
 
     def edit_task(self, e):
         controle = e.control.parent.parent
-        posisao = self.position.get(controle.data - 1, 0)
-        ajuste = posisao - self.atual + 160
-        self.edit = True
-
-        self.page.views[0].controls[0].controls[2].top = ajuste
+        # posisao = self.position.get(controle.data - 1, 0)
+        # ajuste = posisao - self.atual + 160
+        # self.edit = True
+        # self.page.views[0].controls[0].controls[2].top = ajuste
 
         controle.content = Card_adicionar_tarefa(
             self.controler, self.controler.hover_control, controle, self.voltar

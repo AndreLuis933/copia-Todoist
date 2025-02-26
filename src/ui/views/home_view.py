@@ -30,7 +30,7 @@ class HomeView:
                     content=Container(expand=True, bgcolor=Colors.TRANSPARENT),
                 ),
                 primeira_camada,
-                Container(bgcolor=Colors.RED,width=10,height=10,top=698,left=60),
+                #Container(bgcolor=Colors.RED,width=10,height=10,top=698,left=60),
                 # 2 camada
                 *segunda_camada.controls,
                 # 3 camada

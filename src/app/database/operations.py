@@ -77,3 +77,6 @@ def search_tarefa(id):
         tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
 
         return list_tasks(tarefa)
+    
+def update_task_db(tarefas, lembretes):
+    print('upate',tarefas[1])

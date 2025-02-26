@@ -116,7 +116,10 @@ class Card_adicionar_tarefa(Container):
 
         self.controler_primeira.save.title = title
         self.controler_primeira.save.description = description
-        self.controler_primeira.save.save_task()
+        if self.controler_primeira.save.edit:
+            self.controler_primeira.save.edit_task()
+        else:
+            self.controler_primeira.save.save_task()
         self.hover_control.card_save(e)
         self.limpar_campos()
 
