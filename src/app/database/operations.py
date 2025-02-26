@@ -79,4 +79,4 @@ def search_tarefa(id):
         return list_tasks(tarefa)
     
 def update_task_db(tarefas, lembretes):
-    print('upate',tarefas[1])
+    print(tarefas)

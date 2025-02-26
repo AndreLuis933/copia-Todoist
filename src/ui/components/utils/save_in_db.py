@@ -33,7 +33,7 @@ class SaveInDB:
         self.controler.lista_tarefas.adicionar_tarefas()
         self.controler.page.update()
     
-    def update_task(self, id):
+    def update_task(self):
         values = [
             self.title,
             self.description,
@@ -43,7 +43,7 @@ class SaveInDB:
             self.local,
             self.tag,
         ]
-        update_task_db(values, self.lembrete, id)
+        update_task_db(values, self.lembrete)
         self.controler.lista_tarefas.adicionar_tarefas()
         self.controler.page.update()
 

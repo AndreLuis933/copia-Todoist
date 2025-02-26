@@ -2,6 +2,7 @@ from flet import *
 from ..animations.high_light import high_light
 from app.database.operations import search_tarefa
 
+
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
         super().__init__()
@@ -20,11 +21,21 @@ class Card_adicionar_tarefa(Container):
         self.data = edit.data if edit else 0
         self.content = self.build()
         self.carregar_tarefa()
-    
+
     def carregar_tarefa(self):
         if self.edit:
-            id, titulo, prioridade, descricao, vencimento, prazo, local, tag = search_tarefa(self.task_id)
-            print(titulo)
+            id, titulo, prioridade, description, vencimento, prazo, local, tag = (
+                search_tarefa(self.task_id)
+            )
+            self.controler_primeira.save.title = titulo
+            self.controler_primeira.save.description = description
+            self.controler_primeira.save.prioridade = prioridade
+            self.controler_primeira.save.vencimento = vencimento
+            self.controler_primeira.save.prazo = prazo
+            self.controler_primeira.save.local = local
+            self.controler_primeira.save.tag = tag
+
+            self.controler_primeira.save.edit = id
 
     def limpar_campos(self):
         for control in (
@@ -117,7 +128,8 @@ class Card_adicionar_tarefa(Container):
         self.controler_primeira.save.title = title
         self.controler_primeira.save.description = description
         if self.controler_primeira.save.edit:
-            self.controler_primeira.save.edit_task()
+            self.controler_primeira.save.update_task()
+            self.controler_primeira.save.edit = None
         else:
             self.controler_primeira.save.save_task()
         self.hover_control.card_save(e)
