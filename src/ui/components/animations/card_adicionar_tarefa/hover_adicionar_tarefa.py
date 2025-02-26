@@ -81,6 +81,7 @@ class HoverAdicionarTarefa:
 
     def update_button_appearance_envio(self):
         atual = self.edit.content if self.edit else self.card_container[0]
+        #atual = self.card_container[0]
         botao = atual.content.controls[3].controls[-1]
         if self.ativor_envio:
             botao.opacity = 1

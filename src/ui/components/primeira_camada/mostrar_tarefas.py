@@ -219,6 +219,7 @@ class TodoApp(Column):
             self.controler, self.controler.hover_control, controle, self.voltar
         )
         self.controler.hover_control.card_edit()
+        controle.content.carregar_tarefa()
         controle.page.update()
 
     def voltar(self, card, id):
