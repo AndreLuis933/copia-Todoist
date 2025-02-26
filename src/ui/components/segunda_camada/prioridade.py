@@ -19,6 +19,7 @@ class Card_prioridade(Container):
 
     def select_priority(self, priority, e=None):
         card = self.controler.primeira_camada.card_container
+        print(priority)
         if len(priority) == 2:
             priority = "p" + f'{self.padrao}'
 
@@ -41,6 +42,10 @@ class Card_prioridade(Container):
         if e:
             lambda e: high_light(e,'#272727','#383838')
         self.page.update()
+
+
+    def update_select_priority(self,priority, e=None):
+        pass
 
     def cards_prioridade(self, icon, cor, texto, visible=False):
         return Container(

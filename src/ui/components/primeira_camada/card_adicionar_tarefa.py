@@ -20,7 +20,6 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.data = edit.data if edit else 0
         self.content = self.build()
-        #self.carregar_tarefa()
 
     def carregar_tarefa(self):
         if self.edit:
@@ -29,14 +28,17 @@ class Card_adicionar_tarefa(Container):
             )
             self.controler_primeira.save.title = titulo
             self.content.controls[0].content.controls[0].controls[1].value = titulo
+            
             self.controler_primeira.save.description = description
             self.content.controls[0].content.controls[1].value = description
+            
             self.controler_primeira.save.prioridade = prioridade
             self.controler_primeira.save.vencimento = vencimento
             self.controler_primeira.save.prazo = prazo
             self.controler_primeira.save.local = local
             self.controler_primeira.save.tag = tag
 
+            self.hover_control.ativor_envio = True
             self.hover_control.update_button_appearance_envio()
             
             self.controler_primeira.save.edit = id
