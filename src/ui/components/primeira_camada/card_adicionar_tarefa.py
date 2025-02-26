@@ -4,6 +4,9 @@ from app.database.operations import search_tarefa
 from ui.components.utils.repr_personalized import ReprPersonalized
 
 
+class Teste(Container):
+    pass
+
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
         super().__init__()

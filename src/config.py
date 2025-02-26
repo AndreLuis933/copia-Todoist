@@ -4,26 +4,14 @@ import os
 from flet import Container, Row, Column
 
 def ReprPersonalized(cls):
-    """
-    Decorador que personaliza os métodos __str__ e __repr__ de uma classe.
-    Adiciona informações sobre os atributos da instância na representação,
-    facilitando o debugging e a inspeção de objetos.
-    """
-    print(f"ReprPersonalized está sendo aplicado à classe: {cls.__name__}")
+    original_str = cls.__str__
+    original_repr = cls.__repr__
 
     def new_str(self):
-        """
-        Retorna uma string formatada com o nome da classe e seus atributos.
-        Este método é usado quando o objeto é convertido para string, por exemplo, com a função str.
-        """
-        return f"ReprPersonalized_{self.__class__.__name__} {self.__dict__}"
+        return f"{self.__class__.__name__} {original_str(self)}"
 
     def new_repr(self):
-        """
-        Retorna uma string formatada com o nome da classe e seus atributos (para debugging).
-        Este método é usado quando o objeto é inspecionado no console ou em um debugger.
-        """
-        return f"ReprPersonalized_{self.__class__.__name__}({self.__dict__})"
+        return f"{self.__class__.__name__}({original_repr(self)})"
 
     cls.__str__ = new_str
     cls.__repr__ = new_repr

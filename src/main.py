@@ -83,10 +83,9 @@ def main(page: ft.Page):
     
     
     try:
-        from ui.components.primeira_camada.card_adicionar_tarefa import Card_adicionar_tarefa
-        test_instance = Card_adicionar_tarefa
+        from ui.components.primeira_camada.card_adicionar_tarefa import Teste
+        test_instance = Teste()
         print(f"Teste de representação da instância: {test_instance}")
-        print(f"Representação da classe: {Card_adicionar_tarefa}")
     except ImportError as e:
         print(f"Erro ao importar a classe de teste: {e}")
         
