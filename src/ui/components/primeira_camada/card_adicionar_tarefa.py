@@ -1,9 +1,9 @@
 from flet import *
 from ..animations.high_light import high_light
 from app.database.operations import search_tarefa
-from ui.components.utils.repr_personalized import ReprPersonalized
 
-@ReprPersonalized
+
+
 class Card_adicionar_tarefa(Container):
     def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
         super().__init__()
@@ -284,3 +284,7 @@ class Card_adicionar_tarefa(Container):
             ],
             spacing=12,
         )
+
+
+from ui.components.utils.apply_repr import apply_repr_to_container_subclasses
+apply_repr_to_container_subclasses(__import__(__name__))
