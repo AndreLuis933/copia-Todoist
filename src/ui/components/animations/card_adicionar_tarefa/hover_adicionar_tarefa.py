@@ -9,6 +9,7 @@ class HoverAdicionarTarefa:
         self.button = None
         self.card_container = []
         self.edit = None
+        self.atual = None
 
     def apply_edit_back(self, card):
         """Aplica a função edit_back ao cartão fornecido."""
@@ -39,8 +40,20 @@ class HoverAdicionarTarefa:
 
         self.toggle_card()
 
+    def obter_card_visivel(self):
+        for card in self.card_container:
+            if card.visible:
+                return card
+        return None  # Retorna None se nenhum card estiver visível
+
     def card_save(self, e):
         """Lógica para salvar um cartão."""
+        visives = [card.visible for card in self.card_container]
+        cards_visiveis = [card for card in self.card_container if card.visible]
+        print(self.obter_card_visivel())
+        print(cards_visiveis)
+        
+        
         if self.edit:
             self.edit.content.visible = not self.edit.content.visible
             for card in self.card_container:
@@ -49,7 +62,7 @@ class HoverAdicionarTarefa:
                     break
             self.apply_edit_back(self.edit.content)
             self.edit = None
-        elif self.button.visible != any([card.visible for card in self.card_container]):
+        elif self.button.visible != any(visives):
             self.button.visible = not self.button.visible
             self.card_container[0].visible = not self.card_container[0].visible
 
