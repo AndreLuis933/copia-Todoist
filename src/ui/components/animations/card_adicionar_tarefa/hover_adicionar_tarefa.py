@@ -50,8 +50,8 @@ class HoverAdicionarTarefa:
         """Lógica para salvar um cartão."""
         visives = [card.visible for card in self.card_container]
         cards_visiveis = [card for card in self.card_container if card.visible]
-        print(self.obter_card_visivel())
-        print(cards_visiveis)
+        #print(self.obter_card_visivel())
+        print(cards_visiveis[0])
         
         
         if self.edit:
