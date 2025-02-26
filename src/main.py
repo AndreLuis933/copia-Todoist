@@ -1,6 +1,5 @@
-from config import apply_repr_to_ui_components
+import config
 
-apply_repr_to_ui_components()
 import flet as ft
 from ui.controller.app_controller import AppController
 from ui.components.utils.locale_config import set_default_locale
@@ -79,9 +78,17 @@ def main(page: ft.Page):
     #print(element)
     #print(posicion)
     
-    
-
     page.update()
+    
+    
+    try:
+        from ui.components.primeira_camada.card_adicionar_tarefa import Card_adicionar_tarefa
+        test_instance = Card_adicionar_tarefa
+        print(f"Teste de representação da instância: {test_instance}")
+        print(f"Representação da classe: {Card_adicionar_tarefa}")
+    except ImportError as e:
+        print(f"Erro ao importar a classe de teste: {e}")
+        
 
 if __name__ == "__main__":
     if not database_exists():
