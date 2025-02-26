@@ -1,5 +1,4 @@
 def ReprPersonalized(cls):
-    print(f"ReprPersonalized está sendo aplicado à classe: {cls.__name__}")
     original_str = cls.__str__
     original_repr = cls.__repr__
 

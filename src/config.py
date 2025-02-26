@@ -38,7 +38,8 @@ def apply_repr_to_ui_components():
     
     # Ajuste o caminho base para o diretório do projeto
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    components_path = os.path.join(base_path,'src', 'ui', 'components')
+    base_path = os.path.join(base_path,'src')
+    components_path = os.path.join(base_path,'ui', 'components')
     
     print(f"Procurando em: {components_path}")
 
