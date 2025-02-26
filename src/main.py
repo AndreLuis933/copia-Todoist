@@ -1,4 +1,5 @@
 import config
+config.apply_repr_to_ui_components()
 
 import flet as ft
 from ui.controller.app_controller import AppController
