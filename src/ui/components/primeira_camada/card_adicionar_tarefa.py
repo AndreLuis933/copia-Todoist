@@ -33,7 +33,7 @@ class Card_adicionar_tarefa(Container):
             self.content.controls[0].content.controls[1].value = description
             
             self.controler_primeira.save.prioridade = prioridade
-            print(prioridade)
+            #print(prioridade)
             self.controler_primeira.save.vencimento = vencimento
             self.controler_primeira.save.prazo = prazo
             self.controler_primeira.save.local = local

@@ -2,6 +2,10 @@ from flet import *
 from ..animations.high_light import high_light
 
 
+class EFalsificado():
+    data = None
+    control = None
+
 class Card_prioridade(Container):
     def __init__(self, controler):
         super().__init__()
@@ -18,18 +22,27 @@ class Card_prioridade(Container):
         self.content = self.build()
 
     def select_priority(self, priority, e=None):
-        card = self.controler.primeira_camada.card_container
         if len(priority) == 2:
             priority = "p" + f'{self.padrao}'
 
         priority = int(priority[-1])
+        self.update_select_priority(priority, e)
 
+
+
+    def update_select_priority(self,priority, e=None):
+        card = self.controler.primeira_camada.card_container
         for i in range(4):
             self.content.controls[i].content.controls[2].visible = False
 
         self.content.controls[priority - 1].content.controls[2].visible = True
         self.controler.save.prioridade = priority
         self.controler.hide_all()
+        
+        if not e:
+            for i in self.content.controls:
+                if i.content.controls[1].text[-1] == str(priority):
+                    print(i.content.controls[1].text)
 
         if priority == 4:
             card.adicionar_prefixo(1, None)
@@ -37,12 +50,7 @@ class Card_prioridade(Container):
         else:
             card.adicionar_prefixo(1, f"p{priority}", self.select_priority)
             card.atualizar_definitions(1, f"P{priority}",e.control.content.controls[0].color, self.select_priority)
-        if e:
-            lambda e: high_light(e,'#272727','#383838')
         self.page.update()
-
-
-    def update_select_priority(self,priority, e=None):
         pass
 
     def cards_prioridade(self, icon, cor, texto, visible=False):
