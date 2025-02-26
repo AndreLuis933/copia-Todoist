@@ -1,9 +1,9 @@
 from flet import *
 from ..animations.high_light import high_light
 from app.database.operations import search_tarefa
+from ui.components.utils.repr_personalized import ReprPersonalized
 
-
-class Card_adicionar_tarefa(Container):
+class Card_adicionar_tarefa(Container,ReprPersonalized):
     def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
         super().__init__()
         self.controler_primeira = controler_primeira
@@ -22,12 +22,6 @@ class Card_adicionar_tarefa(Container):
         self.content = self.build()
     
     
-    # Magic methods    
-    def __str__(self):
-        return self.__repr__()
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}"
 
     def carregar_tarefa(self):
         if self.edit:
@@ -41,7 +35,7 @@ class Card_adicionar_tarefa(Container):
             self.content.controls[0].content.controls[1].value = description
             
             self.controler_primeira.save.prioridade = prioridade
-            print(self.content)
+            print(self)
             self.controler_primeira.save.vencimento = vencimento
             self.controler_primeira.save.prazo = prazo
             self.controler_primeira.save.local = local
