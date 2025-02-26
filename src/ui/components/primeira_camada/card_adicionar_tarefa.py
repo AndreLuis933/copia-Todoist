@@ -1,7 +1,7 @@
 from flet import *
 from ..animations.high_light import high_light
 from app.database.operations import search_tarefa
-
+from ui.components.utils.repr_personalized import ReprPersonalized
 
 
 class Card_adicionar_tarefa(Container):
@@ -285,6 +285,3 @@ class Card_adicionar_tarefa(Container):
             spacing=12,
         )
 
-
-from ui.components.utils.apply_repr import apply_repr_to_container_subclasses
-apply_repr_to_container_subclasses(__import__(__name__))

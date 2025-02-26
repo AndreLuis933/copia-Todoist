@@ -1,3 +1,4 @@
+import config
 import flet as ft
 from ui.controller.app_controller import AppController
 from ui.components.utils.locale_config import set_default_locale
