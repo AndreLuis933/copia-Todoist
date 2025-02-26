@@ -19,12 +19,10 @@ class Card_prioridade(Container):
 
     def select_priority(self, priority, e=None):
         card = self.controler.primeira_camada.card_container
-        print(priority)
         if len(priority) == 2:
             priority = "p" + f'{self.padrao}'
 
-        priority_sting = priority[-1]
-        priority = int(priority_sting)
+        priority = int(priority[-1])
 
         for i in range(4):
             self.content.controls[i].content.controls[2].visible = False
@@ -37,8 +35,8 @@ class Card_prioridade(Container):
             card.adicionar_prefixo(1, None)
             card.atualizar_definitions(1, "Prioridade")
         else:
-            card.adicionar_prefixo(1, "p" + priority_sting, self.select_priority)
-            card.atualizar_definitions(1, "P" + priority_sting,e.control.content.controls[0].color, self.select_priority)
+            card.adicionar_prefixo(1, f"p{priority}", self.select_priority)
+            card.atualizar_definitions(1, f"P{priority}",e.control.content.controls[0].color, self.select_priority)
         if e:
             lambda e: high_light(e,'#272727','#383838')
         self.page.update()
