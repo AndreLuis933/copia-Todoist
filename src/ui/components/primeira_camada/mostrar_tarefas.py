@@ -5,6 +5,7 @@ from ..utils.days_of_week import dia_da_semana_e_cor
 from .card_adicionar_tarefa import Card_adicionar_tarefa
 import time
 
+
 class TodoApp(Column):
     def __init__(self, controler):
         super().__init__()
@@ -214,25 +215,23 @@ class TodoApp(Column):
         self.edit = True
 
         self.page.views[0].controls[0].controls[2].top = ajuste
-        controle.content = None
+
         controle.content = Card_adicionar_tarefa(
-            self.controler, self.controler.hover_control,controle,self.voltar
+            self.controler, self.controler.hover_control, controle, self.voltar
         )
-        self.controler.hover_control.show_card_edit()
-        # controle.content = None
+        self.controler.hover_control.card_edit()
         controle.page.update()
-        #time.sleep(0.5)
-        #self.voltar(controle,controle.data)
-    
-    def voltar(self, card,id):
-        id, titulo, prioridade, descricao, vencimento, prazo, local, tag = search_tarefa(id)
+
+    def voltar(self, card, id):
+        id, titulo, prioridade, descricao, vencimento, prazo, local, tag = (
+            search_tarefa(id)
+        )
         if vencimento:
             _, *vencimento = dia_da_semana_e_cor(vencimento)
         tarefa = self.build_tarefa(
             id, titulo, prioridade, descricao, vencimento, prazo, local, tag
         )
         card.content = tarefa
-        #self.page.update()
 
     def icons_on_hover(self, icon, func=None):
         return Container(

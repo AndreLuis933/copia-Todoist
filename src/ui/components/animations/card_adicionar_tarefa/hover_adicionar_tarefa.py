@@ -10,51 +10,53 @@ class HoverAdicionarTarefa:
         self.card_container = []
         self.edit = None
 
-    def show_card_edit(self):
+    def apply_edit_back(self, card):
+        """Aplica a função edit_back ao cartão fornecido."""
+        card.edit_back(card.edit, card.task_id)
+
+    def card_edit(self):
+        """Lógica para editar um cartão."""
         for card in self.card_container:
-            if card.edit and card.edit.data != self.edit.content.task_id:
-                card.edit_back(card.edit,card.task_id)
-            if card.data !=self.edit.content.task_id and card.data:
+            if card.data and card.data != self.edit.content.task_id:
+                self.apply_edit_back(card)
                 self.card_container.remove(card)
             else:
                 card.visible = False
         self.edit.content.visible = True
         self.button.visible = True
-    
-    def card_add(self,e):
+
+    def card_add(self, e):
+        """Lógica para adicionar um cartão."""
         for card in self.card_container:
-            if card.edit:
-                card.edit_back(card.edit,card.task_id)
             if card.data:
+                self.apply_edit_back(card)
+                card.edit_back(card.edit, card.task_id)
                 self.card_container.remove(card)
-        
+
         self.edit = None
-        
         self.button.visible = not self.button.visible
         self.card_container[0].visible = not self.card_container[0].visible
-        self.controler_segunda_camada.hide_all()
-        self.button_hovered = False
-        self.ativor_envio = False
-        self.update_button_appearance()
-        self.update_button_appearance_envio()
-        self.button.page.update()
-        
-    def toggle_card(self, e):
 
+        self.toggle_card()
+
+    def card_save(self, e):
+        """Lógica para salvar um cartão."""
         if self.edit:
-             self.edit.content.visible = not self.edit.content.visible
-             for i in self.card_container:
-                 if i.data ==self.edit.content.task_id:
-                     self.card_container.remove(i)
-                     break
-             self.edit.content.edit_back(self.edit,self.edit.content.task_id)
-             self.edit = None
-        elif self.button.visible !=  any([card.visible for card in self.card_container]):
+            self.edit.content.visible = not self.edit.content.visible
+            for card in self.card_container:
+                if card.data == self.edit.content.task_id:
+                    self.card_container.remove(card)
+                    break
+            self.apply_edit_back(self.edit.content)
+            self.edit = None
+        elif self.button.visible != any([card.visible for card in self.card_container]):
             self.button.visible = not self.button.visible
             self.card_container[0].visible = not self.card_container[0].visible
-        
-        
-        # Reinicia o estado do hover
+
+        self.toggle_card()
+
+    def toggle_card(self):
+        """Reinicia o estado do hover."""
         self.controler_segunda_camada.hide_all()
         self.button_hovered = False
         self.ativor_envio = False

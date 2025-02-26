@@ -38,7 +38,7 @@ class Card_adicionar_tarefa(Container):
 
     def canselar(self, e):
         self.limpar_campos()
-        self.hover_control.toggle_card(e)
+        self.hover_control.card_save(e)
 
     def adicionar_prefixo(self, i, prefixo, func=None):
         container = self.content.controls[0].content.controls[0].controls[0].controls[i]
@@ -117,7 +117,7 @@ class Card_adicionar_tarefa(Container):
         self.controler_primeira.save.title = title
         self.controler_primeira.save.description = description
         self.controler_primeira.save.save_task()
-        self.hover_control.toggle_card(e)
+        self.hover_control.card_save(e)
         self.limpar_campos()
 
     def hide_prefixos(self, e):
