@@ -20,15 +20,14 @@ class Card_adicionar_tarefa(Container):
         self.border = border.all(0.3, Colors.OUTLINE)
         self.data = edit.data if edit else 0
         self.content = self.build()
-        
+    
+    
+    # Magic methods    
     def __str__(self):
-        # Este método é chamado quando você usa print ou str
-        return f'{self.__repr__()}'
+        return self.__repr__()
 
     def __repr__(self):
-        # Este método é chamado para representações de objeto, incluindo em listas
-        class_name = self.__class__.__name__
-        return f"{class_name}"
+        return f"{self.__class__.__name__}"
 
     def carregar_tarefa(self):
         if self.edit:
@@ -42,7 +41,7 @@ class Card_adicionar_tarefa(Container):
             self.content.controls[0].content.controls[1].value = description
             
             self.controler_primeira.save.prioridade = prioridade
-            print(self)
+            print(self.content)
             self.controler_primeira.save.vencimento = vencimento
             self.controler_primeira.save.prazo = prazo
             self.controler_primeira.save.local = local

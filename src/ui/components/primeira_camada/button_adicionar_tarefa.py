@@ -44,3 +44,9 @@ class Button_adicionar_tarefa(Container):
             alignment=MainAxisAlignment.START,
             vertical_alignment=CrossAxisAlignment.CENTER,
         )
+    # Magic methods    
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}"
