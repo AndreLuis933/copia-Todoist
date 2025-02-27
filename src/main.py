@@ -1,5 +1,4 @@
 import config
-config.apply_repr_to_ui_components()
 
 import flet as ft
 from ui.controller.app_controller import AppController
@@ -8,6 +7,7 @@ from app.database.setup import ENGINE, Base, DB_PATH
 import os
 from flet import *
 from utils.positioning import get_element_position
+
 
 def database_exists():
     return os.path.exists(DB_PATH)
