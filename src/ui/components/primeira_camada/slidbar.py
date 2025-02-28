@@ -193,7 +193,7 @@ class Slidbar(Container):
                             8,
                             Colors.RED,
                             Colors.RED,
-                            self.controler.hover_control.toggle_card,
+                            self.controler.hover_control.card_save,
                         ),
                     ],
                     spacing=0,

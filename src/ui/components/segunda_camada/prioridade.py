@@ -1,6 +1,10 @@
 from flet import *
 from ..animations.high_light import high_light
+from ..utils.card_manager import CardManager
 
+class EFalsificado():
+    data = None
+    control = None
 
 class Card_prioridade(Container):
     def __init__(self, controler):
@@ -18,12 +22,16 @@ class Card_prioridade(Container):
         self.content = self.build()
 
     def select_priority(self, priority, e=None):
-        card = self.controler.primeira_camada.card_container
         if len(priority) == 2:
             priority = "p" + f'{self.padrao}'
 
-        priority_sting = priority[-1]
-        priority = int(priority_sting)
+        priority = int(priority[-1])
+        self.update_select_priority(priority, e)
+
+
+
+    def update_select_priority(self,priority, e=None):
+        card = CardManager.get_current_card()
 
         for i in range(4):
             self.content.controls[i].content.controls[2].visible = False
@@ -31,15 +39,22 @@ class Card_prioridade(Container):
         self.content.controls[priority - 1].content.controls[2].visible = True
         self.controler.save.prioridade = priority
         self.controler.hide_all()
+        
+        if not e:
+            for i in self.content.controls:
+                texto = i.content.controls[1].value[-1]
+                if  texto== str(priority):
+                    EFalsificado.control = i
+                    EFalsificado.data = 'True'
+                    e = EFalsificado
+                    break
 
         if priority == 4:
             card.adicionar_prefixo(1, None)
             card.atualizar_definitions(1, "Prioridade")
         else:
-            card.adicionar_prefixo(1, "p" + priority_sting, self.select_priority)
-            card.atualizar_definitions(1, "P" + priority_sting,e.control.content.controls[0].color, self.select_priority)
-        if e:
-            lambda e: high_light(e,'#272727','#383838')
+            card.adicionar_prefixo(1, f"p{priority}", self.select_priority)
+            card.atualizar_definitions(1, f"P{priority}",e.control.content.controls[0].color, self.select_priority)
         self.page.update()
 
     def cards_prioridade(self, icon, cor, texto, visible=False):

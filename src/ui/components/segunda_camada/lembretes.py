@@ -15,7 +15,7 @@ class Lembretes(Container):
         self.bgcolor = Colors.GREY_900
         self.left = 470
         self.top = 170
-        #self.top = 1
+        # self.top = 1
         self.border_radius = 10
         self.horarios = gerar_horarios_24h_15min_intervalo()
         self.opcoes_dropdown_2 = {
@@ -35,7 +35,7 @@ class Lembretes(Container):
         self.ativor_envio = True
         self.close = False
 
-    def adicionar_lembrete(self, data_string, date):
+    def adicionar_lembrete(self, date, data_string, tab):
         return Container(
             Column(
                 [
@@ -46,7 +46,7 @@ class Lembretes(Container):
                             Container(expand=True),
                             Container(
                                 Icon(Icons.CLOSE, size=14, color=Colors.WHITE54),
-                                on_click=lambda _: self.deletar(date, data_string),
+                                on_click=lambda _: self.deletar(date, data_string, tab),
                             ),
                         ],
                     ),
@@ -57,7 +57,7 @@ class Lembretes(Container):
             width=270,
         )
 
-    def deletar(self, date, data_string):
+    def deletar(self, date, data_string, tab):
         def encontrar_chave_por_valor(dicionario, valor_procurado):
             for chave, (_, valor) in dicionario.items():
                 if valor == valor_procurado:
@@ -71,21 +71,31 @@ class Lembretes(Container):
                 break
 
         dropdown = (
-            self.content.controls[2].controls[0].tabs[1].content.content.controls[0]
+            self.content.controls[2].controls[0].tabs[tab].content.content.controls[0]
         )
         options = dropdown.options
+        condisao = (
+            encontrar_chave_por_valor(self.opcoes_dropdown_2, data_string)
+            if tab
+            else data_string.split(" ", maxsplit=1)[1]
+        )
         for option in options:
-            if option.key == encontrar_chave_por_valor(
-                self.opcoes_dropdown_2, data_string
-            ):
+            if option.key == condisao:
                 option.visible = True
                 break
-        self.controler.save.lembrete.remove(date)
+
+        self.controler.save.lembrete.remove((date, data_string, tab))
 
         dropdown.visible = True
         self.ativor_envio = True
         self.close = False
         self.update_button_appearance_envio()
+        self.update()
+
+    def clear_all_elements(self):
+        controles = self.content.controls[1].controls
+        for controle in controles[:]:
+            controle.content.controls[0].controls[3].on_click(None)
         self.update()
 
     def update_button_appearance_envio(self):
@@ -98,6 +108,11 @@ class Lembretes(Container):
             botao.opacity = 0.3
             botao.bgdcolor = Colors.RED_900
             botao.disabled = True
+
+    def adicionar_todos_lembretes(self, lembretes):
+        for lembrete in lembretes:
+            self.content.controls[1].controls.append(self.adicionar_lembrete(*lembrete))
+            self.controler.save.lembrete.append(lembrete)
 
     def envio(self, e):
         selecionada = self.content.controls[2].controls[0].selected_index
@@ -135,14 +150,12 @@ class Lembretes(Container):
                 return
 
             delta, exibir = atual
+            date = self.controler.save.vencimento + delta
 
-            date = (
-                datetime.combine(self.controler.save.data, self.controler.save.hora)
-                + delta
-            )
-
-        self.content.controls[1].controls.append(self.adicionar_lembrete(exibir, date))
-        self.controler.save.lembrete.append(date)
+        self.content.controls[1].controls.append(
+            self.adicionar_lembrete(date, exibir, selecionada)
+        )
+        self.controler.save.lembrete.append((date, exibir, selecionada))
         proximo = proximo_visivel(options, resultado)
 
         if proximo:
@@ -193,13 +206,13 @@ class Lembretes(Container):
         )
 
     def ativar_envio(self, e):
-        if e.data == '0':
+        if e.data == "0":
             self.ativor_envio = True
         else:
             if self.close:
                 self.ativor_envio = False
-                
-        self.update_button_appearance_envio()       
+
+        self.update_button_appearance_envio()
         self.update()
 
     def build(self):
@@ -230,7 +243,6 @@ class Lembretes(Container):
                                     self.texto_alternativo(),
                                 ),
                             ],
-                            
                             width=300,
                             height=190,
                         ),

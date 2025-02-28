@@ -31,7 +31,7 @@ class AppController:
             "/s": Teste(self.page),
         }
 
-        if route.route in routes:
+        if (isinstance(route, RouteChangeEvent) and route.route in routes) or (isinstance(route, str) and route in routes):
             content = routes[self.page.route].build()
 
             # Se content já é uma View, usa suas configurações
