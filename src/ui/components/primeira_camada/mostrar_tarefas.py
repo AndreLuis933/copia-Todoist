@@ -26,14 +26,27 @@ class TodoApp(Column):
     def adicionar_tarefas(self):
         self.controls.clear()
         for tarefa_id in listar_tarefas():
-            id, titulo, prioridade, descricao, vencimento, prazo, local, tag = tarefa_id
+            (
+                id,
+                titulo,
+                prioridade,
+                descricao,
+                vencimento,
+                prazo,
+                local,
+                tag,
+                completa,
+            ) = tarefa_id
             if vencimento:
                 _, *vencimento = dia_da_semana_e_cor(vencimento)
-            tarefa = self.build_tarefa(
-                id, titulo, prioridade, descricao, vencimento, prazo, local, tag
-            )
-            self.controls.append(tarefa)
-            self.controls.append(Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4))
+            if not completa:
+                tarefa = self.build_tarefa(
+                    id, titulo, prioridade, descricao, vencimento, prazo, local, tag
+                )
+                self.controls.append(tarefa)
+                self.controls.append(
+                    Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4)
+                )
 
     def create_conditional_component(self, condition, component):
         return component if condition else Container(visible=False)
@@ -54,6 +67,31 @@ class TodoApp(Column):
                 )
             ),
         )
+
+    def completar_tarefa(self, e, id=None):
+        controle = e.control.parent.parent
+        for i, tarefa in enumerate(self.controls):
+            if tarefa.data == controle.data:
+                # tarefa.visible =False
+                # self.controls[i+1].visible =False
+                break
+        valores = search_tarefa(controle.data)
+        valores[-1] = True
+
+        # Então, desempacote os valores diretamente para os atributos da classe
+        (
+            self.controler.save.edit,
+            self.controler.save.title,
+            self.controler.save.prioridade,
+            self.controler.save.description,
+            self.controler.save.vencimento,
+            self.controler.save.prazo,
+            self.controler.save.local,
+            self.controler.save.tag,
+            self.controler.save.completa,
+        ) = valores
+        
+        self.controler.save.update_task()
 
     def build_tarefa(
         self,
@@ -162,6 +200,7 @@ class TodoApp(Column):
                         height=20,
                         border=border.all(border_width, color),
                         border_radius=20,
+                        on_click=self.completar_tarefa,
                         content=Row(
                             [
                                 Icon(

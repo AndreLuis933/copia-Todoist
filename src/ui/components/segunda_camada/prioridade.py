@@ -1,6 +1,6 @@
 from flet import *
 from ..animations.high_light import high_light
-
+from ..utils.card_manager import CardManager
 
 class EFalsificado():
     data = None
@@ -31,7 +31,8 @@ class Card_prioridade(Container):
 
 
     def update_select_priority(self,priority, e=None):
-        card = self.controler.primeira_camada.card_container
+        card = CardManager.get_current_card()
+
         for i in range(4):
             self.content.controls[i].content.controls[2].visible = False
 
@@ -41,8 +42,12 @@ class Card_prioridade(Container):
         
         if not e:
             for i in self.content.controls:
-                if i.content.controls[1].text[-1] == str(priority):
-                    print(i.content.controls[1].text)
+                texto = i.content.controls[1].value[-1]
+                if  texto== str(priority):
+                    EFalsificado.control = i
+                    EFalsificado.data = 'True'
+                    e = EFalsificado
+                    break
 
         if priority == 4:
             card.adicionar_prefixo(1, None)
@@ -51,7 +56,6 @@ class Card_prioridade(Container):
             card.adicionar_prefixo(1, f"p{priority}", self.select_priority)
             card.atualizar_definitions(1, f"P{priority}",e.control.content.controls[0].color, self.select_priority)
         self.page.update()
-        pass
 
     def cards_prioridade(self, icon, cor, texto, visible=False):
         return Container(

@@ -22,7 +22,7 @@ def ReprPersonalized(cls):
     original_repr = cls.__repr__
 
     cls.__str__ = lambda self: f"{self.__class__.__name__} {original_str(self)}"
-    cls.__repr__ = lambda self: f"{self.__class__.__name__}({original_repr(self)})"
+    #cls.__repr__ = lambda self: f"{self.__class__.__name__}({original_repr(self)})"
 
     return cls
 
@@ -51,7 +51,7 @@ def apply_repr_to_ui_components():
 
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     base_path = os.path.join(base_path, "src")
-    components_path = os.path.join(base_path, "ui", "components")
+    components_path = os.path.join(base_path, "ui")
 
     logger.debug(f"Procurando em: {components_path}")
 

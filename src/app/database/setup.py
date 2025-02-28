@@ -34,6 +34,7 @@ class Tarefa(Base):
     prazo = Column(DateTime, nullable=True)
     local = Column(String, nullable=True)
     tag = Column(String, nullable=True)
+    completa = Column(Boolean, nullable=False, default=False)
 
     lembretes = relationship("Lembrete", back_populates="tarefa")
 
@@ -46,6 +47,7 @@ class Tarefa(Base):
         prazo=None,
         local=None,
         tag=None,
+        completa=False,
     ):
         self.titulo = titulo
         self.descricao = descricao
@@ -54,18 +56,23 @@ class Tarefa(Base):
         self.prazo = prazo
         self.local = local
         self.tag = tag
+        self.completa = completa
 
 
 class Lembrete(Base):
     __tablename__ = "lembretes"
     id = Column(Integer, primary_key=True)
     data = Column(DateTime, nullable=False)
+    dada_exibida = Column(String, nullable=False)
+    tab_selecionada = Column(Integer, nullable=False)
     tarefa_id = Column(Integer, ForeignKey("tarefas.id"))
 
     tarefa = relationship("Tarefa", back_populates="lembretes")
 
-    def __init__(self, data, tarefa):
+    def __init__(self, data,dada_exibida,tab_selecionada, tarefa):
         self.data = data
+        self.dada_exibida = dada_exibida
+        self.tab_selecionada = tab_selecionada
         self.tarefa = tarefa
 
 

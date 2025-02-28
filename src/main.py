@@ -80,14 +80,6 @@ def main(page: ft.Page):
     #print(posicion)
     
     page.update()
-    
-    
-    try:
-        from ui.components.primeira_camada.card_adicionar_tarefa import Teste
-        test_instance = Teste()
-        print(f"Teste de representação da instância: {test_instance}")
-    except ImportError as e:
-        print(f"Erro ao importar a classe de teste: {e}")
         
 
 if __name__ == "__main__":

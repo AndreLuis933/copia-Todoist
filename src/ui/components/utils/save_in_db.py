@@ -14,6 +14,7 @@ class SaveInDB:
         self.prazo = None
         self.local = None
         self.tag = None
+        self.completa = False
         self.edit = None
         
 
@@ -26,6 +27,7 @@ class SaveInDB:
             self.prazo,
             self.local,
             self.tag,
+            self.completa,
         ]
 
         salvar_tarefa(values,self.lembrete)
@@ -35,6 +37,7 @@ class SaveInDB:
     
     def update_task(self):
         values = [
+            self.edit,
             self.title,
             self.description,
             self.vencimento,
@@ -42,6 +45,7 @@ class SaveInDB:
             self.prazo,
             self.local,
             self.tag,
+            self.completa,
         ]
         update_task_db(values, self.lembrete)
         self.controler.lista_tarefas.adicionar_tarefas()
