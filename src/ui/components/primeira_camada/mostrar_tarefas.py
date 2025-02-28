@@ -1,28 +1,52 @@
 from flet import *
-from app.database.operations import listar_tarefas,search_tarefa
+from app.database.operations import listar_tarefas, search_tarefa
 from ..animations.high_light import high_light
 from ..utils.days_of_week import dia_da_semana_e_cor
 from .card_adicionar_tarefa import Card_adicionar_tarefa
+import time
+
 
 class TodoApp(Column):
-    def __init__(self,controler):
+    def __init__(self, controler):
         super().__init__()
         self.controler = controler
         self.scroll = ScrollMode.ALWAYS
+        self.spacing = 10
+        self.visible = True
         self.expand = True
+        self.on_scroll = self.on_scrol
+        self.position = {}
+        self.atual = 0
+        self.edit = False
         self.adicionar_tarefas()
+
+    def on_scrol(self, e):
+        self.atual = int(e.pixels)
 
     def adicionar_tarefas(self):
         self.controls.clear()
         for tarefa_id in listar_tarefas():
-            id, titulo, prioridade, descricao, vencimento, prazo, local, tag = tarefa_id
+            (
+                id,
+                titulo,
+                prioridade,
+                descricao,
+                vencimento,
+                prazo,
+                local,
+                tag,
+                completa,
+            ) = tarefa_id
             if vencimento:
                 _, *vencimento = dia_da_semana_e_cor(vencimento)
-            tarefa = self.build_tarefa(
-                id, titulo, prioridade, descricao, vencimento, prazo, local, tag
-            )
-            self.controls.append(tarefa)
-            self.controls.append(Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4))
+            if not completa:
+                tarefa = self.build_tarefa(
+                    id, titulo, prioridade, descricao, vencimento, prazo, local, tag
+                )
+                self.controls.append(tarefa)
+                self.controls.append(
+                    Divider(height=0.3, color=Colors.OUTLINE, opacity=0.4)
+                )
 
     def create_conditional_component(self, condition, component):
         return component if condition else Container(visible=False)
@@ -43,6 +67,31 @@ class TodoApp(Column):
                 )
             ),
         )
+
+    def completar_tarefa(self, e, id=None):
+        controle = e.control.parent.parent
+        for i, tarefa in enumerate(self.controls):
+            if tarefa.data == controle.data:
+                # tarefa.visible =False
+                # self.controls[i+1].visible =False
+                break
+        valores = search_tarefa(controle.data)
+        valores[-1] = True
+
+        # Então, desempacote os valores diretamente para os atributos da classe
+        (
+            self.controler.save.edit,
+            self.controler.save.title,
+            self.controler.save.prioridade,
+            self.controler.save.description,
+            self.controler.save.vencimento,
+            self.controler.save.prazo,
+            self.controler.save.local,
+            self.controler.save.tag,
+            self.controler.save.completa,
+        ) = valores
+        
+        self.controler.save.update_task()
 
     def build_tarefa(
         self,
@@ -122,6 +171,25 @@ class TodoApp(Column):
             ),
         }
 
+        spacin = self.spacing
+        size_titulo = 20
+        descrisao = 0
+        adicional = 0
+
+        if components["descricao"].visible:
+            descrisao = 25
+        list_componentes = list(components.values())[2:]
+        for component in list_componentes:
+            if component.visible:
+                adicional = 25
+                break
+
+        if not adicional:
+            size_titulo += 4
+        posisao = size_titulo + descrisao + adicional + spacin + 10
+        posisao += self.position.get(id - 1, 0)
+        self.position[id] = posisao
+
         components["tag"].opacity = 0.5
 
         return Container(
@@ -132,6 +200,7 @@ class TodoApp(Column):
                         height=20,
                         border=border.all(border_width, color),
                         border_radius=20,
+                        on_click=self.completar_tarefa,
                         content=Row(
                             [
                                 Icon(
@@ -180,12 +249,28 @@ class TodoApp(Column):
 
     def edit_task(self, e):
         controle = e.control.parent.parent
-        print(e.control.height)
-        # controle.content = None
-        # controle.content = Card_adicionar_tarefa(self.controler, self.controler.segunda_camada, self.controler.hover_control)
-        # controle.content.visible = True
-        #controle.content = None
-        controle.update()
+        # posisao = self.position.get(controle.data - 1, 0)
+        # ajuste = posisao - self.atual + 160
+        # self.edit = True
+        # self.page.views[0].controls[0].controls[2].top = ajuste
+
+        controle.content = Card_adicionar_tarefa(
+            self.controler, self.controler.hover_control, controle, self.voltar
+        )
+        self.controler.hover_control.card_edit()
+        controle.content.carregar_tarefa()
+        controle.page.update()
+
+    def voltar(self, card, id):
+        id, titulo, prioridade, descricao, vencimento, prazo, local, tag, completa = (
+            search_tarefa(id)
+        )
+        if vencimento:
+            _, *vencimento = dia_da_semana_e_cor(vencimento)
+        tarefa = self.build_tarefa(
+            id, titulo, prioridade, descricao, vencimento, prazo, local, tag
+        )
+        card.content = tarefa
 
     def icons_on_hover(self, icon, func=None):
         return Container(

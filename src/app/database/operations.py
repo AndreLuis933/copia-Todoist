@@ -20,8 +20,8 @@ def salvar_tarefa(tarefas, lembretes):
     with session_scope() as session:
         tarefa = Tarefa(*tarefas)
         session.add(tarefa)
-        for data_lembrete in lembretes:
-            lembrete = Lembrete(data=data_lembrete, tarefa=tarefa)
+        for lembrete in lembretes:
+            lembrete = Lembrete(*lembrete, tarefa=tarefa)
             session.add(lembrete)
 
 
@@ -58,6 +58,7 @@ def list_tasks(tarefa):
         tarefa.prazo,
         tarefa.local,
         tarefa.tag,
+        tarefa.completa,
     ]
 
     return tarefa_dict
@@ -75,5 +76,36 @@ def listar_tarefas():
 def search_tarefa(id):
     with session_scope() as session:
         tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
-
         return list_tasks(tarefa)
+
+def search_lembretes(id):
+    with session_scope() as session:
+        lembretes = session.query(Lembrete).filter(Lembrete.tarefa_id == id).all()
+        return [(lembretes.data, lembretes.dada_exibida, lembretes.tab_selecionada) for lembretes in lembretes]
+    
+def update_task_db(tarefas, lembretes):
+    with session_scope() as session:
+        id, titulo, descricao, vencimento, prioridade, prazo, local, tag, completa = tarefas
+        
+        tarefa = session.query(Tarefa).filter(Tarefa.id == id).first()
+        
+        if not tarefa:
+            raise ValueError(f"Tarefa com ID {id} não encontrada.")
+
+        tarefa.titulo = titulo
+        tarefa.descricao = descricao
+        tarefa.vencimento = vencimento
+        tarefa.prioridade = prioridade
+        tarefa.prazo = prazo
+        tarefa.local = local
+        tarefa.tag = tag
+        tarefa.completa = completa
+
+        
+        for lembrete in session.query(Lembrete).filter(Lembrete.tarefa_id == id).all():
+            session.delete(lembrete)
+
+        for lembrete in lembretes:
+            lembrete = Lembrete(*lembrete, tarefa=tarefa)
+            session.add(lembrete)
+

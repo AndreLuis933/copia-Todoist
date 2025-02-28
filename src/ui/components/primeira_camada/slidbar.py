@@ -16,7 +16,7 @@ class Slidbar(Container):
         self.padding = 10
         self.content = self.build()
         self.add_project()
-        self.func.open_close_slidbar()
+        #self.func.open_close_slidbar()
 
     def UserData(self, photo: str, name: str):
         return Row(
@@ -193,7 +193,7 @@ class Slidbar(Container):
                             8,
                             Colors.RED,
                             Colors.RED,
-                            self.controler.hover_control.toggle_card,
+                            self.controler.hover_control.card_save,
                         ),
                     ],
                     spacing=0,

@@ -10,7 +10,7 @@ from ..utils.indentificar_datas import (
 )
 from ..utils.formatad_data import formatad_data
 from ..utils.days_of_week import dia_da_semana_e_cor
-
+from ..utils.card_manager import CardManager
 
 class Tarefa_vencimento(Container):
     def __init__(self, controler, calendario):
@@ -31,7 +31,7 @@ class Tarefa_vencimento(Container):
         self.content = self.build()
 
     def update_text(self):
-        card = self.controler.primeira_camada.card_container
+        card = CardManager.get_current_card()
         due_date = self.controler.save.vencimento
         text_element = self.content.controls[0].content
         icon_element = self.content.controls[6]

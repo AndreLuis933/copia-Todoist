@@ -1,19 +1,56 @@
 from flet import *
 from ..animations.high_light import high_light
+from app.database.operations import search_tarefa, search_lembretes
 
 
 class Card_adicionar_tarefa(Container):
-    def __init__(self, controler_primeira, controler_segunda, hover_control):
+    def __init__(self, controler_primeira, hover_control, edit=None, edit_back=None):
         super().__init__()
         self.controler_primeira = controler_primeira
-        self.controler_segunda = controler_segunda
+        self.controler_segunda = self.controler_primeira.segunda_camada
         self.hover_control = hover_control
-        self.hover_control.card_container = self
+        self.task_id = edit.data if edit else None
+        self.edit_back = edit_back
+        self.edit = edit
+        self.hover_control.edit = edit if edit else None
+        self.hover_control.card_container.append(self)
         self.visible = False
         self.padding = padding.only(left=16, right=16, bottom=8)
         self.border_radius = border_radius.all(10)
         self.border = border.all(0.3, Colors.OUTLINE)
+        self.data = edit.data if edit else 0
         self.content = self.build()
+
+    def carregar_tarefa(self):
+        if self.edit:
+            id, titulo, prioridade, description, vencimento, prazo, local, tag, completa = (
+                search_tarefa(self.task_id)
+            )
+
+            self.controler_segunda.lembretes.adicionar_todos_lembretes(
+                search_lembretes(self.task_id)
+            )
+
+            self.controler_primeira.save.title = titulo
+            self.content.controls[0].content.controls[0].controls[1].value = titulo
+
+            self.controler_primeira.save.description = description
+            self.content.controls[0].content.controls[1].value = description
+
+            self.controler_primeira.save.prioridade = prioridade
+            self.controler_segunda.prioridade.update_select_priority(prioridade)
+
+            self.controler_primeira.save.vencimento = vencimento
+            self.controler_segunda.tarefa.update_text()
+
+            self.controler_primeira.save.prazo = prazo
+            self.controler_primeira.save.local = local
+            self.controler_primeira.save.tag = tag
+
+            self.hover_control.ativor_envio = True
+            self.hover_control.update_button_appearance_envio()
+
+            self.controler_primeira.save.edit = id
 
     def limpar_campos(self):
         for control in (
@@ -21,13 +58,14 @@ class Card_adicionar_tarefa(Container):
         ):
             if control.visible:
                 control.on_click(control.content.value)
-        
+
         self.content.controls[0].content.controls[0].controls[1].value = None
         self.content.controls[0].content.controls[1].value = None
+        self.controler_segunda.lembretes.clear_all_elements()
 
     def canselar(self, e):
         self.limpar_campos()
-        self.hover_control.toggle_card(e)
+        self.hover_control.card_save(e)
 
     def adicionar_prefixo(self, i, prefixo, func=None):
         container = self.content.controls[0].content.controls[0].controls[0].controls[i]
@@ -38,7 +76,6 @@ class Card_adicionar_tarefa(Container):
             container.on_click = lambda e: func(container.content.value)
             container.visible = True
         container.content.value = prefixo
-        self.update()
 
     def atualizar_definitions(
         self,
@@ -58,7 +95,8 @@ class Card_adicionar_tarefa(Container):
             card.controls[2].visible = True
         else:
             card.controls[2].visible = False
-        self.update()
+        if self.page:
+            self.update()
 
     def card_definitions(self, icon, label=None, on_click=None):
         return Container(
@@ -105,9 +143,13 @@ class Card_adicionar_tarefa(Container):
 
         self.controler_primeira.save.title = title
         self.controler_primeira.save.description = description
-        self.controler_primeira.save.save_task()
-        self.hover_control.toggle_card(e)
+        if self.controler_primeira.save.edit:
+            self.controler_primeira.save.update_task()
+            self.controler_primeira.save.edit = None
+        else:
+            self.controler_primeira.save.save_task()
         self.limpar_campos()
+        self.hover_control.card_save(e)
 
     def hide_prefixos(self, e):
         e.control.visible = False
@@ -150,9 +192,7 @@ class Card_adicionar_tarefa(Container):
                                         hint_text="Nome da tarefa",
                                         autofocus=True,
                                         border=InputBorder.NONE,
-                                        on_change=lambda e: self.hover_control.ativar_envio(
-                                            e
-                                        ),
+                                        on_change=self.hover_control.ativar_envio,
                                         height=30,
                                     ),
                                 ],

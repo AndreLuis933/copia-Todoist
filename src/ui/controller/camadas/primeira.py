@@ -11,7 +11,6 @@ from ui.components.animations.card_adicionar_tarefa.hover_adicionar_tarefa impor
 from .segunda import ControlerSegundaCamada
 from ...components.utils.save_in_db import SaveInDB
 
-
 class ControlerPrimeiraCamada(Row):
     def __init__(self):
         super().__init__()
@@ -22,7 +21,7 @@ class ControlerPrimeiraCamada(Row):
         self.hover_control = HoverAdicionarTarefa(self.segunda_camada)
         self.button = Button_adicionar_tarefa(self.hover_control)
         self.card_container = Card_adicionar_tarefa(
-            self, self.segunda_camada, self.hover_control
+            self, self.hover_control
         )
         self.lista_tarefas = TodoApp(self)
         self.slidbar = Slidbar(self)
