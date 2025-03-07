@@ -59,7 +59,7 @@ def total_controls_in_page(page):
 
 def main(page: ft.Page):
     page.title = "Todo App"
-    page.window.always_on_top = True
+    #page.window.always_on_top = True
     #page.window.min_width = 500
     page.window.height = 750
     page.window.width = 840
@@ -85,4 +85,10 @@ def main(page: ft.Page):
 if __name__ == "__main__":
     if not database_exists():
         create_tables()
-    ft.app(target=main)
+    ft.app(
+    target=main,
+    #assets_dir="assets",
+    #view=None,
+    #port=8000,
+    #host="0.0.0.0"
+)
