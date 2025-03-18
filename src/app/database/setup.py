@@ -1,24 +1,30 @@
-from sqlalchemy import (
-    DateTime,
-    Time,
-    create_engine,
-    Column,
-    Integer,
-    String,
-    Float,
-    Date,
-    ForeignKey,
-    LargeBinary,
-    Boolean,
-)
-from sqlalchemy.orm import relationship, declarative_base, sessionmaker
-from datetime import datetime, timezone
 import os
 
+from dotenv import load_dotenv
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    create_engine,
+)
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "TODO.db")
-ENGINE = create_engine(f"sqlite:///{DB_PATH}")
+load_dotenv()
+
+Teste = os.getenv("PRODUTION")
+
+DATABASE_URL = (
+    f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    if Teste
+    else "sqlite:///todoist.db"
+)
+
+
+# Criação do engine e da sessão
+ENGINE = create_engine(DATABASE_URL)
 Session = sessionmaker(bind=ENGINE)
 
 Base = declarative_base()
@@ -42,12 +48,12 @@ class Tarefa(Base):
         self,
         titulo,
         descricao,
-        vencimento=None,
-        prioridade=None,
-        prazo=None,
-        local=None,
-        tag=None,
-        completa=False,
+        vencimento,
+        prioridade,
+        prazo,
+        local,
+        tag,
+        completa,
     ):
         self.titulo = titulo
         self.descricao = descricao
@@ -69,7 +75,7 @@ class Lembrete(Base):
 
     tarefa = relationship("Tarefa", back_populates="lembretes")
 
-    def __init__(self, data,dada_exibida,tab_selecionada, tarefa):
+    def __init__(self, data, dada_exibida, tab_selecionada, tarefa):
         self.data = data
         self.dada_exibida = dada_exibida
         self.tab_selecionada = tab_selecionada
@@ -81,9 +87,9 @@ class MyProjects(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     color = Column(String, nullable=False)
-    space_work = Column(Integer, nullable=False)
+    space_work = Column(String, nullable=False)
     visualize = Column(String, nullable=False)
-    favorite = Column(Boolean,default=False)
+    favorite = Column(Boolean, default=False)
 
     def __init__(self, name, color, space_work, favorite, visualize):
         self.name = name
@@ -91,3 +97,7 @@ class MyProjects(Base):
         self.space_work = space_work
         self.favorite = favorite
         self.visualize = visualize
+
+
+def init_db():
+    Base.metadata.create_all(ENGINE)

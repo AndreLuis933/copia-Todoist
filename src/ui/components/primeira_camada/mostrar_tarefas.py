@@ -106,19 +106,18 @@ class TodoApp(Column):
         tag=None,
     ):
 
-        match prioridade:
-            case 1:
-                border_width = 2
-                color = Colors.RED
-            case 2:
-                border_width = 1.7
-                color = Colors.ORANGE
-            case 3:
-                border_width = 1.4
-                color = Colors.BLUE
-            case 4:
-                border_width = 1
-                color = Colors.GREY_500
+        if prioridade == 1:
+            border_width = 2
+            color = Colors.RED
+        elif prioridade == 2:
+            border_width = 1.7
+            color = Colors.ORANGE
+        elif prioridade == 3:
+            border_width = 1.4
+            color = Colors.BLUE
+        elif prioridade == 4:
+            border_width = 1
+            color = Colors.GREY_500
 
         cor = Colors.WHITE70
         vencida = False

@@ -69,13 +69,12 @@ class Tarefa_vencimento(Container):
             return formatar_data(data).split()[0]
 
     def different_tomorrow(self, texto):
-        match texto:
-            case "Sem vencimento":
-                return False
-            case "Proxima semana":
-                return self.datas_rapidas[texto] != self.datas_rapidas["Amanha"]
-            case _:
-                return True
+        if texto == "Sem vencimento":
+            return False
+        elif texto == "Proxima semana":
+            return self.datas_rapidas[texto] != self.datas_rapidas["Amanha"]
+        else:
+            return True
 
     def opcoes_rapidas(self, texto, icone, cor, complemento=None):
         return Container(
